@@ -17,5 +17,13 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
+.main-nav {
+    float: left;
+    width: 100%;
+    ul {
+        list-style: none;
+        float: right;
+    }
+}
 </style>

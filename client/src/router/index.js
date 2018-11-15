@@ -1,6 +1,6 @@
 import VueRouter from 'vue-router'
 import HelloWorld from '../components/HelloWorld.vue'
-import Dashboard from '../components/Dashboard.vue'
+import Dashboard from '../pages/dashboard/index.vue'
 import Conversation from '../components/Conversation.vue'
 import Profile from '../pages/user/profile.vue'
 
