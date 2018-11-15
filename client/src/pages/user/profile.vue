@@ -1,5 +1,5 @@
 <template lang="html">
-<div class=externalWrapper>
+<div class="container">
   <h1>Personal info</h1>
     <form id="persInfo">
       <div class="row">
@@ -39,7 +39,7 @@
         <input type="text" id="height">
       </div>
       GP surgery
-      
+
       Link your google account-->
       <div class="row">
         <input id="submit" type="submit">
@@ -50,7 +50,10 @@
 
 <script>
 export default {
-
+  name: 'Profile',
+  metaInfo: {
+    title: 'Profile'
+  }
 }
 </script>
 
