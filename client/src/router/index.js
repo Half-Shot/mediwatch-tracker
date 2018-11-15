@@ -2,6 +2,7 @@ import VueRouter from 'vue-router'
 import HelloWorld from '../components/HelloWorld.vue'
 import Dashboard from '../components/Dashboard.vue'
 import Conversation from '../components/Conversation.vue'
+import Profile from '../pages/user/profile.vue'
 
 export const routes = [{
     path: '/',
@@ -17,6 +18,11 @@ export const routes = [{
     path: '/conversation',
     name: 'conversation',
     component: Conversation
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile
   }
 ]
 
