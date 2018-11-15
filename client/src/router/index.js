@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router'
 import HelloWorld from '../components/HelloWorld.vue'
 import Dashboard from '../components/Dashboard.vue'
-
+import Conversation from '../components/Conversation.vue'
 
 export const routes = [{
     path: '/',
@@ -12,6 +12,11 @@ export const routes = [{
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard
+  },
+  {
+    path: '/conversation',
+    name: 'conversation',
+    component: Conversation
   }
 ]
 
