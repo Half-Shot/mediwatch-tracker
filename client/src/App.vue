@@ -1,15 +1,17 @@
 <template>
 <div id="app">
-  <img alt="Vue logo" src="./assets/logo.png">
-  <router-link :to="{ name: 'index' }">home</router-link>
-  <router-link :to="{ name: 'dashboard' }">dashboard</router-link>
+  <Navigation></Navigation>
   <router-view></router-view>
 </div>
 </template>
 
 <script>
+import Navigation from '@/components/Navigation.vue'
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    Navigation
+  }
 }
 </script>
 
