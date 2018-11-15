@@ -1,0 +1,194 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*END CLEARFIX*/
+/*START OWN STYLES*/
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,ul {
+    list-style: none;
+}
+
+blockquote,q {
+    quotes: none;
+}
+
+blockquote:before,blockquote:after,q:before,q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Clearfix */
+.cf:before,.cf:after {
+    content: " ";
+/* 1 */
+    display: table;
+/* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+/*.cf {
+    *zoom: 1;
+}*/
+
+/* Box Sizing */
+* {
+    -webkit-box-sizing: border-box;
+/* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;
+/* Firefox, other Gecko */
+    box-sizing: border-box;
+/* Opera/IE 8+ */
+}
+
+/*END MEYER WEB CLEARFIX*/
+/*START OWN STYLES*/
+#externalWrapper{
+    max-width: 960px;
+    min-height: 500px;
+    margin: 0 auto;
+}
+
+#internalWrapper{
+	padding-top: 15px;
+	/*padding-bottom:70px;*/
+}
+
+body{
+  position: relative;
+  font-family: Helvetica,Arial,Sans;
+	font-size: 1rem;
+	display: block;
+	min-height: 100vh;
+}
+
+h1{
+  font-size: 2rem;
+}
+
+
+/*Start nav styles*/
+nav {
+  list-style-type: none;
+  background-color: #0010FF;
+  overflow: hidden;
+  font-size: 1.2rem;
+}
+
+nav .active {
+  color: #fff;
+}
+
+nav ul {
+	height:100%;
+}
+
+nav li {
+  color: #fff;
+  float: left;
+  display: block;
+	padding: 5px 0px;
+	height: 20%;
+}
+
+nav li:last-child a{
+  border: none;
+}
+
+nav li a:hover:not(.active) {
+  color: #FFF;
+}
+
+nav a{
+  text-align: center;
+  text-decoration: none;
+  color: #999;
+  margin: 5px 0px;
+  border-right: 1px #fff solid;
+	float: left;
+	display: inline;
+	padding: 10px;
+}
+
+nav a:hover {
+  color: #FFF;
+}
