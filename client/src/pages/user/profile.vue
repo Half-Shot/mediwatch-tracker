@@ -37,7 +37,10 @@
       <div class="row">
         <label for="height">Height(CM):</label>
         <input type="text" id="height">
-      </div> -->
+      </div>
+      GP surgery
+      
+      Link your google account-->
       <div class="row">
         <input id="submit" type="submit">
       </div>
