@@ -86,7 +86,7 @@ export default {
     background: #fff;
     box-shadow: 0 1px 20px 0 rgba(46,61,73,.2);
     ul {
-        margin: 0;
+        margin: 0 30px 0 0;
         padding: 0;
         list-style: none;
         float: right;

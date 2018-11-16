@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
-    <Navigation></Navigation>
-    <h1 style="color:red;" v-if="error !== false">Error while loading config: {{error}}</h1>
-    <router-view></router-view>
-  </div>
+<div id="app">
+  <Navigation></Navigation>
+  <h1 style="color:red;" v-if="error !== false">Error while loading config: {{error}}</h1>
+  <router-view></router-view>
+</div>
 </template>
 
 <script>
@@ -46,6 +46,15 @@ export default {
     width: 100%;
 }
 
+html {
+    box-sizing: border-box;
+}
+*,
+*:after,
+*:before {
+    box-sizing: inherit;
+}
+
 a {
     text-decoration: none;
     font-weight: bold;
@@ -67,6 +76,14 @@ a {
 
 body {
     background: #faf9f9;
+}
+
+.panel {
+    background: #fff;
+    box-shadow: 0 1px 20px 0 rgba(46,61,73,.2);
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 5px;
 }
 
 .container {
