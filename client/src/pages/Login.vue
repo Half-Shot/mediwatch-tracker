@@ -7,6 +7,7 @@
 <script>
 import MatrixClientPeg from '../MatrixClientPeg'
 export default {
+  name: "Login",
   data: function() {
     return { loggedIn: "Unknown" }
   },

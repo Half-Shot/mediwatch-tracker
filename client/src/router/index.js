@@ -3,6 +3,7 @@ import HelloWorld from '../components/HelloWorld.vue'
 import Dashboard from '../pages/dashboard/index.vue'
 import Conversation from '../components/Conversation.vue'
 import Profile from '../pages/user/profile.vue'
+import Login from '../pages/Login.vue'
 
 export const routes = [{
     path: '/',
