@@ -2,7 +2,9 @@
 <div id="app">
   <Navigation></Navigation>
   <h1 style="color:red;" v-if="error !== false">Error while loading config: {{error}}</h1>
-  <router-view></router-view>
+  <div class="container-full">
+    <router-view></router-view>
+  </div>
 </div>
 </template>
 
