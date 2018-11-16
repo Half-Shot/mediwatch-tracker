@@ -12,8 +12,6 @@ Vue.use(VueRouter)
 Vue.use(Meta)
 Vue.use(VeeValidate)
 
-MatrixClientPeg.attemptToGetLoggedIn();
-
 export const app = new Vue({
   el: '#app',
   render: h => h(App),
