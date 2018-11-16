@@ -3,9 +3,11 @@
   <div class="panel">
     <h2> Log into Mediwatch </h2>
     <form class="" @submit.prevent="login()">
-      <input type="text" v-model="form.username" placeholder="Username">
-      <input type="password" v-model="form.password" placeholder="Password">
-      <input type="text" v-model="form.url" placeholder="Server url">
+      this.$validator.validateAll();
+      <input name="username" v-validate.disable="'required|min:3'" type="text" v-model="form.username" placeholder="Username">
+      <p class="text-danger" v-if="errors.has('username')">{{ errors.first('username') }}</p>
+      <input name="password" type="password" v-model="form.password" placeholder="Password">
+      <input name="url" type="text" v-model="form.url" placeholder="Server url">
       <button type="submit" name="button">login</button>
     </form>
   </div>
