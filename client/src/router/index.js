@@ -4,6 +4,9 @@ import Dashboard from '../pages/dashboard/index.vue'
 import Conversation from '../components/Conversation.vue'
 import Profile from '../pages/user/profile.vue'
 import Login from '../pages/Login.vue'
+import MatrixClientPeg from "../MatrixClientPeg"
+import Config from "../Config"
+import {E_NOLOGIN} from "../MatrixClientPeg"
 
 export const routes = [{
     path: '/',
@@ -44,7 +47,30 @@ export const router = new VueRouter({
         y: 0
       }
     }
-  }
+  },
 })
+
+// Should we attempt to login
+/*
+    if ([].includes(this.$router.)) {
+      MatrixClientPeg.attemptToGetLoggedIn();
+
+
+    )
+    */
+
+router.beforeEach(async (to, from, next) => {
+  if (!["login", "register"].includes(to.name)) {
+    MatrixClientPeg.attemptToGetLoggedIn();
+    try {
+      await MatrixClientPeg.getClient();
+    } catch (ex) {
+      console.error("Failed to authenticate:", e);
+      router.push({name: 'login'});
+    }
+  }
+  await Config.loadResult();
+  next();
+});
 
 export default router

@@ -10,8 +10,6 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(Meta)
 
-MatrixClientPeg.attemptToGetLoggedIn();
-
 export const app = new Vue({
   el: '#app',
   render: h => h(App),
