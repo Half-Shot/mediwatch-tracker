@@ -4,9 +4,13 @@ import VueRouter from 'vue-router'
 import Meta from 'vue-meta'
 import router from './router/index'
 import store from './store/index'
+import MatrixClientPeg from './MatrixClientPeg'
+
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(Meta)
+
+MatrixClientPeg.attemptToGetLoggedIn();
 
 export const app = new Vue({
   el: '#app',

@@ -1,7 +1,7 @@
 /**
  * This class will hold the matrix client
  */
-import * as Matrix from "matrix-js-sdk";
+const Matrix = require("matrix-js-sdk");
 
 export const E_NOLOGIN = 1;
 
@@ -10,23 +10,27 @@ export class MatrixClientPeg {
         this.client = null;
     }
 
-    async attemptToGetLoggedIn() {
-        const accessToken = window.localStorage["mx_accesstoken"];
-        const baseUrl = window.localStorage["mx_url"];
-
-        if (!accessToken || !baseUrl) {
-            throw E_NOLOGIN;
-        }
-
-        // We have enough to get going with, so get going.
-        this.config = Matrix.createClient({
-            accessToken,
-            baseUrl,
-        });
-
-        // Connect!
-        await client.startClient({initialSyncLimit: 10});
-        return client;
+    attemptToGetLoggedIn() {
+        this.client = (async () => {
+            const accessToken = window.localStorage["mx_accesstoken"];
+            const baseUrl = window.localStorage["mx_url"];
+            const userId = window.localStorage["mx_userId"];
+    
+            if (!accessToken || !baseUrl) {
+                throw E_NOLOGIN;
+            }
+    
+            // We have enough to get going with, so get going.
+            this.client = Matrix.createClient({
+                accessToken,
+                baseUrl,
+                userId,
+            });
+    
+            // Connect!
+            this.client.startClient({initialSyncLimit: 10});
+            return this.client;
+        })();
     }
 
     setClient(client) {
@@ -38,6 +42,6 @@ export class MatrixClientPeg {
     }
 }
 
-const instance = new Config();
+const instance = new MatrixClientPeg();
 
 export default instance;
