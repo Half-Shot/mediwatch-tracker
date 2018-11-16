@@ -14,6 +14,12 @@ const state = {
       type: 'medicalInfo',
       title: 'heart rate',
       avatar: ''
+    },
+    {
+      id: 45678,
+      type: 'medicalInfo',
+      title: 'weight',
+      avatar: ''
     }
   ]
 };

@@ -2,7 +2,7 @@ import * as types from '@/store/types';
 
 export default {
   getAll: state => {
-    return state.rooms
+    return state.items
   },
   get: (state, id) => {
     return state.rooms
