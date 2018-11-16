@@ -9,12 +9,12 @@
       <button type="submit" name="button">login</button>
     </form>
   </div>
-
 </div>
 </template>
 
 <script>
 import MatrixClientPeg from '../MatrixClientPeg'
+import Config from '../Config'
 export default {
   name: "Login",
   data: function() {
@@ -22,7 +22,7 @@ export default {
       form: {
         username: '',
         password: '',
-        url: 'https://medical.webres.me'
+        url: Config.getDefaultHomeserver(),
       },
       loggedIn: "Unknown"
     }
@@ -32,7 +32,6 @@ export default {
   },
   methods: {
     login() {
-      alert();
       console.log(this.form);
     }
   }
