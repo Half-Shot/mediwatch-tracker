@@ -71,6 +71,7 @@ export default {
     // We should do this once we have a login screen.
     // This removes the client from the Peg and deletes the tokens
     MatrixClientPeg.unsetClient(true);
+    // IVAN PLEASE REDIRECT ME TO LOGIN :)
   }
 }
 </script>
