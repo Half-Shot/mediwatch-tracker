@@ -50,20 +50,22 @@ export default {
         avatar: null,
       },
       submenu: false,
-      async onLogout() {
-        console.log("User requested logout.");
-        const cli = await MatrixClientPeg.getClient();
-        // XXX: Because will doesn't want to invalidate the token just yet, don't actually call logout.
-        // We should do this once we have a login screen.
-        // This removes the client from the Peg and deletes the tokens
-        MatrixClientPeg.unsetClient(true);
-        // IVAN PLEASE REDIRECT ME TO LOGIN :)
-      }
+
     }
   },
   methods: {
     openSubmenu() {
       this.submenu = (this.submenu) ? false : true
+    },
+    async onLogout() {
+
+      console.log("User requested logout.");
+      const cli = await MatrixClientPeg.getClient();
+      // XXX: Because will doesn't want to invalidate the token just yet, don't actually call logout.
+      // We should do this once we have a login screen.
+      // This removes the client from the Peg and deletes the tokens
+      MatrixClientPeg.unsetClient(true);
+      this.$router.push('/login');
     }
   },
   async created() {
