@@ -11,6 +11,9 @@ export class MatrixClientPeg {
     }
 
     attemptToGetLoggedIn() {
+        if (this.client != null) {
+            return;
+        }
         this.client = (async () => {
             const accessToken = window.localStorage["mx_accesstoken"];
             const baseUrl = window.localStorage["mx_url"];
