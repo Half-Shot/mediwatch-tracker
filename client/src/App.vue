@@ -1,12 +1,15 @@
 <template>
-<div id="app">
-  <Navigation></Navigation>
-  <router-view></router-view>
-</div>
+  <div id="app">
+    <Navigation></Navigation>
+    <h1 style="color:red;" v-if="error !== false">Error while loading config: {{error}}</h1>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
 import Navigation from '@/components/Navigation.vue'
+import Config from './Config'
+
 export default {
   name: 'app',
   metaInfo: {
@@ -15,7 +18,19 @@ export default {
   },
   components: {
     Navigation
-  }
+  },
+  created: function() {
+    Config.result.then((res) => {
+      if (res !== true) {
+        this.error = res;
+      }
+    });
+  },
+  data() {
+    return {
+      error: false,
+    }
+  },
 }
 </script>
 
