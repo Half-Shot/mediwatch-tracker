@@ -42,13 +42,13 @@ export default {
     background: -webkit-linear-gradient(to bottom, #00b4db, #0083b0);
     background: linear-gradient(to bottom, #00b4db, #0083b0);
     text-align: center;
-    padding: 0 5px;
+    padding: 20px 5px;
     ul {
         list-style: none;
         padding: 0;
         margin: 0;
         li {
-            padding: 1em 0;
+            padding: 0.5em 0;
         }
     }
     svg {

@@ -20,7 +20,7 @@
             <img class="profile-img" v-else :src="profile.avatar"></img>
           </div>
           <span>{{profile.displayname}}</span>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M296 136c0-22.002-17.998-40-40-40s-40 17.998-40 40 17.998 40 40 40 40-17.998 40-40zm0 240c0-22.002-17.998-40-40-40s-40 17.998-40 40 17.998 40 40 40 40-17.998 40-40zm0-120c0-22.002-17.998-40-40-40s-40 17.998-40 40 17.998 40 40 40 40-17.998 40-40z"/></svg>
+          <svg class="sub-menu--icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M296 136c0-22.002-17.998-40-40-40s-40 17.998-40 40 17.998 40 40 40 40-17.998 40-40zm0 240c0-22.002-17.998-40-40-40s-40 17.998-40 40 17.998 40 40 40 40-17.998 40-40zm0-120c0-22.002-17.998-40-40-40s-40 17.998-40 40 17.998 40 40 40 40-17.998 40-40z"/></svg>
         </a>
         <ul class="sub-menu" v-bind:class="{ active : submenu}">
           <li>
@@ -86,7 +86,7 @@ export default {
     background: #fff;
     box-shadow: 0 1px 20px 0 rgba(46,61,73,.2);
     ul {
-        margin: 0;
+        margin: 0 30px 0 0;
         padding: 0;
         list-style: none;
         float: right;
@@ -125,7 +125,7 @@ export default {
                     display: block;
                     opacity: 1;
                 }
-                svg:last-child {
+                svg.sub-menu--icon {
                     right: 0;
                     left: initial;
                 }
