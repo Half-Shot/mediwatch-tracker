@@ -72,7 +72,7 @@ export default {
     const profile = await cli.getProfileInfo(cli.getUserId());
     console.log(profile);
     this.profile.displayname = profile.displayname;
-    this.profile.avatar = cli.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale");
+    this.profile.avatar = profile.avatar_url ? cli.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale") : null;
   }
 }
 </script>
