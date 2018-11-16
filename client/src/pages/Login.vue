@@ -32,7 +32,17 @@ export default {
   },
   methods: {
     login() {
-      console.log(this.form);
+      MatrixClientPeg.loginWithPassword(
+        this.form.url,
+        this.form.username,
+        this.form.password
+      ).then(() => {
+        // This just means we will login properly when we refresh
+        MatrixClientPeg.unsetClient();
+        this.$router.push({name: 'dashboard'});
+      }).catch(() => {
+
+      });
     }
   }
 }

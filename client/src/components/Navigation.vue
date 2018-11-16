@@ -58,7 +58,6 @@ export default {
       this.submenu = (this.submenu) ? false : true
     },
     async onLogout() {
-
       console.log("User requested logout.");
       const cli = await MatrixClientPeg.getClient();
       // XXX: Because will doesn't want to invalidate the token just yet, don't actually call logout.
