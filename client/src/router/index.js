@@ -23,6 +23,11 @@ export const routes = [{
     path: '/profile',
     name: 'profile',
     component: Profile
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
   }
 ]
 
