@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "matrix-js-sdk": "^0.14.0-rc.1",
     "normalize.css": "^8.0.1",
     "vue": "^2.5.17",
     "vue-meta": "^1.5.5",
