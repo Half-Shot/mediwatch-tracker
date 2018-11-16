@@ -30,7 +30,7 @@
             <router-link :to="{ name: 'settings' }">settings</router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'logout' }">logout</router-link>
+            <router-link @click="onLogout">logout</router-link>
           </li>
         </ul>
       </li>
@@ -42,7 +42,6 @@
 import MatrixClientPeg from '../MatrixClientPeg'
 
 export default {
-
   name: 'Navigation',
   data() {
     return {
@@ -65,6 +64,13 @@ export default {
     console.log(profile);
     this.profile.displayname = profile.displayname;
     this.profile.avatar = cli.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale");
+  },
+  async onLogout() {
+    const cli = await MatrixClientPeg.getClient();
+    // XXX: Because will doesn't want to invalidate the token just yet, don't actually call logout.
+    // We should do this once we have a login screen.
+    // This removes the client from the Peg and deletes the tokens
+    MatrixClientPeg.unsetClient(true);
   }
 }
 </script>
