@@ -33,8 +33,13 @@ export class MatrixClientPeg {
         })();
     }
 
-    setClient(client) {
-        this.client = client;
+    unsetClient(nukeTheTokens = false) {
+        this.client = null;
+        if (nukeTheTokens) {
+            window.localStorage.removeItem("mx_accesstoken");
+            window.localStorage.removeItem("mx_userId");
+            // Don't remove the URL because they might want that to log back in with.
+        }
     }
 
     getClient() {
