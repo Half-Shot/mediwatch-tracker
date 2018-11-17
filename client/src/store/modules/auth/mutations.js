@@ -16,20 +16,8 @@ export default {
       state.profile = data
     },
    async 'LOGIN'(state, data){
-     try {
-       const res = await state.client.loginWithPassword(data.username, data.password);
-       state.mx_accesstoken = window.localStorage["mx_accesstoken"] = res.access_token;
-       state.mx_userId =  window.localStorage["mx_userId"] = res.user_id;
-       state.mx_url = window.localStorage["mx_url"] = data.url;
-
-       router.push({name: 'dashboard'});
-
-        return res;
-     } catch (ex) {
-         state.client = null;
-         console.error("Failed to login:", ex);
-         return ex;
-     }
-
+     state.mx_accesstoken = window.localStorage["mx_accesstoken"] = data.access_token;
+     state.mx_userId =  window.localStorage["mx_userId"] = data.user_id;
+     state.mx_url = window.localStorage["mx_url"] = data.url;
    }
 };

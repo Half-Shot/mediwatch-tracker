@@ -10,15 +10,31 @@ export default {
   }, data) {
     console.log(state.client);
 
-    if (state.client != null) {
-        console.log("Not logging in, client has been created");
-        return;
-    }
+    // if (state.client != null) {
+    //   commit('SET_CLIENT', Matrix.createClient({
+    //       baseUrl: data.url,
+    //   }))
+    // }
     commit('SET_CLIENT', Matrix.createClient({
         baseUrl: data.url,
     }))
 
-    return commit('LOGIN', data);
+
+    try {
+      const res = await state.client.loginWithPassword(data.username, data.password);
+      res.url = data.url;
+
+      await commit('LOGIN', res);
+      router.push({name: 'dashboard'});
+
+       return Promise.resolve(res);
+    } catch (ex) {
+        state.client = null;
+        console.error("Failed to login:", ex);
+        return ex;
+    }
+
+    // return commit('LOGIN', data);
 
   },
 
@@ -42,9 +58,7 @@ export default {
     dispatch
   }, data)
   {
-    alert();
     if(state.mx_userId){
-      alert();
       const profile = await state.client.getProfileInfo(state.mx_userId);
         profile.avatar = profile.avatar_url ? state.client.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale") : null;
       console.log(profile);
