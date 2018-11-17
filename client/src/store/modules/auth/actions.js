@@ -1,0 +1,71 @@
+import * as types from '@/store/types';
+const Matrix = require("matrix-js-sdk");
+import router from '../../../router';
+
+export default {
+  async login({
+    state,
+    commit,
+    dispatch
+  }, data) {
+    console.log(state.client);
+
+    if (state.client != null) {
+        console.log("Not logging in, client has been created");
+        return;
+    }
+    commit('SET_CLIENT', Matrix.createClient({
+        baseUrl: data.url,
+    }))
+
+    return commit('LOGIN', data);
+
+  },
+
+  async logout({
+    state,
+    commit,
+    dispatch
+  }, data)
+  {
+    console.log("User requested logout.");
+    // const cli = await MatrixClientPeg.getClient();
+    // XXX: Because will doesn't want to invalidate the token just yet, don't actually call logout.
+    // We should do this once we have a login screen.
+    // This removes the client from the Peg and deletes the tokens
+    dispatch('unsetClient', true)
+    router.push('/login');
+  },
+  async getProfile({
+    state,
+    commit,
+    dispatch
+  }, data)
+  {
+    alert();
+    if(state.mx_userId){
+      alert();
+      const profile = await state.client.getProfileInfo(state.mx_userId);
+        profile.avatar = profile.avatar_url ? state.client.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale") : null;
+      console.log(profile);
+      commit('SET_PROFILE', profile)
+    }
+
+    // this.profile.displayname = profile.displayname;
+    // this.profile.avatar = profile.avatar_url ? cli.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale") : null;
+  },
+  unsetClient({
+    state,
+    commit
+  }, data) {
+      commit('UNSET_CLIENT')
+
+      if (data) {
+          window.localStorage.removeItem("mx_accesstoken");
+          window.localStorage.removeItem("mx_userId");
+          commit('CLEAR_MX_DATA');
+          // Don't remove the URL because they might want that to log back in with.
+      }
+  }
+
+};

@@ -3,10 +3,12 @@
   <div class="panel">
     <h2> Log into Mediwatch </h2>
     <form class="" @submit.prevent="login()">
-      this.$validator.validateAll();
+
       <input name="username" v-validate.disable="'required|min:3'" type="text" v-model="form.username" placeholder="Username">
+      <!-- show errors for username if any -->
       <p class="text-danger" v-if="errors.has('username')">{{ errors.first('username') }}</p>
       <input name="password" type="password" v-model="form.password" placeholder="Password">
+
       <input name="url" type="text" v-model="form.url" placeholder="Server url">
       <button type="submit" name="button">login</button>
     </form>
@@ -15,7 +17,6 @@
 </template>
 
 <script>
-import MatrixClientPeg from '../MatrixClientPeg'
 import Config from '../Config'
 export default {
   name: "Login",
@@ -25,48 +26,18 @@ export default {
         username: '',
         password: '',
         url: Config.getDefaultHomeserver(),
-      },
-      loggedIn: "Unknown"
+      }
     }
-  },
-  created() {
-
   },
   methods: {
     login() {
-      MatrixClientPeg.loginWithPassword(
-        this.form.url,
-        this.form.username,
-        this.form.password
-      ).then(() => {
-        // This just means we will login properly when we refresh
-        MatrixClientPeg.unsetClient();
-        this.$router.push({name: 'dashboard'});
-      }).catch(() => {
-
-      });
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          // this is my issue dispatches are not happening async. Can you apply JS magic?
+          this.$store.dispatch('auth/login', this.form).then( this.$store.dispatch('auth/getProfile') )
+        }
+      })
     }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-</style>

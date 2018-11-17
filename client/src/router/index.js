@@ -50,22 +50,13 @@ export const router = new VueRouter({
   },
 })
 
-// Should we attempt to login
-/*
-    if ([].includes(this.$router.)) {
-      MatrixClientPeg.attemptToGetLoggedIn();
-
-
-    )
-    */
-
 router.beforeEach(async (to, from, next) => {
   if (!["login", "register"].includes(to.name)) {
     MatrixClientPeg.attemptToGetLoggedIn();
     try {
       await MatrixClientPeg.getClient();
     } catch (ex) {
-      console.error("Failed to authenticate:", e);
+      console.error("Failed to authenticate:", ex);
       router.push({name: 'login'});
     }
   }

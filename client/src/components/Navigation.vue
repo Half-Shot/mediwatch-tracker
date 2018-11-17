@@ -40,17 +40,13 @@
 
 <script>
 import MatrixClientPeg from '../MatrixClientPeg'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Navigation',
   data() {
     return {
-      profile: {
-        displayname: "",
-        avatar: null,
-      },
-      submenu: false,
-
+      submenu: false
     }
   },
   methods: {
@@ -58,22 +54,17 @@ export default {
       this.submenu = (this.submenu) ? false : true
     },
     async onLogout() {
-      console.log("User requested logout.");
-      const cli = await MatrixClientPeg.getClient();
-      // XXX: Because will doesn't want to invalidate the token just yet, don't actually call logout.
-      // We should do this once we have a login screen.
-      // This removes the client from the Peg and deletes the tokens
-      MatrixClientPeg.unsetClient(true);
-      this.$router.push('/login');
+      this.$store.dispatch('auth/logout')
     }
   },
-  async created() {
+  mounted() {
     // Get the user's profile name & avatar.
-    const cli = await MatrixClientPeg.getClient();
-    const profile = await cli.getProfileInfo(cli.getUserId());
-    console.log(profile);
-    this.profile.displayname = profile.displayname;
-    this.profile.avatar = profile.avatar_url ? cli.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale") : null;
+    this.$store.dispatch('auth/getProfile')
+  },
+  computed: {
+    ...mapGetters("auth", [
+      "profile"
+    ])
   }
 }
 </script>
@@ -106,6 +97,7 @@ export default {
             opacity: 0;
             position: absolute;
             top: 52px;
+            left: -26px;
             background: #fff;
             z-index: 999;
             box-shadow: 0 1px 20px 0 rgba(46,61,73,.2);
