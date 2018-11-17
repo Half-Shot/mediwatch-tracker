@@ -50,6 +50,7 @@ export default {
     // We should do this once we have a login screen.
     // This removes the client from the Peg and deletes the tokens
     dispatch('unsetClient', true)
+    commit('LOGOUT')
     router.push('/login');
   },
   async getProfile({

@@ -19,5 +19,8 @@ export default {
      state.mx_accesstoken = window.localStorage["mx_accesstoken"] = data.access_token;
      state.mx_userId =  window.localStorage["mx_userId"] = data.user_id;
      state.mx_url = window.localStorage["mx_url"] = data.url;
+   },
+   'LOGOUT'(state){
+     state.profile = null
    }
 };
