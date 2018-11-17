@@ -33,8 +33,6 @@ export default {
     login() {
       this.$validator.validateAll().then(result => {
         if (result) {
-          // this is my issue dispatches are not happening async. Can you apply JS magic?
-
           this.$store.dispatch('auth/login', this.form)
           .then( res => this.$store.dispatch('auth/getProfile') )
         }
