@@ -32,7 +32,6 @@ export default {
   methods: {
     login() {
       this.$validator.validateAll().then(result => {
-        console.log(result);
         if (result) {
           this.$store.dispatch('auth/login', this.form)
           .then( res => this.$store.dispatch('auth/getProfile') )
