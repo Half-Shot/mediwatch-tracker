@@ -8,7 +8,7 @@
       <!-- show errors for username if any -->
       <p class="text-danger" v-if="errors.has('username')">{{ errors.first('username') }}</p>
       <input name="password" type="password" v-model="form.password" placeholder="Password">
-
+      <p id="credentialsIncorrect" style="display:none;">Username or password is incorrect.</p>
       <input name="url" type="text" v-model="form.url" placeholder="Server url">
       <button type="submit" name="button">login</button>
     </form>
@@ -32,9 +32,12 @@ export default {
   methods: {
     login() {
       this.$validator.validateAll().then(result => {
+        console.log(result);
         if (result) {
           this.$store.dispatch('auth/login', this.form)
           .then( res => this.$store.dispatch('auth/getProfile') )
+        }else{
+          document.getElementById("credentialsIncorrect").style.display ="block";
         }
       })
     }
