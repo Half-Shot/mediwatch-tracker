@@ -5,6 +5,13 @@
   <div class="container-full">
     <div v-if="!syncStateOk && isSyncingPage">
       <b> Synchronising, please wait: {{syncState}} </b>
+      <spinner class="spinner"
+        :status="active"
+        :color="'#444444'"
+        :size="128"
+        :depth="5"
+        :rotation="5"
+        :speed="5"></spinner>
     </div>  
     <div v-else>
       <router-view></router-view>
@@ -16,6 +23,7 @@
 <script>
 import Navigation from '@/components/Navigation.vue'
 import Config from './Config'
+import Spinner from 'vue-spinner-component/src/Spinner.vue'
 import {
   mapGetters
 } from 'vuex'
@@ -27,7 +35,8 @@ export default {
     titleTemplate: '%s | WebRes'
   },
   components: {
-    Navigation
+    Navigation,
+    Spinner,
   },
   computed: {
     ...mapGetters("auth", [

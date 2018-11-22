@@ -27,8 +27,9 @@ export default {
     }))
 
 
-    state.client.on("sync", (sycnState) => {
-      commit('SET SYNC STATUS', sycnState);
+    state.client.on("sync", (curr, previous) => {
+      console.log(curr, previous);
+      commit('SET SYNC STATUS', curr);
     })
 
     if (autologin && !state.mx_accesstoken) {
@@ -36,13 +37,14 @@ export default {
     }
 
     if (autologin) {
+      commit('SET SYNC STATUS', 'WAITING');
       state.client.startClient();
       return;
     }
 
     try {
       let res = await state.client.loginWithPassword(data.username, data.password);
-
+      commit('SET SYNC STATUS', 'WAITING');
       state.client.startClient();
 
       res.url = data.url;
@@ -54,6 +56,7 @@ export default {
 
       return Promise.resolve(res);
     } catch (ex) {
+      alert(ex.data.error);
       state.client = null;
       console.error("Failed to login:", ex);
       return ex;
@@ -156,12 +159,9 @@ export default {
     dispatch
   }, data) {
     console.log("User requested logout.");
-    // const cli = await MatrixClientPeg.getClient();
-    // XXX: Because will doesn't want to invalidate the token just yet, don't actually call logout.
-    // We should do this once we have a login screen.
-    // This removes the client from the Peg and deletes the tokens
     dispatch('unsetClient', true)
     commit('LOGOUT')
+    commit('SET SYNC STATUS', undefined);
     router.push({name: "login"});
   },
   async getProfile({
@@ -193,6 +193,10 @@ export default {
     commit
   }, data) {
     commit('UNSET_CLIENT')
+
+    if (state.client) {
+      state.client.stopClient();
+    }
 
     if (data) {
       window.localStorage.removeItem("mx_accesstoken");
