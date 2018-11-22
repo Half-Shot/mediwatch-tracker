@@ -192,3 +192,7 @@ nav a{
 nav a:hover {
   color: #FFF;
 }
+
+span{
+	color: #F00;
+}
