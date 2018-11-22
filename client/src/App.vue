@@ -56,7 +56,6 @@ export default {
 
 <style lang="scss">
 @import "../node_modules/normalize.css/normalize.css";
-@import "../stylesheet.css";
 
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -116,4 +115,5 @@ body {
     width: 100%;
     float: left;
 }
+@import "../stylesheet.css";
 </style>

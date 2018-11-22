@@ -3,7 +3,7 @@
   <div class="internalWrapper">
     <div class="container">
       <div class="row">
-        <h1 id="header"> Login to Mediwatch </h1>
+        <h1 id="header">Mediwatch</h1>
       </div>
       <div class="panel">
         <div class="row">
