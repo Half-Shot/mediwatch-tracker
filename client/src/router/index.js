@@ -9,6 +9,8 @@ import Setup from '../pages/Setup.vue'
 import MatrixClientPeg from "../MatrixClientPeg"
 import Config from "../Config"
 import {E_NOLOGIN} from "../MatrixClientPeg"
+import Forgot from "../pages/Forgot"
+import Reset from "../pages/Reset"
 
 export const routes = [{
     path: '/',
@@ -44,6 +46,16 @@ export const routes = [{
     path: '/setup',
     name: 'setup',
     component: Setup
+  },
+  {
+    path: '/reset',
+    name: 'reset',
+    component: Reset
+  },
+  {
+    path: '/forgot',
+    name: 'forgot',
+    component: Forgot
   }
 ]
 

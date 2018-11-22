@@ -1,10 +1,8 @@
 <template>
 <div class="container">
   <div class="panel">
-    <h2> Log into Mediwatch </h2>
-    <router-link :to="{ name: 'register' }">Click here to register</router-link>
-    <br>
-    <router-link :to="{ name: 'forgot' }">Forgotten password?</router-link>
+    <h2> Reset your password </h2>
+    <!-- <router-link :to="{ name: 'register' }">Click here to register</router-link> -->
     <br>
     <form class="" @submit.prevent="login()">
 
