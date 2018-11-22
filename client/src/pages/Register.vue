@@ -16,7 +16,7 @@
       <input type="radio" name="role" id="doctor" value="doctor"></input>
       <label for="doctor">Doctor</label>
       <br> -->
-      <select name="server">
+      <select name="url">
         <option>medical.webres.me</option>
         <option>matrix.org</option>
       </select>
@@ -31,7 +31,7 @@
 <script>
 import Config from '../Config'
 export default {
-  name: "Login",
+  name: "Register",
   data: function() {
     return {
       form: {

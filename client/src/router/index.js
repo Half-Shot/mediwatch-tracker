@@ -5,6 +5,7 @@ import Conversation from '../components/Conversation.vue'
 import Profile from '../pages/user/profile.vue'
 import Login from '../pages/Login.vue'
 import Register from '../pages/Register.vue'
+import Setup from '../pages/Setup.vue'
 import MatrixClientPeg from "../MatrixClientPeg"
 import Config from "../Config"
 import {E_NOLOGIN} from "../MatrixClientPeg"
