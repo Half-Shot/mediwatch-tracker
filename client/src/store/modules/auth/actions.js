@@ -23,8 +23,9 @@ export default {
     commit('SET_CLIENT', Matrix.createClient({
       baseUrl: data.url,
     }))
-
-
+    state.client.on("sync", (sycnState) => {
+      commit('SET SYNC STATUS', sycnState);
+    })
     try {
       const res = (!autologin) ?
         await state.client.loginWithPassword(data.username, data.password) :
@@ -57,6 +58,9 @@ export default {
       baseUrl: data.url,
     }))
 
+    state.client.on("sync", (sycnState) => {
+      commit('SET SYNC STATUS', sycnState);
+    });
 
     try {
       const res = await state.client.register(data.username, data.password, null, {
