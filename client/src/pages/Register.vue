@@ -45,7 +45,7 @@ export default {
     login() {
       this.$validator.validateAll().then(result => {
         if (result) {
-          this.$store.dispatch('auth/login', this.form)
+          this.$store.dispatch('auth/register', this.form)
           .then( res => this.$store.dispatch('auth/getProfile') )
         }else{
           document.getElementById("credentialsIncorrect").style.display ="block";
