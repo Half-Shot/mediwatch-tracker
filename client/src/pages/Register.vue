@@ -10,12 +10,12 @@
       <!-- show errors for username if any -->
       <p class="text-danger" v-if="errors.has('username')">{{ errors.first('username') }}</p>
       <span style="color:red;">*</span>
-      <input name="password" id="password" ref="password" v-validate="'required|min:6|confirmed:passwordConfirm'" type="password" v-model="form.password" placeholder="Password">
+      <input name="password" id="password" ref="password" v-validate="'required|min:6'" type="password" v-model="form.password" placeholder="Password">
       <br>
       <span style="color:red;">*</span>
-      <input name="passwordConfirm" id="passwordConfirm" v-validate="'required|min:6|confirmed:password'" type="password" v-model="form.passwordConfirm" placeholder="Confirm Password">
+      <input name="passwordConfirm" id="passwordConfirm" v-validate="'required|confirmed:password'" type="password" v-model="form.passwordConfirm" placeholder="Confirm Password">
       <br>
-      <!-- <p class="passwordError" v-if="errors.has('password')">{{ errors.first('password')}}</p> -->
+      <p class="passwordError" v-if="errors.has('password')">{{ errors.first('password')}}</p>
       <p class="passwordError" v-if="errors.has('passwordConfirm')">{{ errors.first('passwordConfirm')}}</p>
       <!-- <input type="radio" name="role" id="patient" value="patient" checked></input>
       <label for="patient">Patient</label>
@@ -51,22 +51,12 @@ export default {
   },
   methods: {
     register() {
-      this.comparePassword();
       this.$validator.validateAll().then(result => {
         if (result) {
           this.$store.dispatch('auth/register', this.form)
             .then(res => this.$store.dispatch('auth/getProfile'))
         }
       })
-    },
-    comparePassword() {
-      var pass0 = document.getElementById("password").value;
-      var pass1 = document.getElementById("passwordConfirm").value;
-      if (pass0 === pass1) {
-        console.log("same");
-      } else {
-        console.log("different");
-      }
     }
   }
 }
