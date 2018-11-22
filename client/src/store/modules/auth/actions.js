@@ -25,11 +25,18 @@ export default {
       userId: state.mx_userId,
       accessToken: state.mx_accesstoken,
     }))
+
     
     state.client.on("sync", (sycnState) => {
       commit('SET SYNC STATUS', sycnState);
     })
     
+    console.log("I AM TRYING TO SYNC WITH " + state.mx_accesstoken);
+
+    if (!state.mx_accesstoken) {
+      return;
+    }
+
     if (autologin) {
       state.client.startClient();
       return;
