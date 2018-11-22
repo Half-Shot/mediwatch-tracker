@@ -5,11 +5,13 @@
     <a href="Login">Click here to login</a>
     <br>
     <form class="" @submit.prevent="register()">
-
-      <input name="username" v-validate.disable="'required|min:3'" type="text" v-model="form.username" placeholder="Username"><br>
+      <p>Fields marked with a <span style="color:red;">*</span> are mandatory</p>
+      <span style="color:red;">*</span><input name="username" v-validate.disable="'required|min:3'" type="text" v-model="form.username" placeholder="Username"><br>
       <!-- show errors for username if any -->
       <p class="text-danger" v-if="errors.has('username')">{{ errors.first('username') }}</p>
-      <input name="password" type="password" v-model="form.password" placeholder="Password"><br>
+      <span style="color:red;">*</span><input name="password" id="password" v-validate="{ is:passwordConfirm}" type="password" v-model="form.password" placeholder="Password"><br>
+      <span style="color:red;">*</span><input name="passwordConfirm" id="passwordConfirm" type="password" v-model="form.passwordConfirm" placeholder="Confirm Password"><br>
+      <p class="passwordError" v-if="errors.has('password')">{{ errors.first('password')}}</p>
       <!-- <input type="radio" name="role" id="patient" value="patient" checked></input>
       <label for="patient">Patient</label>
       <br>
@@ -22,7 +24,7 @@
       </select>
       <br>
       <!-- <input name="url" type="text" v-model="form.url" placeholder="Server url"> -->
-      <button type="submit" name="button">login</button>
+      <button type="submit" name="button">Register</button>
     </form>
   </div>
 </div>
@@ -34,6 +36,7 @@ export default {
   name: "Register",
   data: function() {
     return {
+      passwordConfirm: false,
       form: {
         username: '',
         password: '',
@@ -42,15 +45,23 @@ export default {
     }
   },
   methods: {
-    login() {
+    register() {
+      this.comparePassword();
       this.$validator.validateAll().then(result => {
         if (result) {
           this.$store.dispatch('auth/register', this.form)
           .then( res => this.$store.dispatch('auth/getProfile') )
-        }else{
-          document.getElementById("credentialsIncorrect").style.display ="block";
         }
       })
+    },
+    comparePassword(){
+      var pass0 = document.getElementById("password").value;
+      var pass1 = document.getElementById("passwordConfirm").value;
+      if(pass0 === pass1){
+        console.log("same");
+      }else{
+        console.log("different");
+      }
     }
   }
 }
