@@ -4,6 +4,7 @@ import Dashboard from '../pages/dashboard/index.vue'
 import Conversation from '../components/Conversation.vue'
 import Profile from '../pages/user/profile.vue'
 import Login from '../pages/Login.vue'
+import Register from '../pages/Register.vue'
 import MatrixClientPeg from "../MatrixClientPeg"
 import Config from "../Config"
 import {E_NOLOGIN} from "../MatrixClientPeg"
