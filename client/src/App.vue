@@ -3,7 +3,7 @@
   <Navigation></Navigation>
   <h1 style="color:red;" v-if="error !== false">Error while loading config: {{error}}</h1>
   <div class="container-full">
-    <div v-if="waitingToLogIn !== 'PREPARED'">
+    <div v-if="syncState !== 'PREPARED'">
       <b> waiting to log in {{syncState}} </b>
     </div>
     <b> waiting to log in {{syncState}} </b>
