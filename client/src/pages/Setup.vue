@@ -11,7 +11,13 @@
       <input type="radio" name="role" id="doctor" value="doctor"></input>
       <label for="doctor">Doctor</label>
       <br>
-      <button type="submit" name="button">login</button>
+      <input type="number" name="height" placeholder="180" min="46" max="2720">Height(CM)</input>
+      <br>
+      <input type="number" name="weight" placeholder="60" max="635" min="2" step="0.1">Weight(KG)</input>
+      <br>
+      <input type="text" name="displayname">Display name</input>
+      <br>
+      <button type="submit" name="button">Submit</button>
     </form>
   </div>
 </div>
