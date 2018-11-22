@@ -8,6 +8,6 @@ export default {
     return state.profile
   },
   syncState: (state, id) => {
-    return state.client === null ? null : state.client.syncState;
+    return state.client ? state.client.syncState : null;
   },
 };

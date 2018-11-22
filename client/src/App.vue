@@ -4,9 +4,11 @@
   <h1 style="color:red;" v-if="error !== false">Error while loading config: {{error}}</h1>
   <div class="container-full">
     <div v-if="!syncStateOk && isSyncingPage">
-      <b> waiting to log in {{syncState}} </b>
+      <b> Synchronising, please wait: {{syncState}} </b>
+    </div>  
+    <div v-else>
+      <router-view></router-view>
     </div>
-    <router-view></router-view>
   </div>
 </div>
 </template>
@@ -32,7 +34,8 @@ export default {
       "syncState"
     ]),
     syncStateOk: function() {
-      return ["PREPARING", "SYNCING", "null"].includes(String(this.$store.getters['auth/syncState']))
+      console.log("The state is:", this.$store.getters['auth/syncState']);
+      return ["PREPARING", "SYNCING", "null", "undefined"].includes(String(this.$store.getters['auth/syncState']))
     },
     isSyncingPage: function() {
       return !['register'].includes(this.$route.name);
