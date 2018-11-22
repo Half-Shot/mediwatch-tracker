@@ -2,6 +2,8 @@
 <div class="container">
   <div class="panel">
     <h2> Log into Mediwatch </h2>
+    <a href="Register">Click here to register</a>
+    <br>
     <form class="" @submit.prevent="login()">
 
       <input name="username" v-validate.disable="'required|min:3'" type="text" v-model="form.username" placeholder="Username">
