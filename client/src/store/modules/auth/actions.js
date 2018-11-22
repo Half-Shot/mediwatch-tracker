@@ -51,7 +51,9 @@ export default {
 
 
     try {
-      const res = await state.client.register(data.username, data.password);
+      const res = await state.client.register(data.username, data.password, null, {
+        "type": "m.login.dummy"
+      });
       res.url = data.url;
 
       await commit('LOGIN', res);
