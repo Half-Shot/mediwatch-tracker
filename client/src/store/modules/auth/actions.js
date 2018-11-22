@@ -26,14 +26,14 @@ export default {
       accessToken: state.mx_accesstoken,
     }))
 
-    
+
     state.client.on("sync", (sycnState) => {
       commit('SET SYNC STATUS', sycnState);
     })
-    
+
     console.log("I AM TRYING TO SYNC WITH " + state.mx_accesstoken);
 
-    if (!state.mx_accesstoken) {
+    if (autologin && !state.mx_accesstoken) {
       return;
     }
 
@@ -43,7 +43,7 @@ export default {
     }
 
     try {
-      await state.client.loginWithPassword(data.username, data.password);
+      let res = await state.client.loginWithPassword(data.username, data.password);
 
       state.client.startClient();
 
