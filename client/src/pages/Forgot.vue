@@ -1,20 +1,15 @@
 <template>
 <div class="container">
   <div class="panel">
-    <h2> Log into Mediwatch </h2>
-    <router-link :to="{ name: 'register' }">Click here to register</router-link>
-    <br>
-    <router-link :to="{ name: 'forgot' }">Forgotten password?</router-link>
+    <h2> Forgotten password? </h2>
+    <router-link :to="{ name: 'login' }">Click here to return to login</router-link>
     <br>
     <form class="" @submit.prevent="login()">
 
-      <input name="username" v-validate.disable="'required|min:3'" type="text" v-model="form.username" placeholder="Username">
+      <input name="username" v-validate.disable="'required|min:3'" type="text" v-model="form.username" placeholder="Username/Email address">
       <!-- show errors for username if any -->
       <p class="text-danger" v-if="errors.has('username')">{{ errors.first('username') }}</p>
-      <input name="password" type="password" v-model="form.password" placeholder="Password">
-      <p id="credentialsIncorrect" style="display:none;">Username or password is incorrect.</p>
-      <input name="url" type="text" v-model="form.url" placeholder="Server url">
-      <button type="submit" name="button">login</button>
+      <button type="submit" name="button">Reset password</button>
     </form>
   </div>
 </div>
