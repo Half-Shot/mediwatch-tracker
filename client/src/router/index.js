@@ -11,6 +11,7 @@ import Config from "../Config"
 import {E_NOLOGIN} from "../MatrixClientPeg"
 import Forgot from "../pages/Forgot"
 import Reset from "../pages/Reset"
+import Settings from "../pages/dashboard/Settings"
 
 export const routes = [{
     path: '/',
@@ -56,6 +57,11 @@ export const routes = [{
     path: '/forgot',
     name: 'forgot',
     component: Forgot
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: Settings
   }
 ]
 
