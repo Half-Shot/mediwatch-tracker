@@ -17,7 +17,7 @@
       <br> -->
       <br>
       Display name
-      <input type="text" name="displayname" v-model="profile.displayname">
+      <input v-if="profile" type="text" name="displayname" v-model="profile.displayname">
       <br>
       <button type="submit" name="button">Submit</button>
     </form>

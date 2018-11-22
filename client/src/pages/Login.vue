@@ -1,21 +1,47 @@
 <template>
-<div class="container">
-  <div class="panel">
-    <h2> Log into Mediwatch </h2>
-    <router-link :to="{ name: 'register' }">Click here to register</router-link>
-    <br>
-    <router-link :to="{ name: 'forgot' }">Forgotten password?</router-link>
-    <br>
-    <form class="" @submit.prevent="login()">
-
-      <input name="username" v-validate.disable="'required|min:3'" type="text" v-model="form.username" placeholder="Username">
-      <!-- show errors for username if any -->
-      <p class="text-danger" v-if="errors.has('username')">{{ errors.first('username') }}</p>
-      <input name="password" type="password" v-model="form.password" placeholder="Password">
-      <p id="credentialsIncorrect" style="display:none;">Username or password is incorrect.</p>
-      <input name="url" type="text" v-model="form.url" placeholder="Server url">
-      <button type="submit" name="button">login</button>
-    </form>
+<div class="externalWrapper">
+  <div class="internalWrapper">
+    <div class="container">
+      <div class="row">
+        <h1 id="header"> Login to Mediwatch </h1>
+      </div>
+      <div class="panel">
+        <div class="row">
+          <div class="half">
+            <form class="" @submit.prevent="login()">
+              <div class="row">
+                <!-- show errors for username if any -->
+                <p class="text-danger" v-if="errors.has('username')">{{ errors.first('username') }}</p>
+              </div>
+              <div class="row">
+                <h3>Username:</h3>
+                <input name="username" v-validate.disable="'required|min:3'" type="text" v-model="form.username" placeholder="Username">
+              </div>
+              <div class="row">
+                <h3>Password:</h3>
+                <input name="password" type="password" v-model="form.password" placeholder="Password">
+              </div>
+              <div class="row">
+                <h3>Server:</h3>
+                <select name="url" v-model="form.url">
+                  <option value="https://medical.webres.me">medical.webres.me</option>
+                  <option value="https://matrix.org">matrix.org</option>
+                </select>
+                <!-- <input name="url" type="text" v-model="form.url" placeholder="Server url"> -->
+              </div>
+              <div class="row">
+                <router-link :to="{ name: 'forgot' }" class="button">Forgotten password?</router-link>
+                <button type="submit" name="button" class="button">Login</button>
+              </div>
+            </form>
+          </div>
+          <div class="half">
+            <router-link :to="{ name: 'register' }" class="button" id="registration">Click here to register</router-link>
+          </div>
+        </div>
+        <p>.</p>
+      </div>
+    </div>
   </div>
 </div>
 </template>

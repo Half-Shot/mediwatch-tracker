@@ -26,7 +26,7 @@ export default {
       accessToken: state.mx_accesstoken,
     }))
 
-    
+
     state.client.on("sync", (sycnState) => {
       commit('SET SYNC STATUS', sycnState);
     })
@@ -43,7 +43,7 @@ export default {
     }
 
     try {
-      await state.client.loginWithPassword(data.username, data.password);
+      let res = await state.client.loginWithPassword(data.username, data.password);
 
       state.client.startClient();
 
