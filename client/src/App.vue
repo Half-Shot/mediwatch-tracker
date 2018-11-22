@@ -3,6 +3,9 @@
   <Navigation></Navigation>
   <h1 style="color:red;" v-if="error !== false">Error while loading config: {{error}}</h1>
   <div class="container-full">
+    <div v-if="waitingToLogIn">
+      <b> waiting to log in </b>
+    </div>
     <router-view></router-view>
   </div>
 </div>
@@ -20,6 +23,20 @@ export default {
   },
   components: {
     Navigation
+  },
+  mounted: function () {
+  },
+  computed: {
+    waitingToLogIn: function() {
+      return this.$store.getters['auth/syncState'] !== 'PREPARED' && this.$router.name !== 'register';
+    }
+  },
+  updated: function () {
+    this.$nextTick(function () {
+      console.log("BLARGH:", this.$store.getters['auth/syncState'], this.$router.history.current);
+      // Code that will run only after the
+      // entire view has been re-rendered
+    })
   },
   created: function() {
     Config.result.then((res) => {
