@@ -16,7 +16,7 @@ export default {
     //   }))
     // }
     commit('SET_CLIENT', Matrix.createClient({
-        baseUrl: data.url,
+      baseUrl: data.url,
     }))
 
 
@@ -25,47 +25,46 @@ export default {
       res.url = data.url;
 
       await commit('LOGIN', res);
-      router.push({name: 'dashboard'});
+      router.push({
+        name: 'dashboard'
+      });
 
-       return Promise.resolve(res);
+      return Promise.resolve(res);
     } catch (ex) {
-        state.client = null;
-        console.error("Failed to login:", ex);
-        return ex;
+      state.client = null;
+      console.error("Failed to login:", ex);
+      return ex;
     }
 
     // return commit('LOGIN', data);
 
   },
-  async registerBasic({
+  async register({
     state,
     commit,
     dispatch
   }, data) {
-    console.log(state.client);
 
-    // if (state.client != null) {
-    //   commit('SET_CLIENT', Matrix.createClient({
-    //       baseUrl: data.url,
-    //   }))
-    // }
     commit('SET_CLIENT', Matrix.createClient({
-        baseUrl: data.url,
+      baseUrl: data.url,
     }))
 
 
     try {
-      const res = await state.client.loginWithPassword(data.username, data.password);
+      const res = await state.client.register(data.username, data.password);
       res.url = data.url;
 
       await commit('LOGIN', res);
-      router.push({name: 'dashboard'});
+      router.push({
+        name: 'setup'
+      });
 
-       return Promise.resolve(res);
+      return Promise.resolve(res);
     } catch (ex) {
-        state.client = null;
-        console.error("Failed to login:", ex);
-        return ex;
+      alert(ex.data.error);
+      state.client = null;
+      console.error("Failed to login:", ex);
+      return ex;
     }
 
     // return commit('LOGIN', data);
@@ -75,8 +74,7 @@ export default {
     state,
     commit,
     dispatch
-  }, data)
-  {
+  }, data) {
     console.log("User requested logout.");
     // const cli = await MatrixClientPeg.getClient();
     // XXX: Because will doesn't want to invalidate the token just yet, don't actually call logout.
@@ -90,11 +88,10 @@ export default {
     state,
     commit,
     dispatch
-  }, data)
-  {
-    if(state.mx_userId){
+  }, data) {
+    if (state.mx_userId) {
       const profile = await state.client.getProfileInfo(state.mx_userId);
-        profile.avatar = profile.avatar_url ? state.client.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale") : null;
+      profile.avatar = profile.avatar_url ? state.client.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale") : null;
       console.log(profile);
       commit('SET_PROFILE', profile)
     }
@@ -106,14 +103,14 @@ export default {
     state,
     commit
   }, data) {
-      commit('UNSET_CLIENT')
+    commit('UNSET_CLIENT')
 
-      if (data) {
-          window.localStorage.removeItem("mx_accesstoken");
-          window.localStorage.removeItem("mx_userId");
-          commit('CLEAR_MX_DATA');
-          // Don't remove the URL because they might want that to log back in with.
-      }
+    if (data) {
+      window.localStorage.removeItem("mx_accesstoken");
+      window.localStorage.removeItem("mx_userId");
+      commit('CLEAR_MX_DATA');
+      // Don't remove the URL because they might want that to log back in with.
+    }
   }
 
 };

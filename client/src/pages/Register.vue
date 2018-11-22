@@ -2,7 +2,7 @@
 <div class="container">
   <div class="panel">
     <h2> Register for Mediwatch </h2>
-    <a href="Login">Click here to login</a>
+    <router-link :to="{ name: 'login' }">login</router-link>
     <br>
     <form class="" @submit.prevent="register()">
       <p>Fields marked with a <span style="color:red;">*</span> are mandatory</p>

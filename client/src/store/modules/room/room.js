@@ -10,9 +10,9 @@ const state = {
       avatar: ''
     },
     {
-      id: 45678,
+      id: 45670,
       type: 'medicalInfo',
-      title: 'heart rate',
+      title: 'cardiographical',
       avatar: ''
     },
     {
