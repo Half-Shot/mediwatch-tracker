@@ -2,7 +2,21 @@
   <div class="container-full">
     <Sidebar></Sidebar>
     <main class="dashboard">
-      <Chart></Chart>
+    <h2>Settings</h2>
+    <table>
+      <tr>
+        <td>Weight:</td>
+        <td>60KG</td>
+      </tr>
+      <tr>
+        <td>Height:</td>
+        <td>170CM</td>
+      </tr>
+      <tr>
+        <td>Doctor:</td>
+        <td>Johnathon Doe</td>
+      </tr>
+    </table>
       <!-- <Chat></Chat> -->
     </main>
     <!-- <button type="button" class="chat-trigger" name="button">
