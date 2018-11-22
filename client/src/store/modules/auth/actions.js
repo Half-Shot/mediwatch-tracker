@@ -21,7 +21,7 @@ export default {
     //   }))
     // }
     commit('SET_CLIENT', Matrix.createClient({
-      baseUrl: state.mx_url || data.url,
+      baseUrl: data.url || state.mx_url,
       userId: state.mx_userId,
       accessToken: state.mx_accesstoken,
     }))
@@ -169,6 +169,7 @@ export default {
     commit,
     dispatch
   }, data) {
+    console.log("Getting profile of", state.mx_userId);
     if (state.mx_userId) {
       state.client.on('sync', async (syncState) => {
         if (syncState == "PREPARED") {

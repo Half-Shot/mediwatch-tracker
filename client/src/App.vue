@@ -3,10 +3,9 @@
   <Navigation></Navigation>
   <h1 style="color:red;" v-if="error !== false">Error while loading config: {{error}}</h1>
   <div class="container-full">
-    <div v-if="syncState !== 'PREPARED'">
+    <div v-if="!syncStateOk && isSyncingPage">
       <b> waiting to log in {{syncState}} </b>
     </div>
-    <b> waiting to log in {{syncState}} </b>
     <router-view></router-view>
   </div>
 </div>
@@ -32,19 +31,21 @@ export default {
     ...mapGetters("auth", [
       "syncState"
     ]),
-    waitingToLogIn: function() {
-      console.log("Is it gonna be smart?");
-      return this.syncState;
-    }
+    syncStateOk: function() {
+      return ["PREPARING", "SYNCING", "null"].includes(String(this.$store.getters['auth/syncState']))
+    },
+    isSyncingPage: function() {
+      return !['register'].includes(this.$route.name);
+    },
   },
   created: function() {
+    this.$store.dispatch('auth/login');
     Config.loadResult().then(() => {
       Config.result.then((res) => {
         if (res !== true) {
           this.error = res;
         }
       });
-      this.$store.dispatch('auth/login');
     });
   },
   data() {
