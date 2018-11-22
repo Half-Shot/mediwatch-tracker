@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import MatrixClientPeg from '../MatrixClientPeg'
 import { E_NOLOGIN } from '../MatrixClientPeg'
 
 export default {
@@ -14,13 +13,7 @@ export default {
     return { loggedIn: "Unknown" }
   },
   created() {
-    MatrixClientPeg.getClient().then((client) =>{
-      this.loggedIn = "Logged in!";
-    }).catch((err) => {
-      if (err === E_NOLOGIN) {
-        this.loggedIn = "Not logged in!";
-      }
-    });
+   
   }
 }
 </script>

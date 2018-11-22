@@ -3,11 +3,19 @@
   <Navigation></Navigation>
   <h1 style="color:red;" v-if="error !== false">Error while loading config: {{error}}</h1>
   <div class="container-full">
-    <div v-if="waitingToLogIn !== 'PREPARED'">
-      <b> waiting to log in {{syncState}} </b>
+    <div v-if="!syncStateOk && isSyncingPage">
+      <b> Synchronising, please wait: {{syncState}} </b>
+      <spinner class="spinner"
+        :status="active"
+        :color="'#444444'"
+        :size="128"
+        :depth="5"
+        :rotation="5"
+        :speed="5"></spinner>
+    </div>  
+    <div v-else>
+      <router-view></router-view>
     </div>
-    <b> waiting to log in {{syncState}} </b>
-    <router-view></router-view>
   </div>
 </div>
 </template>
@@ -15,6 +23,7 @@
 <script>
 import Navigation from '@/components/Navigation.vue'
 import Config from './Config'
+import Spinner from 'vue-spinner-component/src/Spinner.vue'
 import {
   mapGetters
 } from 'vuex'
@@ -26,24 +35,29 @@ export default {
     titleTemplate: '%s | WebRes'
   },
   components: {
-    Navigation
+    Navigation,
+    Spinner,
   },
   computed: {
-    ...
-    mapGetters("auth", [
+    ...mapGetters("auth", [
       "syncState"
     ]),
-    waitingToLogIn: function() {
-      console.log("Is it gonna be smart?");
-      return this.syncState;
-    }
+    syncStateOk: function() {
+      console.log("The state is:", this.$store.getters['auth/syncState']);
+      return ["PREPARING", "SYNCING", "null", "undefined"].includes(String(this.$store.getters['auth/syncState']))
+    },
+    isSyncingPage: function() {
+      return !['register'].includes(this.$route.name);
+    },
   },
   created: function() {
     this.$store.dispatch('auth/login');
-    Config.result.then((res) => {
-      if (res !== true) {
-        this.error = res;
-      }
+    Config.loadResult().then(() => {
+      Config.result.then((res) => {
+        if (res !== true) {
+          this.error = res;
+        }
+      });
     });
   },
   data() {

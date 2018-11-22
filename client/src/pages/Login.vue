@@ -25,6 +25,7 @@
                 <h3>Server:</h3>
                 <select name="url" v-model="form.url">
                   <option value="https://medical.webres.me">medical.webres.me</option>
+                  <option value="https://matrix.half-shot.uk">half-shot.uk</option>
                   <option value="https://matrix.org">matrix.org</option>
                 </select>
                 <!-- <input name="url" type="text" v-model="form.url" placeholder="Server url"> -->
@@ -55,7 +56,7 @@ export default {
       form: {
         username: '',
         password: '',
-        url: Config.getDefaultHomeserver(),
+        url: "https://medical.webres.me", //Config.getDefaultHomeserver(),
       }
     }
   },

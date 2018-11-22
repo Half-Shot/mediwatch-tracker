@@ -7,7 +7,7 @@ const state = {
   mx_url: (localStorage.getItem('mx_url')) ? localStorage.getItem('mx_url') : null,
   profile: null,
   client: null,
-  syncStatus: null,
+  syncState: null,
 };
 
 export default {

@@ -21,30 +21,30 @@ export default {
     //   }))
     // }
     commit('SET_CLIENT', Matrix.createClient({
-      baseUrl: state.mx_url || data.url,
+      baseUrl: data.url || state.mx_url,
       userId: state.mx_userId,
       accessToken: state.mx_accesstoken,
     }))
 
 
-    state.client.on("sync", (sycnState) => {
-      commit('SET SYNC STATUS', sycnState);
+    state.client.on("sync", (curr, previous) => {
+      console.log(curr, previous);
+      commit('SET SYNC STATUS', curr);
     })
-
-    console.log("I AM TRYING TO SYNC WITH " + state.mx_accesstoken);
 
     if (autologin && !state.mx_accesstoken) {
       return;
     }
 
     if (autologin) {
+      commit('SET SYNC STATUS', 'WAITING');
       state.client.startClient();
       return;
     }
 
     try {
       let res = await state.client.loginWithPassword(data.username, data.password);
-
+      commit('SET SYNC STATUS', 'WAITING');
       state.client.startClient();
 
       res.url = data.url;
@@ -56,6 +56,7 @@ export default {
 
       return Promise.resolve(res);
     } catch (ex) {
+      alert(ex.data.error);
       state.client = null;
       console.error("Failed to login:", ex);
       return ex;
@@ -158,19 +159,17 @@ export default {
     dispatch
   }, data) {
     console.log("User requested logout.");
-    // const cli = await MatrixClientPeg.getClient();
-    // XXX: Because will doesn't want to invalidate the token just yet, don't actually call logout.
-    // We should do this once we have a login screen.
-    // This removes the client from the Peg and deletes the tokens
     dispatch('unsetClient', true)
     commit('LOGOUT')
-    router.push('/login');
+    commit('SET SYNC STATUS', undefined);
+    router.push({name: "login"});
   },
   async getProfile({
     state,
     commit,
     dispatch
   }, data) {
+    console.log("Getting profile of", state.mx_userId);
     if (state.mx_userId) {
       state.client.on('sync', async (syncState) => {
         if (syncState == "PREPARED") {
@@ -194,6 +193,10 @@ export default {
     commit
   }, data) {
     commit('UNSET_CLIENT')
+
+    if (state.client) {
+      state.client.stopClient();
+    }
 
     if (data) {
       window.localStorage.removeItem("mx_accesstoken");
