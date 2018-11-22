@@ -153,53 +153,6 @@ h1{
 	padding: 10px;
 }
 
-/*Start nav styles*/
-nav {
-  list-style-type: none;
-  background-color: #0010FF;
-  overflow: hidden;
-  font-size: 1.2rem;
-}
-
-nav .active {
-  color: #fff;
-}
-
-nav ul {
-	height:100%;
-}
-
-nav li {
-  color: #fff;
-  float: left;
-  display: block;
-	padding: 5px 0px;
-	height: 20%;
-}
-
-nav li:last-child a{
-  border: none;
-}
-
-nav li a:hover:not(.active) {
-  color: #FFF;
-}
-
-nav a{
-  text-align: center;
-  text-decoration: none;
-  color: #999;
-  margin: 5px 0px;
-  border-right: 1px #fff solid;
-	float: left;
-	display: inline;
-	padding: 10px;
-}
-
-nav a:hover {
-  color: #FFF;
-}
-
 /*Start responsive styles*/
 
 .row{
