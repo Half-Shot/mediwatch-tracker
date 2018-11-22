@@ -139,7 +139,7 @@ body{
 	font-size: 1rem;
 	display: block;
 	min-height: 100vh;
-	background-color: #00f;
+	background-color: #57f;
 }
 
 h1{
@@ -153,6 +153,9 @@ h1{
 	padding: 10px;
 }
 
+a{
+	text-decoration: none;
+}
 /*Start responsive styles*/
 
 .row{
@@ -206,26 +209,23 @@ h1{
 }
 
 .button, button{
-	background-color: #ccc;
+	background-color: #45f;
+	color: #fff;
 	padding: 5px 15px;
-	border: 1px solid #00F;
+	/* border: 0px; */
 	cursor: pointer;
 	font-size: 1rem;
-	color: #666;
+	/* color: #666; */
 	height: 35px;
 	margin: auto;
 }
 
-#registration{
-	width: 100%;
-	bottom: 0;
-}
-
 .button{
-	float: left;
+	float: right;
 	/* width: 85%; */
 	text-align: center;
 	/* margin-left: 7.5%; */
+	border: 5px;
 	margin-bottom: 10px;
 }
 
@@ -236,8 +236,20 @@ h1{
 .button:hover, button:hover{
 	color: #000;
 	padding: 4px 14px;
-	border: 2px solid #00F;
+	/* border: 2px solid #00F; */
 	/* background-color: #00F; */
 	/* background-color: #f9fafa; */
 }
 /*END responsive styles*/
+
+.button:last-child{
+	border-left: 1px solid #FFF;
+}
+
+.row .full{
+	width: 100%;
+}
+
+.required{
+	color: #F00;
+}

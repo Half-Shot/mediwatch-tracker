@@ -74,7 +74,7 @@ html {
 *:before {
     box-sizing: inherit;
 }
-
+/* 
 a {
     text-decoration: none;
     font-weight: bold;
@@ -92,10 +92,10 @@ a {
     &:focus {
         text-decoration: none;
     }
-}
+} */
 
 body {
-    background: #faf9f9;
+    /* background: #faf9f9; */
 }
 
 .panel {

@@ -1,16 +1,28 @@
 <template>
 <div class="container">
   <div class="panel">
-    <h2> Forgotten password? </h2>
-    <router-link :to="{ name: 'login' }">Click here to return to login</router-link>
-    <br>
-    <form class="" @submit.prevent="login()">
-
-      <input name="username" v-validate.disable="'required|min:3'" type="text" v-model="form.username" placeholder="Username/Email address">
-      <!-- show errors for username if any -->
-      <p class="text-danger" v-if="errors.has('username')">{{ errors.first('username') }}</p>
-      <button type="submit" name="button">Reset password</button>
-    </form>
+    <div class="row">
+      <h1> Forgotten password? </h1>
+    </div>
+    <div class="row">
+      <div class="half">
+        <form class="" @submit.prevent="login()">
+          <div class="row">
+            <h3>Email address:</h3>
+            <input name="username" v-validate.disable="'required|min:3'" type="text" v-model="form.username">
+          </div>
+          <div class="row">
+            <button type="submit" name="button" class="button">Reset password</button>
+            <!-- show errors for username if any -->
+            <p class="text-danger" v-if="errors.has('username')">{{ errors.first('username') }}</p>
+          </div>
+        </form>
+      </div>
+      <div class="half">
+        <router-link :to="{ name: 'login' }" class="button full">Click here to return to login</router-link>
+      </div>
+    </div>
+    <p>.</p>
   </div>
 </div>
 </template>

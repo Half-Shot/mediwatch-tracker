@@ -30,13 +30,13 @@
                 <!-- <input name="url" type="text" v-model="form.url" placeholder="Server url"> -->
               </div>
               <div class="row">
-                <router-link :to="{ name: 'forgot' }" class="button">Forgotten password?</router-link>
                 <button type="submit" name="button" class="button">Login</button>
+                <router-link :to="{ name: 'forgot' }" class="button">Forgotten password?</router-link>
               </div>
             </form>
           </div>
           <div class="half">
-            <router-link :to="{ name: 'register' }" class="button" id="registration">Click here to register</router-link>
+            <router-link :to="{ name: 'register' }" class="full button">Click here to register</router-link>
           </div>
         </div>
         <p>.</p>
