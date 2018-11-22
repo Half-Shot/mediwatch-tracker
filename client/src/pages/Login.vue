@@ -64,9 +64,7 @@ export default {
       this.$validator.validateAll().then(result => {
         if (result) {
           this.$store.dispatch('auth/login', this.form)
-          .then( res => this.$store.dispatch('auth/getProfile') )
-        }else{
-          document.getElementById("credentialsIncorrect").style.display ="block";
+            .then(res => this.$store.dispatch('auth/getProfile'))
         }
       })
     }

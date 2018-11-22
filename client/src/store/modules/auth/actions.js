@@ -21,14 +21,31 @@ export default {
     //   }))
     // }
     commit('SET_CLIENT', Matrix.createClient({
-      baseUrl: data.url,
+      baseUrl: state.mx_url || data.url,
+      userId: state.mx_userId,
+      accessToken: state.mx_accesstoken,
     }))
 
+    
+    state.client.on("sync", (sycnState) => {
+      commit('SET SYNC STATUS', sycnState);
+    })
+    
+    console.log("I AM TRYING TO SYNC WITH " + state.mx_accesstoken);
+
+    if (!state.mx_accesstoken) {
+      return;
+    }
+
+    if (autologin) {
+      state.client.startClient();
+      return;
+    }
 
     try {
-      const res = (!autologin) ?
-        await state.client.loginWithPassword(data.username, data.password) :
-        await state.client.loginWithToken(state.mx_accesstoken);
+      await state.client.loginWithPassword(data.username, data.password);
+
+      state.client.startClient();
 
       res.url = data.url;
 
@@ -57,13 +74,16 @@ export default {
       baseUrl: data.url,
     }))
 
+    state.client.on("sync", (sycnState) => {
+      commit('SET SYNC STATUS', sycnState);
+    });
 
     try {
       const res = await state.client.register(data.username, data.password, null, {
         "type": "m.login.dummy"
       });
       res.url = data.url;
-
+      client.startClient();
       await commit('LOGIN', res);
       router.push({
         name: 'setup'
@@ -105,13 +125,31 @@ export default {
 
       return Promise.resolve(res);
     } catch (ex) {
-      alert(ex.data.error);
+      //alert(ex.data.error);
       //state.client = null;
       console.error("Failed to set role:", ex);
       return ex;
     }
 
     // return commit('LOGIN', data);
+
+  },
+
+
+  async setDisplayName({
+    state,
+    commit,
+    dispatch
+  }, data) {
+
+    try {
+      const res = await state.client.setDisplayName(data);
+
+      return Promise.resolve(res);
+    } catch (ex) {
+      console.error("Failed to set display name:", ex);
+      return ex;
+    }
 
   },
   async logout({
@@ -134,7 +172,6 @@ export default {
     dispatch
   }, data) {
     if (state.mx_userId) {
-      const res_1 = await state.client.startClient();
       state.client.on('sync', async (syncState) => {
         if (syncState == "PREPARED") {
           const res = await state.client.getAccountData('role');

@@ -7,4 +7,7 @@ export default {
   profile: (state, id) => {
     return state.profile
   },
+  syncState: (state, id) => {
+    return state.client.syncStatus;
+  },
 };
