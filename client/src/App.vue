@@ -4,9 +4,9 @@
   <h1 style="color:red;" v-if="error !== false">Error while loading config: {{error}}</h1>
   <div class="container-full">
     <div v-if="waitingToLogIn !== 'PREPARED'">
-      <b> waiting to log in {{waitingToLogIn}} </b>
+      <b> waiting to log in {{syncState}} </b>
     </div>
-    <b> waiting to log in {{waitingToLogIn}} </b>
+    <b> waiting to log in {{syncState}} </b>
     <router-view></router-view>
   </div>
 </div>
@@ -15,6 +15,9 @@
 <script>
 import Navigation from '@/components/Navigation.vue'
 import Config from './Config'
+import {
+  mapGetters
+} from 'vuex'
 
 export default {
   name: 'app',
@@ -26,9 +29,13 @@ export default {
     Navigation
   },
   computed: {
+    ...
+    mapGetters("auth", [
+      "syncState"
+    ]),
     waitingToLogIn: function() {
       console.log("Is it gonna be smart?");
-      return this.$store.getters['auth/syncState'];
+      return this.syncState;
     }
   },
   created: function() {

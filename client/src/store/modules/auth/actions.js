@@ -30,10 +30,10 @@ export default {
     state.client.on("sync", (sycnState) => {
       commit('SET SYNC STATUS', sycnState);
     })
-    
+
     console.log("I AM TRYING TO SYNC WITH " + state.mx_accesstoken);
 
-    if (!state.mx_accesstoken) {
+    if (autologin && !state.mx_accesstoken) {
       return;
     }
 
