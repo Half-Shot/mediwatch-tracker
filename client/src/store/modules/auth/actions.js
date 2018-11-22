@@ -105,13 +105,31 @@ export default {
 
       return Promise.resolve(res);
     } catch (ex) {
-      alert(ex.data.error);
+      //alert(ex.data.error);
       //state.client = null;
       console.error("Failed to set role:", ex);
       return ex;
     }
 
     // return commit('LOGIN', data);
+
+  },
+
+
+  async setDisplayName({
+    state,
+    commit,
+    dispatch
+  }, data) {
+
+    try {
+      const res = await state.client.setDisplayName(data);
+
+      return Promise.resolve(res);
+    } catch (ex) {
+      console.error("Failed to set display name:", ex);
+      return ex;
+    }
 
   },
   async logout({
