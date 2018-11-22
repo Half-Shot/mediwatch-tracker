@@ -2,27 +2,23 @@
 <div class="container">
   <div class="panel">
     <h2> Register for Mediwatch </h2>
-    <a href="Login">Click here to login</a>
+    <router-link :to="{ name: 'login' }">login</router-link>
     <br>
     <form class="" @submit.prevent="register()">
 
-      <input name="username" v-validate.disable="'required|min:3'" type="text" v-model="form.username" placeholder="Username"><br>
+      <input name="username" v-validate.disable="'required|min:3'" type="text" v-model="form.username" placeholder="Username">
+
       <!-- show errors for username if any -->
       <p class="text-danger" v-if="errors.has('username')">{{ errors.first('username') }}</p>
       <input name="password" type="password" v-model="form.password" placeholder="Password"><br>
-      <!-- <input type="radio" name="role" id="patient" value="patient" checked></input>
-      <label for="patient">Patient</label>
-      <br>
-      <input type="radio" name="role" id="doctor" value="doctor"></input>
-      <label for="doctor">Doctor</label>
-      <br> -->
-      <select name="url">
-        <option>medical.webres.me</option>
-        <option>matrix.org</option>
+
+      <select name="url" v-model="form.url">
+        <option value="https://medical.webres.me">medical.webres.me</option>
+        <option value="https://matrix.org">matrix.org</option>
       </select>
       <br>
       <!-- <input name="url" type="text" v-model="form.url" placeholder="Server url"> -->
-      <button type="submit" name="button">login</button>
+      <button type="submit" name="button">register</button>
     </form>
   </div>
 </div>
@@ -42,13 +38,14 @@ export default {
     }
   },
   methods: {
-    login() {
+    register() {
       this.$validator.validateAll().then(result => {
         if (result) {
           this.$store.dispatch('auth/register', this.form)
-          .then( res => this.$store.dispatch('auth/getProfile') )
-        }else{
-          document.getElementById("credentialsIncorrect").style.display ="block";
+          // .then(res => this.$store.dispatch('auth/getProfile'))
+        } else {
+          // probably needs improvement
+          document.getElementById("credentialsIncorrect").style.display = "block";
         }
       })
     }
