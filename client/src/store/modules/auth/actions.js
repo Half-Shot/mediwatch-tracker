@@ -21,15 +21,24 @@ export default {
     //   }))
     // }
     commit('SET_CLIENT', Matrix.createClient({
-      baseUrl: data.url,
+      baseUrl: state.mx_url || data.url,
+      userId: state.mx_userId,
+      accessToken: state.mx_accesstoken,
     }))
+    
     state.client.on("sync", (sycnState) => {
       commit('SET SYNC STATUS', sycnState);
     })
+    
+    if (autologin) {
+      state.client.startClient();
+      return;
+    }
+
     try {
-      const res = (!autologin) ?
-        await state.client.loginWithPassword(data.username, data.password) :
-        await state.client.loginWithToken(state.mx_accesstoken);
+      await state.client.loginWithPassword(data.username, data.password);
+
+      state.client.startClient();
 
       res.url = data.url;
 
@@ -67,7 +76,7 @@ export default {
         "type": "m.login.dummy"
       });
       res.url = data.url;
-
+      client.startClient();
       await commit('LOGIN', res);
       router.push({
         name: 'setup'
@@ -156,7 +165,6 @@ export default {
     dispatch
   }, data) {
     if (state.mx_userId) {
-      const res_1 = await state.client.startClient();
       state.client.on('sync', async (syncState) => {
         if (syncState == "PREPARED") {
           const res = await state.client.getAccountData('role');

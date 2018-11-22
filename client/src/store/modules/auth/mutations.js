@@ -24,6 +24,7 @@ export default {
     state.profile = null
   },
   'SET SYNC STATUS'(state, data){
+    console.log("Setting dat sync to be", data);
     state.syncStatus = data;
   }
 };
