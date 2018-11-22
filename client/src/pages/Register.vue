@@ -18,9 +18,9 @@
       <input type="radio" name="role" id="doctor" value="doctor"></input>
       <label for="doctor">Doctor</label>
       <br> -->
-      <select name="url">
-        <option>medical.webres.me</option>
-        <option>matrix.org</option>
+      <select name="url" v-model="form.url">
+        <option value="https://medical.webres.me">medical.webres.me</option>
+        <option value="https://matrix.org">matrix.org</option>
       </select>
       <br>
       <!-- <input name="url" type="text" v-model="form.url" placeholder="Server url"> -->
@@ -50,16 +50,16 @@ export default {
       this.$validator.validateAll().then(result => {
         if (result) {
           this.$store.dispatch('auth/register', this.form)
-          .then( res => this.$store.dispatch('auth/getProfile') )
+            .then(res => this.$store.dispatch('auth/getProfile'))
         }
       })
     },
-    comparePassword(){
+    comparePassword() {
       var pass0 = document.getElementById("password").value;
       var pass1 = document.getElementById("passwordConfirm").value;
-      if(pass0 === pass1){
+      if (pass0 === pass1) {
         console.log("same");
-      }else{
+      } else {
         console.log("different");
       }
     }
