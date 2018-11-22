@@ -80,18 +80,4 @@ export const router = new VueRouter({
   },
 })
 
-router.beforeEach(async (to, from, next) => {
-  if (!["login", "register"].includes(to.name)) {
-    MatrixClientPeg.attemptToGetLoggedIn();
-    try {
-      await MatrixClientPeg.getClient();
-    } catch (ex) {
-      console.error("Failed to authenticate:", ex);
-      router.push({name: 'login'});
-    }
-  }
-  await Config.loadResult();
-  next();
-});
-
 export default router

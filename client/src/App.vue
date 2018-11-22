@@ -29,8 +29,7 @@ export default {
     Navigation
   },
   computed: {
-    ...
-    mapGetters("auth", [
+    ...mapGetters("auth", [
       "syncState"
     ]),
     waitingToLogIn: function() {
@@ -39,11 +38,13 @@ export default {
     }
   },
   created: function() {
-    this.$store.dispatch('auth/login');
-    Config.result.then((res) => {
-      if (res !== true) {
-        this.error = res;
-      }
+    Config.loadResult().then(() => {
+      Config.result.then((res) => {
+        if (res !== true) {
+          this.error = res;
+        }
+      });
+      this.$store.dispatch('auth/login');
     });
   },
   data() {

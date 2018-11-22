@@ -55,7 +55,7 @@ export default {
       form: {
         username: '',
         password: '',
-        url: Config.getDefaultHomeserver(),
+        url: "medical.webres.me", //Config.getDefaultHomeserver(),
       }
     }
   },

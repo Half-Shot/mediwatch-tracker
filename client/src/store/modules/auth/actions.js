@@ -31,8 +31,6 @@ export default {
       commit('SET SYNC STATUS', sycnState);
     })
 
-    console.log("I AM TRYING TO SYNC WITH " + state.mx_accesstoken);
-
     if (autologin && !state.mx_accesstoken) {
       return;
     }
@@ -164,7 +162,7 @@ export default {
     // This removes the client from the Peg and deletes the tokens
     dispatch('unsetClient', true)
     commit('LOGOUT')
-    router.push('/login');
+    router.push({name: "login"});
   },
   async getProfile({
     state,
