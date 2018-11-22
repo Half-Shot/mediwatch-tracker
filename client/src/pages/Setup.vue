@@ -1,14 +1,14 @@
 <template>
 <div class="container">
   <div class="panel">
-    <h2> Register for Mediwatch </h2>
-    <a href="Login">Click here to login</a>
+    <h2> Your information </h2>
     <br>
-    <form class="" @submit.prevent="register()">
-      <input type="radio" name="role" id="patient" value="patient" checked></input>
+    <form class="" @submit.prevent="setup()">
+      <!-- <input type="text" name="" value=""> -->
+      <input type="radio" name="role" id="patient" value="0" v-model="form.role"></input>
       <label for="patient">Patient</label>
       <br>
-      <input type="radio" name="role" id="doctor" value="doctor"></input>
+      <input type="radio" name="role" id="doctor" value="1" v-model="form.role"></input>
       <label for="doctor">Doctor</label>
       <br>
       <input type="number" name="height" placeholder="180" min="46" max="2720">Height(CM)</input>
@@ -24,26 +24,24 @@
 </template>
 
 <script>
-import Config from '../Config'
 export default {
-  name: "Login",
+  name: "Setup",
   data: function() {
     return {
       form: {
-        username: '',
-        password: '',
-        url: Config.getDefaultHomeserver(),
+        role: 0
       }
     }
   },
+  mounted() {
+    //this.$store.dispatch('auth/login')
+  },
   methods: {
-    login() {
+    setup() {
       this.$validator.validateAll().then(result => {
         if (result) {
-          this.$store.dispatch('auth/login', this.form)
-          .then( res => this.$store.dispatch('auth/getProfile') )
-        }else{
-          document.getElementById("credentialsIncorrect").style.display ="block";
+          this.$store.dispatch('auth/setRole', this.form)
+          //.then( res => this.$store.dispatch('auth/getProfile') )
         }
       })
     }

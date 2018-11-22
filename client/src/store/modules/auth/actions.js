@@ -8,8 +8,13 @@ export default {
     commit,
     dispatch
   }, data) {
-    console.log(state.client);
-
+    let autologin = false;
+    if (!data) {
+      autologin = true;
+      data = {
+        url: state.mx_url
+      };
+    }
     // if (state.client != null) {
     //   commit('SET_CLIENT', Matrix.createClient({
     //       baseUrl: data.url,
@@ -21,7 +26,10 @@ export default {
 
 
     try {
-      const res = await state.client.loginWithPassword(data.username, data.password);
+      const res = (!autologin) ?
+        await state.client.loginWithPassword(data.username, data.password) :
+        await state.client.loginWithToken(state.mx_accesstoken);
+
       res.url = data.url;
 
       await commit('LOGIN', res);
@@ -72,6 +80,40 @@ export default {
     // return commit('LOGIN', data);
 
   },
+
+  async setRole({
+    state,
+    commit,
+    dispatch
+  }, data) {
+
+    // commit('SET_CLIENT', Matrix.createClient({
+    //   baseUrl: state.mx_url
+    // }))
+
+
+    try {
+      const res = await state.client.setAccountData('role', {
+        "role": data.role
+      });
+      //res.url = data.url;
+
+      //await commit('LOGIN', res);
+      router.push({
+        name: 'setup'
+      });
+
+      return Promise.resolve(res);
+    } catch (ex) {
+      alert(ex.data.error);
+      //state.client = null;
+      console.error("Failed to set role:", ex);
+      return ex;
+    }
+
+    // return commit('LOGIN', data);
+
+  },
   async logout({
     state,
     commit,
@@ -92,6 +134,15 @@ export default {
     dispatch
   }, data) {
     if (state.mx_userId) {
+      const res_1 = await state.client.startClient();
+      state.client.on('sync', async (syncState) => {
+        if (syncState == "PREPARED") {
+          const res = await state.client.getAccountData('role');
+          console.log(res);
+        }
+      })
+
+
       const profile = await state.client.getProfileInfo(state.mx_userId);
       profile.avatar = profile.avatar_url ? state.client.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale") : null;
       console.log(profile);
