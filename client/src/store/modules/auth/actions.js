@@ -37,7 +37,40 @@ export default {
     // return commit('LOGIN', data);
 
   },
+  async registerBasic({
+    state,
+    commit,
+    dispatch
+  }, data) {
+    console.log(state.client);
 
+    // if (state.client != null) {
+    //   commit('SET_CLIENT', Matrix.createClient({
+    //       baseUrl: data.url,
+    //   }))
+    // }
+    commit('SET_CLIENT', Matrix.createClient({
+        baseUrl: data.url,
+    }))
+
+
+    try {
+      const res = await state.client.loginWithPassword(data.username, data.password);
+      res.url = data.url;
+
+      await commit('LOGIN', res);
+      router.push({name: 'dashboard'});
+
+       return Promise.resolve(res);
+    } catch (ex) {
+        state.client = null;
+        console.error("Failed to login:", ex);
+        return ex;
+    }
+
+    // return commit('LOGIN', data);
+
+  },
   async logout({
     state,
     commit,
