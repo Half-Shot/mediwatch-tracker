@@ -11,11 +11,11 @@
       <input type="radio" name="role" id="doctor" value="1" v-model="form.role"></input>
       <label for="doctor">Doctor</label>
       <br>
-      <input type="number" name="height" placeholder="180" min="46" max="2720">Height(CM)</input>
+      <input type="number" name="height" placeholder="180" min="46" max="2720">Height(CM)
       <br>
-      <input type="number" name="weight" placeholder="60" max="635" min="2" step="0.1">Weight(KG)</input>
+      <input type="number" name="weight" placeholder="60" max="635" min="2" step="0.1">Weight(KG)
       <br>
-      <input type="text" name="displayname">Display name</input>
+      <input type="text" name="displayname">Display name
       <br>
       <button type="submit" name="button">Submit</button>
     </form>

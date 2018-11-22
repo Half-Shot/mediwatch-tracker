@@ -17,10 +17,10 @@
       <br>
       <p class="passwordError" v-if="errors.has('password')">{{ errors.first('password')}}</p>
       <p class="passwordError" v-if="errors.has('passwordConfirm')">{{ errors.first('passwordConfirm')}}</p>
-      <!-- <input type="radio" name="role" id="patient" value="patient" checked></input>
+      <!-- <input type="radio" name="role" id="patient" value="patient" checked>
       <label for="patient">Patient</label>
       <br>
-      <input type="radio" name="role" id="doctor" value="doctor"></input>
+      <input type="radio" name="role" id="doctor" value="doctor">
       <label for="doctor">Doctor</label>
       <br> -->
       <select name="url" v-model="form.url">
