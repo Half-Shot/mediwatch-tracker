@@ -1,60 +1,41 @@
 <template>
-<div class="container">
-  <div class="panel">
-    <h1> Register for Mediwatch </h1>
-    <div class="row">
-      <div class="half">
-        <form class="" @submit.prevent="register()">
-          <div class="row">
-            <p>Fields marked with a <span class="required">*</span> are mandatory</p>
+<div class="login">
+  <section>
+    <div class="container background-section">
+      <div class="row">
+        <div class="col-md-8">
+          <h1>Mediwatch</h1>
+          <p>You're the owner of your medical data!</p>
+        </div>
+        <div class="col-md-4">
+          <div class="panel">
+            <form class="" @submit.prevent="register()">
+              <h2>Register</h2>
+                <input name="username" v-validate.disable="'required|min:3'" type="text" v-model="form.username" placeholder="Username">
+                <p class="text-danger" v-if="errors.has('username')">{{ errors.first('username') }}</p>
+
+                <input name="password" id="password" ref="password" v-validate.disable="'required|min:6'" type="password" v-model="form.password" placeholder="Password">
+                <p class="passwordError" v-if="errors.has('password')">{{ errors.first('password')}}</p>
+
+                <input name="passwordConfirm" id="passwordConfirm" v-validate.disable="'required|confirmed:password'" type="password" v-model="form.passwordConfirm" placeholder="Confirm Password">
+                <p class="passwordError" v-if="errors.has('passwordConfirm')">{{ errors.first('passwordConfirm')}}</p>
+
+                <select name="url" v-model="form.url">
+                  <option value="https://medical.webres.me">medical.webres.me</option>
+                  <option value="https://matrix.half-shot.uk">half-shot.uk</option>
+                  <option value="https://matrix.org">matrix.org</option>
+                </select>
+
+                <button type="submit" name="button" class="btn">Register</button>
+                <router-link :to="{ name: 'login' }" class="underlined">Login</router-link>
+
+            </form>
           </div>
-          <div class="row">
-            <div class="half">
-              <!-- show errors for username if any -->
-              <p class="text-danger" v-if="errors.has('username')">{{ errors.first('username') }}</p>
-            </div>
-            <div class="half">
-              <span class="required">*</span><input name="username" v-validate.disable="'required|min:3'" type="text" v-model="form.username" placeholder="Username" style="width:95%;">
-            </div>
-          </div>
-          <div class="row">
-            <div class="half">
-              <p class="passwordError" v-if="errors.has('password')">{{ errors.first('password')}}</p>
-            </div>
-            <div class="half">
-              <span class="required">*</span>
-              <input name="password" id="password" ref="password" v-validate="'required|min:6'" type="password" v-model="form.password" placeholder="Password">
-            </div>
-          </div>
-          <div class="row">
-            <div class="half">
-              <p class="passwordError" v-if="errors.has('passwordConfirm')">{{ errors.first('passwordConfirm')}}</p>
-            </div>
-            <div class="half">
-              <span class="required">*</span>
-              <input name="passwordConfirm" id="passwordConfirm" v-validate="'required|confirmed:password'" type="password" v-model="form.passwordConfirm" placeholder="Confirm Password">
-            </div>
-          </div>
-          <div class="row">
-            <span class="required">*</span>
-          </div>
-          <div class="row">
-            <select name="url" v-model="form.url">
-              <option value="https://medical.webres.me">medical.webres.me</option>
-              <option value="https://matrix.org">matrix.org</option>
-            </select>
-          </div>
-          <div class="row">
-            <button type="submit" name="button" class="button">Register</button>
-          </div>
-        </form>
-      </div>
-      <div class="half">
-        <router-link :to="{ name: 'login' }" class="button">Click here to login</router-link>
+        </div>
       </div>
     </div>
-    <p>.</p>
-  </div>
+  </section>
+
 </div>
 </template>
 
@@ -71,7 +52,7 @@ export default {
       form: {
         username: '',
         password: '',
-        url: Config.getDefaultHomeserver(),
+        url: 'https://medical.webres.me',
       }
     }
   },

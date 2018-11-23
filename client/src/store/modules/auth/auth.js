@@ -8,6 +8,7 @@ const state = {
   profile: null,
   client: null,
   syncState: null,
+  role: null
 };
 
 export default {

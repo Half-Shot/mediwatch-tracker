@@ -16,10 +16,11 @@
                 <p class="text-danger" v-if="errors.has('username')">{{ errors.first('username') }}</p>
               </div>
               <div class="input-group">
-                <input name="password" type="password" v-model="form.password" placeholder="Password">
+                <input name="password" type="password" v-validate.disable="'required'" v-model="form.password" placeholder="Password">
+                <p class="text-danger" v-if="errors.has('password')">{{ errors.first('password') }}</p>
               </div>
               <div class="input-group">
-                <label>Server:</label>
+                <!-- <label>Server:</label> -->
                 <select name="url" v-model="form.url">
                   <option value="https://medical.webres.me">medical.webres.me</option>
                   <option value="https://matrix.half-shot.uk">half-shot.uk</option>

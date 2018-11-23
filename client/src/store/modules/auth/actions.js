@@ -1,6 +1,7 @@
 import * as types from '@/store/types';
 const Matrix = require("matrix-js-sdk");
 import router from '../../../router';
+import Vue from 'vue'
 
 export default {
   async login({
@@ -15,11 +16,7 @@ export default {
         url: state.mx_url
       };
     }
-    // if (state.client != null) {
-    //   commit('SET_CLIENT', Matrix.createClient({
-    //       baseUrl: data.url,
-    //   }))
-    // }
+
     commit('SET_CLIENT', Matrix.createClient({
       baseUrl: data.url || state.mx_url,
       userId: state.mx_userId,
@@ -51,12 +48,18 @@ export default {
 
       await commit('LOGIN', res);
       router.push({
-        name: 'dashboard'
+        name: 'Home'
       });
 
       return Promise.resolve(res);
     } catch (ex) {
-      alert(ex.data.error);
+
+      Vue.notify({
+        group: 'foo',
+        text: ex.data.error,
+        type: 'error'
+      })
+
       state.client = null;
       console.error("Failed to login:", ex);
       return ex;
@@ -92,7 +95,12 @@ export default {
 
       return Promise.resolve(res);
     } catch (ex) {
-      alert(ex.data.error);
+
+      Vue.notify({
+        group: 'foo',
+        text: ex.data.error,
+        type: 'error'
+      })
       state.client = null;
       console.error("Failed to login:", ex);
       return ex;
@@ -126,7 +134,12 @@ export default {
 
       return Promise.resolve(res);
     } catch (ex) {
-      //alert(ex.data.error);
+
+      Vue.notify({
+        group: 'foo',
+        text: ex.data.error,
+        type: 'error'
+      })
       //state.client = null;
       console.error("Failed to set role:", ex);
       return ex;
@@ -170,11 +183,12 @@ export default {
     dispatch
   }, data) {
     console.log("Getting profile of", state.mx_userId);
+
     if (state.mx_userId) {
       state.client.on('sync', async (syncState) => {
         if (syncState == "PREPARED") {
           const res = await state.client.getAccountData('role');
-          console.log(res);
+          commit('SET_ROLE', res.event.content.role)
         }
       })
 
@@ -183,6 +197,8 @@ export default {
       profile.avatar = profile.avatar_url ? state.client.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale") : null;
       console.log(profile);
       commit('SET_PROFILE', profile)
+    }else{
+      router.push({name: "login"});
     }
 
     // this.profile.displayname = profile.displayname;

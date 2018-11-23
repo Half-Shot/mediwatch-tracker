@@ -23,6 +23,9 @@ export default {
   'LOGOUT'(state){
     state.profile = null
   },
+  'SET_ROLE'(state,data){
+    state.role = data
+  },
   'SET SYNC STATUS'(state, data){
     console.log("Updating sync state", state.syncState, data);
     state.syncState = data;

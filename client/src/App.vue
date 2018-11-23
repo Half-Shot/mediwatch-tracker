@@ -6,16 +6,16 @@
     <div v-if="!syncStateOk && isSyncingPage">
       <b> Synchronising, please wait: {{syncState}} </b>
       <spinner class="spinner"
-        :status="active"
         :color="'#444444'"
         :size="128"
         :depth="5"
-        :rotation="5"
+        :rotation="true"
         :speed="5"></spinner>
     </div>
     <main class="main" v-else>
       <router-view></router-view>
     </main>
+    <notifications group="foo" position="top right"></notifications>
   </div>
 </div>
 </template>

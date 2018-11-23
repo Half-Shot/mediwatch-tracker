@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router'
-import HelloWorld from '../components/HelloWorld.vue'
+import Home from '../pages/Home.vue'
 import Dashboard from '../pages/dashboard/index.vue'
 import Conversation from '../components/Conversation.vue'
 import Profile from '../pages/user/profile.vue'
@@ -15,8 +15,9 @@ import Settings from "../pages/dashboard/Settings"
 
 export const routes = [{
     path: '/',
-    name: 'index',
-    component: HelloWorld
+    name: 'Home',
+    component: Home,
+    canReuse: false
   },
   {
     path: '/dashboard',
