@@ -48,7 +48,7 @@ export default {
 
       await commit('LOGIN', res);
       router.push({
-        name: 'Home'
+        name: 'setup'
       });
 
       return Promise.resolve(res);
@@ -185,14 +185,6 @@ export default {
     console.log("Getting profile of", state.mx_userId);
 
     if (state.mx_userId) {
-      state.client.on('sync', async (syncState) => {
-        if (syncState == "PREPARED") {
-          const res = await state.client.getAccountData('role');
-          commit('SET_ROLE', res.event.content.role)
-        }
-      })
-
-
       const profile = await state.client.getProfileInfo(state.mx_userId);
       profile.avatar = profile.avatar_url ? state.client.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale") : null;
       console.log(profile);
