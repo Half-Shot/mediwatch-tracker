@@ -1,5 +1,5 @@
 <template>
-<div id="app">
+<div id="app" class="bootstrap-wrapper">
   <Navigation></Navigation>
   <h1 style="color:red;" v-if="error !== false">Error while loading config: {{error}}</h1>
   <div class="container-full">
@@ -12,10 +12,10 @@
         :depth="5"
         :rotation="5"
         :speed="5"></spinner>
-    </div>  
-    <div v-else>
-      <router-view></router-view>
     </div>
+    <main class="main" v-else>
+      <router-view></router-view>
+    </main>
   </div>
 </div>
 </template>
@@ -32,7 +32,7 @@ export default {
   name: 'app',
   metaInfo: {
     title: 'Home',
-    titleTemplate: '%s | WebRes'
+    titleTemplate: '%s | Mediwatch'
   },
   components: {
     Navigation,
@@ -70,7 +70,14 @@ export default {
 
 <style lang="scss">
 @import "../node_modules/normalize.css/normalize.css";
+@import "../node_modules/bootstrap-grid-only-css/dist/css/bootstrap-grid.min.css";
 
+main.main{
+  min-height: 100vh;
+  position: relative;
+  float: left;
+  width: 100%;
+}
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -80,15 +87,23 @@ export default {
     width: 100%;
 }
 
+h1, h2, h3, h4, h5 ,h6{
+  position: relative;
+}
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
-*,
-*:after,
-*:before {
-    box-sizing: inherit;
+*, *:before, *:after {
+  box-sizing: inherit;
 }
-/* 
+hr{
+  border: none;
+  width: 75%;
+  margin: 10px auto;
+  display: block;
+  background: red;
+  height: 2px;
+}
 a {
     text-decoration: none;
     font-weight: bold;
@@ -106,12 +121,69 @@ a {
     &:focus {
         text-decoration: none;
     }
-} */
-
-body {
-    /* background: #faf9f9; */
 }
 
+body {
+    background: #fffefe;
+}
+.btn{
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    cursor: pointer;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    color: #fff;
+    background-color: #00b4db;
+    border-color: #00b4db;
+    margin: 10px 10px 10px 0;
+
+    &.full{
+      width: 100%;
+      margin: 10px 0;
+    }
+    &:hover{
+      background-color: #00b4db;
+      border-color: #00b4db;
+    }
+}
+label{
+  margin-bottom: 5px;
+  float: left;
+  width: 100%;
+}
+
+input{
+  float: left;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #071e3d;
+  padding: 10px 0;
+  margin-bottom: 15px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  &:focus{
+    outline: none;
+    border-bottom-color: #aedefc;
+  }
+}
+select{
+  float: left;
+  width: 100%;
+  margin-bottom: 15px;
+}
 .panel {
     background: #fff;
     box-shadow: 0 1px 20px 0 rgba(46,61,73,.2);
@@ -129,5 +201,5 @@ body {
     width: 100%;
     float: left;
 }
-@import "../stylesheet.css";
+//@import "../stylesheet.css";
 </style>

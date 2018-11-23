@@ -62,6 +62,9 @@
 import Config from '../Config'
 export default {
   name: "Register",
+  metaInfo: {
+    title: 'Register'
+  },
   data: function() {
     return {
       passwordConfirm: false,

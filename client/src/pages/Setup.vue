@@ -31,6 +31,9 @@ import {
 } from 'vuex'
 export default {
   name: "Setup",
+  metaInfo: {
+    title: 'Setup'
+  },
   data: function() {
     return {
       form: {

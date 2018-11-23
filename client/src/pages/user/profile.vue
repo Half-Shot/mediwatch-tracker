@@ -68,22 +68,4 @@ export default {
   width: 300px;
 }
 
-.row{
-  float:left;
-  width: 100%;
-}
-
-.row label{
-  float:left;
-}
-
-.row input{
-  float:right;
-}
-
-input{
-  width: 50%;
-}
-
-
 </style>

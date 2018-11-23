@@ -22,6 +22,9 @@
 import Config from '../Config'
 export default {
   name: "Reset",
+  metaInfo: {
+    title: 'Reset'
+  },
   data: function() {
     return {
       form: {
