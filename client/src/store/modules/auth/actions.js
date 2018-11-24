@@ -187,7 +187,6 @@ export default {
     if (state.mx_userId) {
       const profile = await state.client.getProfileInfo(state.mx_userId);
       profile.avatar = profile.avatar_url ? state.client.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale") : null;
-      console.log(profile);
       commit('SET_PROFILE', profile)
     }else{
       router.push({name: "login"});
