@@ -1,5 +1,7 @@
 import * as types from '@/store/types';
 
+import {SECURITY_LEVELS_MAP} from "./privacy";
+
 export default {
     // Fire this when we show a new room to the user.
     showingRoom({

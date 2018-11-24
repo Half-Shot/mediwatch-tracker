@@ -23,9 +23,6 @@ export default {
         },
     }
   },
-  created() {
-      console.log("Security is ", this.securityLevel, this);
-  },
   computed: {
     ...mapGetters("privacy", [
       "securityLevel"
