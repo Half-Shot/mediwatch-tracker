@@ -50,5 +50,15 @@ export default {
                 }
             }]
         });
-    }
+    },
+    addToLog({
+      state,
+      commit,
+      dispatch
+  }, {room, body}) {
+        return this.getters['auth/client'].sendTextMessage(
+            room.roomId,
+            body,
+        );
+    },
 };

@@ -3,26 +3,47 @@
         <h1> RoomID: {{this.room.roomId}} </h1>
         <h1> Name: {{this.room.name}} </h1>
         <p>This is a room, baaa. 🐑</p>
+        <ul>
+            <li v-for="event in events">{{event.content.body}}</li>
+        </ul>
+        <form @submit.prevent="addToLog()">
+          <input type="text" v-model="text" name="displayname" placeholder="Some text to send">
+          <button type="submit" name="button">Send</button>
+        </form>
     </div>
 </template>
 
 <script>
 export default {
   name: "BaseRoom",
-  props: ['room'],
+  props: ['room', 'force'],
   data: function() {
     return {
-
+        text: "",
+        events: [],
     }
   },
   mounted() {
       this.$store.dispatch("privacy/showingRoom", this.room);
+      // Get event contents, and filter for non state events.
+      this.events = this.room.timeline.map((e) => e.event).filter((e) => e.state_key == null);
+
   },
   beforeDestroy() {
       this.$store.dispatch("privacy/hidingRoom", this.room);
   },
   methods: {
-
+      addToLog() {
+          this.$store.dispatch("room/addToLog", {
+                room: this.room,
+                body: this.text,
+          });
+          this.events.push({
+              content: {
+                  body: this.text,
+              }
+          })
+      }
   }
 }
 </script>
