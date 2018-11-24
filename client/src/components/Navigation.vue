@@ -1,5 +1,6 @@
 <template lang="html">
   <nav class="main-nav" v-if="profile">
+    <SecurityBadge></SecurityBadge>
     <h2>Mediwatch</h2>
     <ul>
       <li>
@@ -40,13 +41,16 @@
 </template>
 
 <script>
-import MatrixClientPeg from '../MatrixClientPeg'
+import SecurityBadge from "./SecurityBadge";
 import {
   mapGetters
 } from 'vuex'
 
 export default {
   name: 'Navigation',
+  components: {
+      SecurityBadge,
+  },
   data() {
     return {
       submenu: false
@@ -78,7 +82,11 @@ export default {
     width: 100%;
     background: #fff;
     box-shadow: 0 1px 20px 0 rgba(46,61,73,.2);
-    h2{
+    h2 {
+      float: left;
+      margin: 12px 30px 0;
+    }
+    div {
       float: left;
       margin: 12px 30px 0;
     }

@@ -19,8 +19,9 @@
     </div>
   </template>
 
-  <template v-if="role && role == 0">
+  <template v-if="role === 0">
     Non-Doctor stuff
+    <BaseRoom :room="this.rooms.medicalLog"></BaseRoom>
   </template>
 
 </div>
@@ -30,10 +31,19 @@
 import {
   mapGetters
 } from 'vuex'
+import BaseRoom from "@/components/Room"
 export default {
   name: 'Home',
+  components: {
+      BaseRoom
+  },
+  created() {
+      this.$store.dispatch("room/fetchRooms");
+      this.rooms = this.$store.getters['room/roomSet'];
+  },
   data: function() {
     return {
+      rooms: {},
       patients: [
         {
           name: 'Test'
