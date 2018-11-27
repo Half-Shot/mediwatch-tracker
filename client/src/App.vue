@@ -47,13 +47,14 @@ export default {
   },
   created: function() {
     this.$store.dispatch('auth/login');
-    Config.loadResult().then(() => {
+    // This was a mistake.
+    /*Config.loadResult().then(() => {
       Config.result.then((res) => {
         if (res !== true) {
           this.error = res;
         }
       });
-    });
+    });*/
   },
   data() {
     return {
