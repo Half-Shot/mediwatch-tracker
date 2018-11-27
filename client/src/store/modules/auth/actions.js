@@ -87,12 +87,16 @@ export default {
         "type": "m.login.dummy"
       });
       res.url = data.url;
-      client.startClient();
-      await commit('LOGIN', res);
+      // state.client.startClient();
+      // await commit('LOGIN', res);
       router.push({
-        name: 'setup'
+        name: 'login'
       });
-
+      Vue.notify({
+        group: 'foo',
+        text: 'Successfully created your account. Please log in.',
+        type: 'success'
+      })
       return Promise.resolve(res);
     } catch (ex) {
 
@@ -175,7 +179,9 @@ export default {
     dispatch('unsetClient', true)
     commit('LOGOUT')
     commit('SET SYNC STATUS', undefined);
-    router.push({name: "login"});
+    router.push({
+      name: "login"
+    });
   },
   async getProfile({
     state,
@@ -188,8 +194,10 @@ export default {
       const profile = await state.client.getProfileInfo(state.mx_userId);
       profile.avatar = profile.avatar_url ? state.client.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale") : null;
       commit('SET_PROFILE', profile)
-    }else{
-      router.push({name: "login"});
+    } else {
+      router.push({
+        name: "login"
+      });
     }
 
     // this.profile.displayname = profile.displayname;

@@ -1,46 +1,38 @@
 <template>
 <div class="container">
-  <div class="pane setup">
-    <h1> Setting up your account </h1>
-    <br>
+  <div class="panel setup">
+
     <div v-if="setupStage == -1">
-        <Spinner class="spinner"
-          :color="'#444444'"
-          :size="128"
-          :depth="5"
-          :rotation="true"
-          :speed="5"></Spinner>
+      <Spinner class="spinner" :color="'#444444'" :size="128" :depth="5" :rotation="true" :speed="5"></Spinner>
     </div>
     <h2 v-bind:class="{ active: (setupStage == 1) }"> Setup your profile </h2>
     <div v-if="setupStage == 1">
-        <form @submit.prevent="sendDataForm()">
-          <!-- <input type="text" name="" value=""> -->
+      <form @submit.prevent="sendDataForm()">
+        <div class="input-group">
+          Display name
+          <input v-if="profile" type="text" name="displayname" v-model="profile.displayname" placeholder="Display Name">
+        </div>
+        <!-- <input type="text" name="" value=""> -->
+        <div class="inputGroup">
           <input type="radio" name="role" id="patient" value="0" v-model="form.role">
           <label for="patient">Patient</label>
-          <br>
+        </div>
+        <div class="inputGroup">
           <input type="radio" name="role" id="doctor" value="1" v-model="form.role">
           <label for="doctor">Doctor</label>
-          <!-- <br>
+        </div>
+        <!-- <br>
           <input type="number" name="height" placeholder="180" min="46" max="2720">Height(CM)
           <br>
           <input type="number" name="weight" placeholder="60" max="635" min="2" step="0.1">Weight(KG)
-          <br> -->
-          <br>
-          Display name
-          <input v-if="profile" type="text" name="displayname" v-model="profile.displayname">
-          <br>
-          <button type="submit" name="button">Submit</button>
-        </form>
+           -->
+        <button type="submit" name="button" class="btn">Submit</button>
+      </form>
     </div>
     <h2 v-bind:class="{ active: (setupStage == 2) }"> Creating your data views </h2>
     <p>{{roomCreatingStatement}}</p>
     <div v-if="setupStage == 2">
-        <Spinner class="spinner"
-          :color="'#444444'"
-          :size="32"
-          :depth="5"
-          :rotation="true"
-          :speed="5"></Spinner>
+      <Spinner class="spinner" :color="'#444444'" :size="32" :depth="5" :rotation="true" :speed="5"></Spinner>
     </div>
   </div>
 </div>
@@ -57,7 +49,7 @@ export default {
     title: 'Setup'
   },
   components: {
-      Spinner
+    Spinner
   },
   data: function() {
     return {
@@ -77,18 +69,22 @@ export default {
     const isRoomsIncomplete = rooms.medicalLog === null;
     console.log("role:", role, "rooms:", rooms);
     if (role == null || role == undefined) {
-        this.setupStage = 1;
+      this.setupStage = 1;
     } else if (isRoomsIncomplete) {
-        this.setupStage = 2;
-        this.createRooms().then(() => {
-            this.$store.dispatch('room/fetchRooms');
-            this.$router.push({name: "dashboard"});
-        }).catch((err) => {
-            this.roomCreatingStatement = "Encountered an error while creating. Ask someone for help!";
-            console.error("Ran into an error while creating rooms:", err);
-        })
+      this.setupStage = 2;
+      this.createRooms().then(() => {
+        this.$store.dispatch('room/fetchRooms');
+        this.$router.push({
+          name: "dashboard"
+        });
+      }).catch((err) => {
+        this.roomCreatingStatement = "Encountered an error while creating. Ask someone for help!";
+        console.error("Ran into an error while creating rooms:", err);
+      })
     } else { // All set, redirect to home.
-        this.$router.push({name: "dashboard"});
+      this.$router.push({
+        name: "dashboard"
+      });
     }
   },
   methods: {
@@ -102,9 +98,11 @@ export default {
               const rooms = this.$store.getters['room/roomSet'];
               const isRoomsIncomplete = rooms.medicalLog === null;
               if (isRoomsIncomplete) {
-                  this.setupStage = 2;
+                this.setupStage = 2;
               } else {
-                  this.$router.push({name: "dashboard"});
+                this.$router.push({
+                  name: "dashboard"
+                });
               }
             })
 
@@ -113,12 +111,14 @@ export default {
       })
     },
     async createRooms() {
-        const rooms = this.$store.getters['room/roomSet'];
-        if (rooms.medicalLog === null) {
-            this.roomCreatingStatement = "Creating Medical Log";
-            await this.$store.dispatch('room/create', {type: "medicallog"});
-        }
-        // Create some rooms.
+      const rooms = this.$store.getters['room/roomSet'];
+      if (rooms.medicalLog === null) {
+        this.roomCreatingStatement = "Creating Medical Log";
+        await this.$store.dispatch('room/create', {
+          type: "medicallog"
+        });
+      }
+      // Create some rooms.
     }
   },
   computed: {
@@ -131,16 +131,15 @@ export default {
 
 <style type="scss">
 .spinner {
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.pane.setup h2 {
-    color:grey;
+.panel.setup h2 {
+  color: grey;
 }
 
-.pane.setup h2.active {
-    color: black;
+.panel.setup h2.active {
+  color: black;
 }
-
 </style>

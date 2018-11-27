@@ -19,43 +19,41 @@ export default {
   props: ['room', 'force'],
   data: function() {
     return {
-        text: "",
-        events: [],
+      text: "",
+      events: [],
     }
   },
   mounted() {
-      this.$store.dispatch("privacy/showingRoom", this.room);
-      // Get event contents, and filter for non state events.
-      this.events = this.room.timeline.map((e) => e.event).filter((e) => e.state_key == null);
+    this.$store.dispatch("privacy/showingRoom", this.room);
+    // Get event contents, and filter for non state events.
+    this.events = this.room.timeline.map((e) => e.event).filter((e) => e.state_key == null);
 
   },
   beforeDestroy() {
-      this.$store.dispatch("privacy/hidingRoom", this.room);
+    this.$store.dispatch("privacy/hidingRoom", this.room);
   },
   methods: {
-      addToLog() {
-          this.$store.dispatch("room/addToLog", {
-                room: this.room,
-                body: this.text,
-          });
-          this.events.push({
-              content: {
-                  body: this.text,
-              }
-          })
-      }
+    addToLog() {
+      this.$store.dispatch("room/addToLog", {
+        room: this.room,
+        body: this.text,
+      });
+      this.events.push({
+        content: {
+          body: this.text,
+        }
+      })
+    }
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+h1 {
+    font-size: 12pt;
+}
 
-    h1 {
-        font-size: 12pt;
-    }
-
-    .container.room {
-        border: 1px solid black;
-    }
-
+.container.room {
+    border: 1px solid black;
+}
 </style>

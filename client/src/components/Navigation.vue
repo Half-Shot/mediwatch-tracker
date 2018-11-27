@@ -49,7 +49,7 @@ import {
 export default {
   name: 'Navigation',
   components: {
-      SecurityBadge,
+    SecurityBadge,
   },
   data() {
     return {
@@ -83,12 +83,12 @@ export default {
     background: #fff;
     box-shadow: 0 1px 20px 0 rgba(46,61,73,.2);
     h2 {
-      float: left;
-      margin: 12px 30px 0;
+        float: left;
+        margin: 12px 30px 0;
     }
-    div {
-      float: left;
-      margin: 12px 30px 0;
+    div.security-button {
+        float: left;
+        margin: 10px 0 0 30px;
     }
     ul {
         margin: 0 30px 0 0;

@@ -5,12 +5,7 @@
   <div class="container-full">
     <div v-if="!syncStateOk && isSyncingPage">
       <b> Synchronising, please wait: {{syncState}} </b>
-      <spinner class="spinner"
-        :color="'#444444'"
-        :size="128"
-        :depth="5"
-        :rotation="true"
-        :speed="5"></spinner>
+      <spinner class="spinner" :color="'#444444'" :size="128" :depth="5" :rotation="true" :speed="5"></spinner>
     </div>
     <main class="main" v-else>
       <router-view></router-view>
@@ -72,11 +67,11 @@ export default {
 @import "../node_modules/normalize.css/normalize.css";
 @import "../node_modules/bootstrap-grid-only-css/dist/css/bootstrap-grid.min.css";
 
-main.main{
-  min-height: 100vh;
-  position: relative;
-  float: left;
-  width: 100%;
+main.main {
+    min-height: 100vh;
+    position: relative;
+    float: left;
+    width: 100%;
 }
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -87,22 +82,29 @@ main.main{
     width: 100%;
 }
 
-h1, h2, h3, h4, h5 ,h6{
-  position: relative;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
 }
 html {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
-*, *:before, *:after {
-  box-sizing: inherit;
+*,
+*:after,
+*:before {
+    box-sizing: inherit;
 }
-hr{
-  border: none;
-  width: 75%;
-  margin: 10px auto;
-  display: block;
-  background: red;
-  height: 2px;
+hr {
+    border: none;
+    width: 75%;
+    margin: 10px auto;
+    display: block;
+    background: red;
+    height: 2px;
 }
 a {
     text-decoration: none;
@@ -126,7 +128,7 @@ a {
 body {
     background: #fffefe;
 }
-.btn{
+.btn {
     display: inline-block;
     font-weight: 400;
     text-align: center;
@@ -138,51 +140,51 @@ body {
     -ms-user-select: none;
     user-select: none;
     border: 1px solid transparent;
-    padding: .375rem .75rem;
+    padding: 0.375rem 0.75rem;
     font-size: 1rem;
     line-height: 1.5;
-    border-radius: .25rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
     color: #fff;
     background-color: #00b4db;
     border-color: #00b4db;
     margin: 10px 10px 10px 0;
 
-    &.full{
-      width: 100%;
-      margin: 10px 0;
+    &.full {
+        width: 100%;
+        margin: 10px 0;
     }
-    &:hover{
-      background-color: #00b4db;
-      border-color: #00b4db;
+    &:hover {
+        background-color: #00b4db;
+        border-color: #00b4db;
     }
 }
-label{
-  margin-bottom: 5px;
-  float: left;
-  width: 100%;
+label {
+    margin-bottom: 5px;
+    float: left;
+    width: 100%;
 }
 
-input{
-  float: left;
-  width: 100%;
-  border: none;
-  border-bottom: 2px solid #071e3d;
-  padding: 10px 0;
-  margin-bottom: 15px;
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-  &:focus{
-    outline: none;
-    border-bottom-color: #aedefc;
-  }
+input {
+    float: left;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #071e3d;
+    padding: 10px 0;
+    margin-bottom: 15px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    &:focus {
+        outline: none;
+        border-bottom-color: #aedefc;
+    }
 }
-select{
-  float: left;
-  width: 100%;
-  margin-bottom: 15px;
+select {
+    float: left;
+    width: 100%;
+    margin-bottom: 15px;
 }
 .panel {
     background: #fff;
@@ -201,5 +203,68 @@ select{
     width: 100%;
     float: left;
 }
+
+.inputGroup {
+    background-color: #fff;
+    display: block;
+    margin: 10px 0;
+    position: relative;
+    float: left;
+    width: 50%;
+    label {
+        padding: 20px 30px 20px 40px;
+        width: 100%;
+        display: block;
+        text-align: left;
+        color: #3C454C;
+        cursor: pointer;
+        position: relative;
+        z-index: 2;
+        transition: color 200ms ease-in;
+        overflow: hidden;
+
+        &:after {
+            width: 32px;
+            height: 32px;
+            content: '';
+            border: 2px solid #D1D7DC;
+            background-color: #fff;
+            background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+            background-repeat: no-repeat;
+            background-position: 2px 3px;
+            border-radius: 50%;
+            z-index: 2;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            transition: all 200ms ease-in;
+        }
+    }
+
+    input:checked ~ label {
+        //color: #fff;
+
+        &:after {
+            background-color: #00b4db;
+            border-color: #00b4db;
+        }
+    }
+
+    input {
+        width: 32px;
+        height: 32px;
+        order: 1;
+        z-index: 2;
+        position: absolute;
+        right: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        visibility: hidden;
+    }
+}
+
 //@import "../stylesheet.css";
 </style>
