@@ -2,7 +2,7 @@
     <div class="container roomlist">
         <ul>
             <li v-for="roomType in Object.keys(rooms)">
-                <router-link :to="{ name: 'room', params: {room: rooms[roomType], roomType} }">{{rooms[roomType].name}}</router-link>
+                <router-link :to="{ name: 'room', params: {roomType} }">{{rooms[roomType].name}}</router-link>
             </li>
         </ul>
     </div>

@@ -23,7 +23,6 @@
                 <select name="url" v-model="form.url">
                   <option value="https://medical.webres.me">medical.webres.me</option>
                   <option value="https://matrix.half-shot.uk">half-shot.uk</option>
-                  <option value="https://matrix.org">matrix.org</option>
                 </select>
 
                 <button type="submit" name="button" class="btn">Register</button>

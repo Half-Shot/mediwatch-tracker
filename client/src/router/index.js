@@ -66,7 +66,7 @@ export const routes = [{
     component: Settings
   },
   {
-    path: '/room',
+    path: '/room/:roomType',
     name: 'room',
     component: Room
   }
