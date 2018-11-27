@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="container roomlist">
         <ul>
-            <li v-for="roomType in Object.keys(rooms)">
+            <li v-for="roomType in Object.keys(rooms)" v-if="rooms[roomType] != null">
                 <router-link :to="{ name: 'room', params: {roomType} }">{{rooms[roomType].name}}</router-link>
             </li>
         </ul>
@@ -13,12 +13,14 @@ export default {
   name: "RoomList",
   data: function() {
     return {
-      text: "",
-      rooms: this.$store.getters['room/roomSet'],
-    }
+        text: "",
+        rooms: {},
+    };
   },
   mounted() {
-      console.log("RoomList rooms:", this.rooms);
+      console.log("RoomList rooms:", this.rooms, this.$store.getters['room/roomSet']);
+      console.log(this.$store.getters['room/roomSet']["medicalInfo"])
+      this.rooms = this.$store.getters['room/roomSet'];
       //this.rooms.push({name: "Fake Room", roomId: "FakeId"});
   },
   beforeDestroy() {

@@ -7,6 +7,7 @@ const MEDICAL_INFO_TYPE = `${STATE_TYPE_TYPE}.medicalInfo`;
 
 const TYPE_TO_MX_TYPE = {
   "medicallog": MEDICAL_LOG_TYPE,
+  "medicalInfo": MEDICAL_INFO_TYPE,
 }
 
 const TYPE_TO_NAME = {
@@ -22,6 +23,7 @@ export default {
   }, data) {
     const acctRooms = {
       medicalLog: null,
+      medicalInfo: null,
     };
     console.log("Fetching rooms");
     this.getters['auth/client'].getRooms().forEach((room) => {
@@ -36,6 +38,10 @@ export default {
       if (rType === MEDICAL_LOG_TYPE) {
         acctRooms.medicalLog = room;
       }
+      if (rType === MEDICAL_INFO_TYPE) {
+        acctRooms.medicalInfo = room;
+      }
+      console.log(`Found ${room.roomId} (${rType})`);
     });
     commit('SET_ROOMS', acctRooms);
   },
@@ -44,7 +50,7 @@ export default {
     commit,
     dispatch
   }, data) {
-    const userId = this.getters['auth/client'].getUserId;
+    const userId = this.getters['auth/client'].getUserId();
     const users = {};
     users[userId] = 100;
     return this.getters['auth/client'].createRoom({

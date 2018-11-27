@@ -67,13 +67,13 @@ export default {
     const role = this.$store.getters['auth/role'];
     const rooms = this.$store.getters['room/roomSet'];
     // XXX: UGLY HACK TO CHECK IF ROOMS EXIST
-    const isRoomsIncomplete = rooms.medicalInfo === null || rooms.medicalLog === null;
+    const isRoomsIncomplete = true; //rooms.medicalInfo === null || rooms.medicalLog === null;
     console.log("role:", role, "rooms:", rooms);
     if (role == null || role == undefined) {
       this.setupStage = 1;
     } else if (isRoomsIncomplete) {
+      console.log("Running rooms creation");
       this.setupStage = 2;
-      alert();
       this.createRooms().then(() => {
         this.$store.dispatch('room/fetchRooms');
         this.$router.push({
@@ -84,6 +84,7 @@ export default {
         console.error("Ran into an error while creating rooms:", err);
       })
     } else { // All set, redirect to home.
+      console.log("Nothing to do in /setup, going to dash.")
       this.$router.push({
         name: "dashboard"
       });
@@ -115,15 +116,19 @@ export default {
     async createRooms() {
       const rooms = this.$store.getters['room/roomSet'];
       if (rooms.medicalLog === null) {
+        console.log("Creating medical log");
         this.roomCreatingStatement = "Creating Medical Log";
         await this.$store.dispatch('room/create', {
           title: 'Cardiographical',
-          type: "medicalInfo"
+          type: "medicallog"
         });
       }
       if (rooms.medicalInfo === null) {
+        console.log("Creating medical info");
+        this.roomCreatingStatement = "Creating Medical Info";
         await this.$store.dispatch('room/create', {
-          type: "medicallog"
+          title: 'Cardiographical',
+          type: "medicalInfo"
         });
       }
       // Create some rooms.

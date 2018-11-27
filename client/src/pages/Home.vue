@@ -22,7 +22,6 @@
   <template v-if="role === 0">
     <h2> Your data sources </h2>
     <RoomList></RoomList>
-    <BaseRoom :room="this.rooms.medicalLog"></BaseRoom>
   </template>
 
 </div>
