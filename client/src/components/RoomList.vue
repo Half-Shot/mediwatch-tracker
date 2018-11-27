@@ -13,24 +13,13 @@ export default {
   name: "RoomList",
   data: function() {
     return {
-        text: "",
-        rooms: {},
-    };
+        text: ""
+    }
   },
-  mounted() {
-      console.log("RoomList rooms:", this.rooms, this.$store.getters['room/roomSet']);
-      console.log(this.$store.getters['room/roomSet']["medicalInfo"])
-      this.rooms = this.$store.getters['room/roomSet'];
-      //this.rooms.push({name: "Fake Room", roomId: "FakeId"});
-  },
-  beforeDestroy() {
-  },
-  methods: {
-
-  },
+  computed: {
+    rooms() {
+      return this.$store.getters['room/roomSet']
+    }
+  }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

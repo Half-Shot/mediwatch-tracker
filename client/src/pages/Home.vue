@@ -19,7 +19,7 @@
     </div>
   </template>
 
-  <template v-if="role === 0">
+  <template v-if="role == 0">
     <h2> Your data sources </h2>
     <RoomList></RoomList>
   </template>
@@ -41,11 +41,9 @@ export default {
   },
   created() {
     this.$store.dispatch("room/fetchRooms");
-    this.rooms = this.$store.getters['room/roomSet'];
   },
   data: function() {
     return {
-      rooms: {},
       patients: [
       ],
       search: ''

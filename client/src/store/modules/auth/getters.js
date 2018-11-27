@@ -5,8 +5,7 @@ export default {
     return state.profile
   },
   role: (state, id) => {
-    const res = state.client.getAccountData('role');
-    return !res ? null : res.event.content.role;
+    return state.role;
   },
   syncState: (state, id) => {
     return state.syncState;

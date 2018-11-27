@@ -188,20 +188,25 @@ export default {
     commit,
     dispatch
   }, data) {
-    console.log("Getting profile of", state.mx_userId);
+
+    state.client.on('sync', async (syncState) => {
+      if (syncState == "PREPARED") {
+        const res = await state.client.getAccountData('role');
+        commit('SET_ROLE', res.event.content.role)
+      }
+    })
 
     if (state.mx_userId) {
       const profile = await state.client.getProfileInfo(state.mx_userId);
       profile.avatar = profile.avatar_url ? state.client.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale") : null;
       commit('SET_PROFILE', profile)
+
     } else {
       router.push({
         name: "login"
       });
     }
 
-    // this.profile.displayname = profile.displayname;
-    // this.profile.avatar = profile.avatar_url ? cli.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale") : null;
   },
   unsetClient({
     state,

@@ -21,7 +21,8 @@ const state = {
       title: 'weight',
       avatar: ''
     }
-  ]
+  ],
+  roomSet: []
 };
 
 export default {
