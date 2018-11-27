@@ -1,8 +1,8 @@
 <template lang="html">
     <div class="container roomlist">
         <ul>
-            <li v-for="room in rooms">
-                <router-link :to="{ name: 'room', params: {roomId: room.roomId} }">{{room.name}}</router-link>
+            <li v-for="roomType in Object.keys(rooms)">
+                <router-link :to="{ name: 'room', params: {room: rooms[roomType], roomType} }">{{rooms[roomType].name}}</router-link>
             </li>
         </ul>
     </div>
@@ -11,15 +11,15 @@
 <script>
 export default {
   name: "RoomList",
-  props: ['room', 'force'],
   data: function() {
     return {
       text: "",
-      rooms: [],
+      rooms: this.$store.getters['room/roomSet'],
     }
   },
   mounted() {
-      this.rooms.push({name: "Fake Room", roomId: "FakeId"});
+      console.log("RoomList rooms:", this.rooms);
+      //this.rooms.push({name: "Fake Room", roomId: "FakeId"});
   },
   beforeDestroy() {
   },

@@ -6,6 +6,7 @@
 
 <script>
 export default {
+  props: ['room', 'roomType'],
   metaInfo: {
     title: 'Room'
   },
@@ -13,6 +14,10 @@ export default {
     return {
 
     }
+  },
+  mounted() {
+    console.log("Got room of type", this.roomType, ":", this.room);
+
   },
   methods: {
 
