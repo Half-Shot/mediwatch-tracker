@@ -16,6 +16,8 @@ export default {
             // We are the only ones in it. We can call this safe.
             return;
         }
+        // We have more than one user in this room.
+        commit('ADD ROOM', {roomid: room.roomId, security: 1});
     },
         // Fire this when the room is being unloaded.
     hidingRoom({
@@ -23,6 +25,7 @@ export default {
       commit,
       dispatch
   }, room) {
-          console.log("Hiding room", room);
+        console.log("Hiding room", room);
+        commit('DROP ROOM', room.roomId);
     },
 };

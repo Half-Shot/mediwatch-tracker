@@ -1,8 +1,6 @@
 <template lang="html">
     <div class="container room">
         <h1> RoomID: {{this.room.roomId}} </h1>
-        <h1> Name: {{this.room.name}} </h1>
-        <p>This is a room, baaa. 🐑</p>
         <ul>
             <li v-for="event in events">
               {{event.content.body}}
@@ -13,6 +11,10 @@
           <input type="text" v-model="text" name="displayname" placeholder="Some text to send">
           <button type="submit" name="button" class="btn">Send</button>
         </form>
+        <form @submit.prevent="inviteToView()">
+          <input type="text" v-model="inviteUser" name="displayname" placeholder="@userid:example.com">
+          <button type="submit" name="button" class="btn">Invite to view</button>
+        </form>
     </div>
 </template>
 
@@ -22,6 +24,7 @@ export default {
   props: ['room', 'force'],
   data: function() {
     return {
+      inviteUser: "",
       text: "",
       events: [],
     }
@@ -36,8 +39,8 @@ export default {
     this.$store.dispatch("privacy/hidingRoom", this.room);
   },
   methods: {
-    addToLog() {
-      this.$store.dispatch("room/addToLog", {
+    async addToLog() {
+      await this.$store.dispatch("room/addToLog", {
         room: this.room,
         body: this.text,
       });
@@ -45,7 +48,18 @@ export default {
         content: {
           body: this.text,
         }
-      })
+      });
+    },
+    async inviteToView() {
+      await this.$store.dispatch("room/invite", {
+        room: this.room,
+        user: this.inviteUser,
+      });
+      this.events.push({
+        content: {
+          body: `Invited ${this.inviteUser} to view your data`,
+        }
+      });
     }
   }
 }

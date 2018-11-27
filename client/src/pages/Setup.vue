@@ -29,7 +29,7 @@
         <button type="submit" name="button" class="btn">Submit</button>
       </form>
     </div>
-    <h2 v-bind:class="{ active: (setupStage == 2) }"> Creating your data views </h2>
+    <h2  v-if="setupStage == 2" v-bind:class="{ active: (setupStage == 2) }"> Creating your data views </h2>
     <p>{{roomCreatingStatement}}</p>
     <div v-if="setupStage == 2">
       <Spinner class="spinner" :color="'#444444'" :size="32" :depth="5" :rotation="true" :speed="5"></Spinner>
@@ -67,7 +67,7 @@ export default {
     const role = this.$store.getters['auth/role'];
     const rooms = this.$store.getters['room/roomSet'];
     // XXX: UGLY HACK TO CHECK IF ROOMS EXIST
-    const isRoomsIncomplete = true; //rooms.medicalInfo === null || rooms.medicalLog === null;
+    const isRoomsIncomplete = rooms.medicalInfo === null || rooms.medicalLog === null;
     console.log("role:", role, "rooms:", rooms);
     if (role == null || role == undefined) {
       this.setupStage = 1;
@@ -99,9 +99,18 @@ export default {
             .then(r => {
               this.$store.dispatch('auth/getProfile');
               const rooms = this.$store.getters['room/roomSet'];
-              const isRoomsIncomplete = rooms.medicalLog === null;
+              const isRoomsIncomplete = rooms.medicalInfo === null || rooms.medicalLog === null;
               if (isRoomsIncomplete) {
                 this.setupStage = 2;
+                this.createRooms().then(() => {
+                  this.$store.dispatch('room/fetchRooms');
+                  this.$router.push({
+                    name: "dashboard"
+                  });
+                }).catch((err) => {
+                  this.roomCreatingStatement = "Encountered an error while creating. Ask someone for help!";
+                  console.error("Ran into an error while creating rooms:", err);
+                });
               } else {
                 this.$router.push({
                   name: "dashboard"

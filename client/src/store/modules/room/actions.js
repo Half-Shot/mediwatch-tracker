@@ -25,8 +25,18 @@ export default {
       medicalLog: null,
       medicalInfo: null,
     };
+    const patients = {
+
+    };
     console.log("Fetching rooms");
+    const ourName = this.getters['auth/client'].getUserId();
     this.getters['auth/client'].getRooms().forEach((room) => {
+      // Creator
+      const creatorState = room.currentState.getStateEvents("m.room.create");
+      if (creatorState.length !== 1) {
+          return;
+      }
+      const creatorUser = creatorState[0].getContent().creator;
       const state = room.currentState.getStateEvents(STATE_TYPE_TYPE);
       if (state.length === 0) {
         return;
@@ -35,15 +45,27 @@ export default {
         console.warn(`${room.roomId} has multiple roomtypes, eek`);
       }
       const rType = state[0].getContent().type;
-      if (rType === MEDICAL_LOG_TYPE) {
-        acctRooms.medicalLog = room;
-      }
-      if (rType === MEDICAL_INFO_TYPE) {
-        acctRooms.medicalInfo = room;
+      if (creatorUser === ourName) {
+        if (rType === MEDICAL_LOG_TYPE) {
+            acctRooms.medicalLog = room;
+          }
+          if (rType === MEDICAL_INFO_TYPE) {
+            acctRooms.medicalInfo = room;
+          }
+      } else {
+        const patientUser = patients[creatorUser] || {};
+        if (rType === MEDICAL_LOG_TYPE) {
+            patientUser.medicalLog = room;
+          }
+          if (rType === MEDICAL_INFO_TYPE) {
+            patientUser.medicalInfo = room;
+          }
+        patients[creatorUser] = patientUser;
       }
       console.log(`Found ${room.roomId} (${rType})`);
     });
     commit('SET_ROOMS', acctRooms);
+    commit('SET_PATIENT_ROOMS', patients);
   },
   create({
     state,
@@ -84,6 +106,16 @@ export default {
         }
       ]
     });
+  },
+  invite({
+    state,
+    commit,
+    dispatch
+  }, {
+    room,
+    user
+  }) {
+    return this.getters['auth/client'].invite(room.roomId, user);
   },
   addToLog({
     state,

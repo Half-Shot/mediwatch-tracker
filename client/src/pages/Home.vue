@@ -20,6 +20,8 @@
   </template>
 
   <template v-if="role === 0">
+    <h2> Invites to read data </h2>
+    <p> In the future, we would fill this in with invites to view data </p>
     <h2> Your data sources </h2>
     <RoomList></RoomList>
   </template>
@@ -46,13 +48,7 @@ export default {
   data: function() {
     return {
       rooms: {},
-      patients: [{
-          name: 'Test'
-        },
-        {
-          name: 'Johne'
-        }
-
+      patients: [
       ],
       search: ''
     }

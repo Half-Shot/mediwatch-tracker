@@ -9,7 +9,8 @@ export const SECURITY_LEVELS_MAP = {
 }
 
 const state = {
-  rooms: new Map() // room_id => One of: 0-2.
+  rooms: new Map(), // room_id => One of: 0-2.
+  securityLevel: 2,
 };
 
 export default {
