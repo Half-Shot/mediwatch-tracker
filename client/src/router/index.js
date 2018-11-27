@@ -11,6 +11,7 @@ import Config from "../Config"
 import {E_NOLOGIN} from "../MatrixClientPeg"
 import Forgot from "../pages/Forgot"
 import Reset from "../pages/Reset"
+import Room from "../pages/Room"
 import Settings from "../pages/dashboard/Settings"
 
 export const routes = [{
@@ -63,6 +64,11 @@ export const routes = [{
     path: '/settings',
     name: 'settings',
     component: Settings
+  },
+  {
+    path: '/room',
+    name: 'room',
+    component: Room
   }
 ]
 

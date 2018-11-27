@@ -21,6 +21,8 @@
 
   <template v-if="role === 0">
     Non-Doctor stuff
+    <h2> Your data sources </h2>
+    <RoomList></RoomList>
     <BaseRoom :room="this.rooms.medicalLog"></BaseRoom>
   </template>
 
@@ -32,10 +34,12 @@ import {
   mapGetters
 } from 'vuex'
 import BaseRoom from "@/components/Room"
+import RoomList from "@/components/RoomList"
 export default {
   name: 'Home',
   components: {
-      BaseRoom
+      BaseRoom,
+      RoomList
   },
   created() {
       this.$store.dispatch("room/fetchRooms");
