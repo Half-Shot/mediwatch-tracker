@@ -1,6 +1,6 @@
 <template>
 <div id="app" class="bootstrap-wrapper">
-  <Navigation @toggleInvites="showInvites()"></Navigation>
+  <Navigation @toggleInvites="showInvites()" @toggleShare="showShares()"></Navigation>
   <h1 style="color:red;" v-if="error !== false">Error while loading config: {{error}}</h1>
   <div class="container-full">
     <div v-if="!syncStateOk && isSyncingPage">
@@ -11,7 +11,8 @@
       <router-view></router-view>
     </main>
     <notifications group="foo" position="top right" ></notifications>
-    <InvitePopup v-bind:shown="invites" @toggleInvites="showInvites()"></InvitePopup>
+    <InvitePopup :shown="invites" @toggleInvites="showInvites()"></InvitePopup>
+    <SharePopup :shown="shares" @toggleShare="showShares()"></SharePopup>
   </div>
 </div>
 </template>
@@ -21,6 +22,7 @@ import Navigation from '@/components/Navigation.vue'
 import InvitePopup from '@/components/InvitePopup.vue'
 import Config from './Config'
 import Spinner from 'vue-spinner-component/src/Spinner.vue'
+import SharePopup from '@/components/SharePopup.vue'
 import {
   mapGetters
 } from 'vuex'
@@ -34,7 +36,8 @@ export default {
   components: {
     Navigation,
     Spinner,
-    InvitePopup
+    InvitePopup,
+    SharePopup
   },
   computed: {
     ...mapGetters("auth", [
@@ -54,12 +57,16 @@ export default {
   methods: {
     showInvites(){
       this.invites = (this.invites) ? false : true
+    },
+    showShares(){
+      this.shares = (this.shares) ? false : true
     }
   },
   data() {
     return {
       error: false,
-      invites: false
+      invites: false,
+      shares: false
     }
   },
 }
