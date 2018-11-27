@@ -1,6 +1,6 @@
 <template>
 <div id="app" class="bootstrap-wrapper">
-  <Navigation></Navigation>
+  <Navigation @toggleInvites="showInvites()"></Navigation>
   <h1 style="color:red;" v-if="error !== false">Error while loading config: {{error}}</h1>
   <div class="container-full">
     <div v-if="!syncStateOk && isSyncingPage">
@@ -10,13 +10,15 @@
     <main class="main" v-else>
       <router-view></router-view>
     </main>
-    <notifications group="foo" position="top right"></notifications>
+    <notifications group="foo" position="top right" ></notifications>
+    <InvitePopup v-bind:shown="invites" @toggleInvites="showInvites()"></InvitePopup>
   </div>
 </div>
 </template>
 
 <script>
 import Navigation from '@/components/Navigation.vue'
+import InvitePopup from '@/components/InvitePopup.vue'
 import Config from './Config'
 import Spinner from 'vue-spinner-component/src/Spinner.vue'
 import {
@@ -32,6 +34,7 @@ export default {
   components: {
     Navigation,
     Spinner,
+    InvitePopup
   },
   computed: {
     ...mapGetters("auth", [
@@ -47,18 +50,16 @@ export default {
   },
   created: function() {
     this.$store.dispatch('auth/login');
-    // This was a mistake.
-    /*Config.loadResult().then(() => {
-      Config.result.then((res) => {
-        if (res !== true) {
-          this.error = res;
-        }
-      });
-    });*/
+  },
+  methods: {
+    showInvites(){
+      this.invites = (this.invites) ? false : true
+    }
   },
   data() {
     return {
       error: false,
+      invites: false
     }
   },
 }
