@@ -6,7 +6,7 @@
         <div class="panel">
           <h2>Your patients:</h2>
 
-          <input type="text" v-model="search" placeholder="Search"/>
+          <input type="text" v-model="search" placeholder="Search" />
           <ul class="user-list">
             <li v-for="patient in patients">
               <router-link :to="{ name: 'dashboard-profile', params: {} }">
@@ -20,7 +20,6 @@
   </template>
 
   <template v-if="role === 0">
-    Non-Doctor stuff
     <h2> Your data sources </h2>
     <RoomList></RoomList>
     <BaseRoom :room="this.rooms.medicalLog"></BaseRoom>
@@ -38,47 +37,46 @@ import RoomList from "@/components/RoomList"
 export default {
   name: 'Home',
   components: {
-      BaseRoom,
-      RoomList
+    BaseRoom,
+    RoomList
   },
   created() {
-      this.$store.dispatch("room/fetchRooms");
-      this.rooms = this.$store.getters['room/roomSet'];
+    this.$store.dispatch("room/fetchRooms");
+    this.rooms = this.$store.getters['room/roomSet'];
   },
   data: function() {
     return {
       rooms: {},
-      patients: [
-        {
+      patients: [{
           name: 'Test'
         },
         {
           name: 'Johne'
         }
 
-    ],
+      ],
       search: ''
     }
   },
   computed: {
-    role () {
-       return this.$store.getters['auth/role']
-     }
+    role() {
+      return this.$store.getters['auth/role']
+    }
   }
 }
 </script>
 
 
 <style media="screen" lang="scss">
-  .mx-auto{
+.mx-auto {
     margin: auto;
-  }
-  .user-list{
+}
+.user-list {
     list-style: none;
     margin: 0;
     padding: 0;
-    li{
-      margin-bottom: 15px;
+    li {
+        margin-bottom: 15px;
     }
-  }
+}
 </style>

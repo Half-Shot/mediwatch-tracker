@@ -66,12 +66,14 @@ export default {
     this.$store.dispatch('room/fetchRooms');
     const role = this.$store.getters['auth/role'];
     const rooms = this.$store.getters['room/roomSet'];
-    const isRoomsIncomplete = rooms.medicalLog === null;
+    // const isRoomsIncomplete = rooms.medicalInfo === null;
+    const isRoomsIncomplete = true;
     console.log("role:", role, "rooms:", rooms);
     if (role == null || role == undefined) {
       this.setupStage = 1;
     } else if (isRoomsIncomplete) {
       this.setupStage = 2;
+      alert();
       this.createRooms().then(() => {
         this.$store.dispatch('room/fetchRooms');
         this.$router.push({
@@ -115,8 +117,13 @@ export default {
       if (rooms.medicalLog === null) {
         this.roomCreatingStatement = "Creating Medical Log";
         await this.$store.dispatch('room/create', {
+          title: 'Cardiographical',
+          type: "medicalInfo"
+        });
+        await this.$store.dispatch('room/create', {
           type: "medicallog"
         });
+
       }
       // Create some rooms.
     }

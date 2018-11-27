@@ -4,11 +4,14 @@
         <h1> Name: {{this.room.name}} </h1>
         <p>This is a room, baaa. 🐑</p>
         <ul>
-            <li v-for="event in events">{{event.content.body}}</li>
+            <li v-for="event in events">
+              {{event.content.body}}
+            </li>
+
         </ul>
         <form @submit.prevent="addToLog()">
           <input type="text" v-model="text" name="displayname" placeholder="Some text to send">
-          <button type="submit" name="button">Send</button>
+          <button type="submit" name="button" class="btn">Send</button>
         </form>
     </div>
 </template>
