@@ -1,5 +1,5 @@
 import * as types from '@/store/types';
-
+import Vue from 'vue'
 
 const STATE_TYPE_TYPE = "me.webres.medical.roomtype";
 const MEDICAL_LOG_TYPE = `${STATE_TYPE_TYPE}.medicallog`;
@@ -29,9 +29,19 @@ export default {
 
     };
     console.log("Fetching rooms");
+    let invites = 0;
     const ourName = this.getters['auth/client'].getUserId();
+    // this.getters['auth/client'].on("Room", function(room){
+    //   var roomId = room.roomId;
+    // });
     this.getters['auth/client'].getRooms().forEach( async (room) => {
       // Creator
+      console.log(room);
+      console.log(room.hasMembershipState(ourName,"invite"));
+      if(  room.hasMembershipState(ourName,"invite")){
+        invites++;
+      }
+
       const creatorState = room.currentState.getStateEvents("m.room.create");
       if (creatorState.length !== 1) {
           return;
@@ -68,6 +78,7 @@ export default {
       console.log(`Found ${room.roomId} (${rType})`);
     });
     commit('SET_ROOMS', acctRooms);
+    commit('SET_INVITES', invites);
     commit('SET_PATIENT_ROOMS', patients);
   },
   create({

@@ -22,7 +22,8 @@ const state = {
       avatar: ''
     }
   ],
-  roomSet: []
+  roomSet: [],
+  invites: 0
 };
 
 export default {

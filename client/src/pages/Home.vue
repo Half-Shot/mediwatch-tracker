@@ -41,6 +41,10 @@ export default {
   },
   created() {
     this.$store.dispatch("room/fetchRooms");
+    this.$store.getters['auth/client'].on("Room", function(room){
+      var roomId = room.roomId;
+      alert('new room');
+    });
   },
   data: function() {
     return {

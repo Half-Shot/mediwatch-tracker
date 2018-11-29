@@ -9,4 +9,7 @@ export default {
   get: (state, id) => {
     return state.rooms;
   },
+  invites: (state, id) => {
+    return state.invites;
+  },
 };
