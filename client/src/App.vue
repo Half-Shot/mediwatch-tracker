@@ -159,7 +159,19 @@ body {
     background-color: #00b4db;
     border-color: #00b4db;
     margin: 10px 10px 10px 0;
-
+    &.btn-delete{
+      background: white;
+      border-color: white;
+      color: red;
+      position: absolute;
+      margin: 0;
+      right: 0;
+      top: 10px;
+      svg{
+        fill: red;
+        width: 20px;
+      }
+    }
     &.full {
         width: 100%;
         margin: 10px 0;
