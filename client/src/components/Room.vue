@@ -28,6 +28,7 @@ export default {
       timeline: null,
       scrollOffset: 0,
       maxOffset: 0,
+      isScrollingUp: false,
     }
   },
   mounted() {
@@ -41,7 +42,10 @@ export default {
   computed: {
       events() {
           // Authoscroll
-          this.scrollOffset = this.maxOffset;
+          if (!this.isScrollingUp) {
+              this.scrollOffset = this.maxOffset;
+          }
+          this.isScrollingUp = false;
           return this.room.getLiveTimeline().getEvents().filter((e) => {
             return ![
               "me.webres.medical.roomtype",
@@ -54,6 +58,7 @@ export default {
   },
   methods: {
     async onScrollTop() {
+        this.isScrollingUp = true;
         await this.$store.getters["auth/client"].scrollback(this.room);
     },
     async onScrollBottom() {
