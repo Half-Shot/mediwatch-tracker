@@ -13,19 +13,19 @@ export default {
   props: ['room'],
   data: function() {
     return {
-
+        members: (this.room.currentState.getMembers().filter(m => ["join", "invite"].includes(m.membership)))
     }
   },
   computed: {
-    members() {
-        return this.room.currentState.getMembers();
-    },
     memberPowers() {
         const map = new Map();
-        this.room.currentState.getMembers().forEach((member) => {
+        this.members.forEach((member) => {
+            const invited = member.membership === "invite";
             map.set(
                 member.userId,
-                this.room.currentState._maySendEventOfType("any", member.userId, false) ? "write" : "read"
+                invited ? "invited" : (
+                    this.room.currentState._maySendEventOfType("any", member.userId, false) ? "write" : "read"
+                )
             );
         });
         return map;

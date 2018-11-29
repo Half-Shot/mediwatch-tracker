@@ -1,7 +1,6 @@
 <template lang="html">
     <div class="container room medicallog">
-        <p> This is a list of of medical records filed by you and your doctors </p>
-        <p> offset: {{scrollOffset}}</p>
+        <p> This is a list of of medical records filed by {{patientName}} </p>
         <virtualList :offset="scrollOffset" :size="events.length + 20" :remain="10" :totop="onScrollTop" :tobottom="onScrollBottom" :debounce="500" :onscroll="onScroll">
             <MedicalLogEvent v-for="event of events" :key="event.getId()" :event="event" :room="room"/>
         </virtualList>
@@ -29,16 +28,13 @@ export default {
   },
   data: function() {
     return {
-
+        isDoctor: (this.$store.getters["auth/role"] === 1),
     }
   },
-  mounted() {
-
-  },
-  beforeDestroy() {
-  },
-  methods: {
-
+  computed: {
+      patientName() {
+           return this.isDoctor ? "the patient" : "you";
+      }
   }
 }
 </script>

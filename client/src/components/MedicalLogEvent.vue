@@ -43,7 +43,6 @@ export default {
       eventTimestamp() {
           const duration = moment.duration(Date.now() - this.event.getTs());
           return duration.humanize() + " ago";
-
       },
       eventText() {
           const content = this.event.getContent();
@@ -63,11 +62,9 @@ export default {
                         return "updated thier profile";
                     }
                   case "leave":
-                    return "self-revoked access to this log";
+                    return `revoked ${this.event.getStateKey()}'s access to this log`;
                   case "invite":
                     return `invited ${this.event.getStateKey()} to this log`;
-                  case "kick":
-                    return `revoked ${this.event.getStateKey()}'s access to this log`;
                   case "ban":
                     return `banned ${this.event.getStateKey()} from accessing this log`;
                   default:
