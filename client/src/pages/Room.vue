@@ -1,16 +1,18 @@
 <template>
 <div v-if="room" class="container">
     <h2> Contents </h2>
-    <BaseRoom :room="room">
-    </BaseRoom>
+    <div>
+        <MedicalLogRoom :room="room" v-if="_roomType === 'medicalLog'"></MedicalLogRoom>
+        <BaseRoom :room="room" v-else></BaseRoom>
+    </div>
     <h2> Members </h2>
-    <MemberList :room="room">
-    </MemberList>
+    <MemberList :room="room"/>
 </div>
 </template>
 
 <script>
 import BaseRoom from "@/components/Room"
+import MedicalLogRoom from "@/components/MedicalLogRoom"
 import MemberList from "@/components/MemberList"
 export default {
   props: ['roomType'],
@@ -20,17 +22,22 @@ export default {
   components: {
     BaseRoom,
     MemberList,
+    MedicalLogRoom,
   },
   data: function() {
     return {
-      room: null
+      room: null,
+      _roomType: null,
     }
   },
+  computed: {
+
+  },
   mounted() {
+    this._roomType = this.roomType || this.$route.params.roomType;
     this.$store.dispatch('room/fetchRooms');
-    const roomType = this.$route.params.roomType;
-    const r = this.$store.getters['room/roomSet'][roomType];
-    console.log("Got room of type", roomType, ":", r);
+    const r = this.$store.getters['room/roomSet'][this._roomType];
+    console.log("Got room of type", this._roomType, ":", r);
     if (!r) {
       this.$router.push({
         name: "home"
