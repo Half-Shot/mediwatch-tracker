@@ -11,12 +11,26 @@
                   <option value="comment">Leave Comment</option>
                   <option value="taken_meds">Taken Medication</option>
                   <option value="report_problem">Report health problem</option>
+                  <option v-if="isDoctor" value="record_appointment">Record appointment details</option>
+                  <option v-if="isDoctor" value="prescription_updates">Prescription update</option>
                 </select>
             </section>
-            <section class="stage2 comments" v-if="typeOfInfo === 'comment'">
+            <section class="stage2 comment" v-if="typeOfInfo === 'comment'">
                 <h4> Leave a comment </h4>
                 <textarea placeholder="Enter your comment here" v-model="commentText" type="text"></textarea>
                 <button v-on:click="submitComment"> Submit </button>
+            </section>
+            <section class="stage2 taken_meds" v-if="typeOfInfo === 'taken_meds'">
+                <h4> Placeholder for taking medication </h4>
+            </section>
+            <section class="stage2 report_problem" v-if="typeOfInfo === 'report_problem'">
+                <h4> Placeholder for reporting a health problem </h4>
+            </section>
+            <section class="stage2 record_appointment" v-if="typeOfInfo === 'record_appointment'">
+                <h4> Placeholder for recording appointment details </h4>
+            </section>
+            <section class="stage2 prescription_updates" v-if="typeOfInfo === 'prescription_updates'">
+                <h4> Placeholder for updating a prescription </h4>
             </section>
         </div>
     </div>
@@ -29,6 +43,7 @@ export default {
     return {
         typeOfInfo: "comment",
         commentText: "",
+        isDoctor: (this.$store.getters["auth/role"] === 1),
     }
   },
   computed: {
