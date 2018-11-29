@@ -3,9 +3,8 @@
         <h1> RoomID: {{this.room.roomId}} </h1>
         <ul>
             <li v-for="event in events">
-              {{event.content.body}}
+              {{event.getContent().body}}
             </li>
-
         </ul>
         <form @submit.prevent="addToLog()">
           <input type="text" v-model="text" name="displayname" placeholder="Some text to send">
@@ -26,19 +25,35 @@ export default {
     return {
       inviteUser: "",
       text: "",
-      events: [],
+      timeline: null,
+      scrollOffset: 0,
     }
   },
   mounted() {
+    this.timeline = this.room.getLiveTimeline();
     this.$store.dispatch("privacy/showingRoom", this.room);
-    // Get event contents, and filter for non state events.
-    this.events = this.room.timeline.map((e) => e.event).filter((e) => e.state_key == null);
-
+    this.scrollOffset = this.events.length;
   },
   beforeDestroy() {
     this.$store.dispatch("privacy/hidingRoom", this.room);
   },
+  computed: {
+      events() {
+          return this.room.getLiveTimeline().getEvents();
+      }
+  },
   methods: {
+    async onScrollTop() {
+        console.log("User scrolled to top, fetching events");
+        await this.$store.getters["auth/client"].scrollback(this.room);
+        console.log("Got some more events");
+    },
+    async onScrollBottom() {
+        console.log("User scrolled to bottom, fetching events");
+    },
+    async onScroll(event, data) {
+        this.scrollOffset = data.offset;
+    },
     async addToLog() {
       await this.$store.dispatch("room/addToLog", {
         room: this.room,
@@ -71,6 +86,6 @@ h1 {
 }
 
 .container.room {
-    border: 1px solid black;
+
 }
 </style>
