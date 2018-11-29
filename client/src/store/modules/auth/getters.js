@@ -7,6 +7,9 @@ export default {
   role: (state, id) => {
     return state.role;
   },
+  userId: (state, id) => {
+    return state.mx_userId;
+  },
   syncState: (state, id) => {
     return state.syncState;
   },
