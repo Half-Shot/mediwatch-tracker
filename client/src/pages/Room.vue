@@ -1,12 +1,17 @@
 <template>
-<div class="container">
-    <BaseRoom v-if="room" :room="room">
+<div v-if="room" class="container">
+    <h2> Contents </h2>
+    <BaseRoom :room="room">
     </BaseRoom>
+    <h2> Members </h2>
+    <MemberList :room="room">
+    </MemberList>
 </div>
 </template>
 
 <script>
 import BaseRoom from "@/components/Room"
+import MemberList from "@/components/MemberList"
 export default {
   props: ['roomType'],
   metaInfo: {
@@ -14,6 +19,7 @@ export default {
   },
   components: {
     BaseRoom,
+    MemberList,
   },
   data: function() {
     return {
