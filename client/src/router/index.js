@@ -66,7 +66,7 @@ export const routes = [{
     component: Settings
   },
   {
-    path: '/room/:roomType',
+    path: '/room/:patientId/:roomType/',
     name: 'room',
     component: Room
   }

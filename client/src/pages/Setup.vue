@@ -65,13 +65,9 @@ export default {
     // Determine the stage we should be on.
     this.$store.dispatch('room/fetchRooms');
     const role = this.$store.getters['auth/role'];
-    const rooms = this.$store.getters['room/roomSet'];
-    // XXX: UGLY HACK TO CHECK IF ROOMS EXIST
-    const isRoomsIncomplete = rooms.medicalInfo === null || rooms.medicalLog === null;
-    console.log("role:", role, "rooms:", rooms);
     if (role == null || role == undefined) {
       this.setupStage = 1;
-    } else if (isRoomsIncomplete) {
+    } else if (this.isRoomsIncomplete) {
       console.log("Running rooms creation");
       this.setupStage = 2;
       this.createRooms().then(() => {
@@ -94,13 +90,12 @@ export default {
     sendDataForm() {
       this.$validator.validateAll().then(result => {
         if (result) {
-          this.$store.dispatch('auth/setRole', this.form)
+          this.$store.dispatch('auth/setRole', this.form);
           this.$store.dispatch('auth/setDisplayName', this.profile.displayname)
             .then(r => {
               this.$store.dispatch('auth/getProfile');
               const rooms = this.$store.getters['room/roomSet'];
-              const isRoomsIncomplete = rooms.medicalInfo === null || rooms.medicalLog === null;
-              if (isRoomsIncomplete) {
+              if (this.isRoomsIncomplete) {
                 this.setupStage = 2;
                 this.createRooms().then(() => {
                   this.$store.dispatch('room/fetchRooms');
@@ -116,9 +111,7 @@ export default {
                   name: "dashboard"
                 });
               }
-            })
-
-          //.then( res => this.$store.dispatch('auth/getProfile') )
+          });
         }
       })
     },
@@ -144,9 +137,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("auth", [
-      "profile"
-    ])
+    ...mapGetters("auth", ["profile"]),
+    isRoomsIncomplete() {
+        const rooms = this.$store.getters['room/roomSet'];
+        // Doctors don't have log rooms
+        return rooms.medicalInfo === null || rooms.medicalLog === null && role !== 1;
+    }
   }
 }
 </script>

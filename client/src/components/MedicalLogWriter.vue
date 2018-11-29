@@ -2,7 +2,7 @@
     <div class="container logwriter">
         <h3> Add information to your medical log </h3>
         <section class="stage0" v-if="!canWriteToLog">
-            You cannot log records into this room. You should request access from the patient.
+            <p>You cannot log records into this room. You should request access from the patient.</p>
         </section>
         <div v-else>
             <section class="stage1">
@@ -44,6 +44,7 @@ export default {
         typeOfInfo: "comment",
         commentText: "",
         isDoctor: (this.$store.getters["auth/role"] === 1),
+        hasRequestedAccess: false,
     }
   },
   computed: {

@@ -1,30 +1,18 @@
 <template>
-<div class="container hello">
-  <template v-if="role && role == 1">
-    <div class="row align-items-center mx-auto">
-      <div class="col-md-8 mx-auto">
-        <div class="panel">
-          <h2>Your patients:</h2>
-
-          <input type="text" v-model="search" placeholder="Search" />
+    <div class="container hello">
+      <div v-if="role == 1">
+        <h2> Your patients </h2>
           <ul class="user-list">
-            <li v-for="patient in patients">
-              <router-link :to="{ name: 'dashboard-profile', params: {} }">
-                {{ patient.name }}
-              </router-link>
+            <li v-for="patient in Object.keys(patients)">
+              <PatientCard :patientId="patient" :patient="patients[patient]"/>
             </li>
           </ul>
         </div>
+      <div v-else-if="role === 0">
+        <h2> Your data sources </h2>
+        <RoomList></RoomList>
       </div>
     </div>
-  </template>
-
-  <template v-if="role == 0">
-    <h2> Your data sources </h2>
-    <RoomList></RoomList>
-  </template>
-
-</div>
 </template>
 
 <script>
@@ -33,11 +21,13 @@ import {
 } from 'vuex'
 import BaseRoom from "@/components/Room"
 import RoomList from "@/components/RoomList"
+import PatientCard from "@/components/PatientCard"
 export default {
   name: 'Home',
   components: {
     BaseRoom,
-    RoomList
+    RoomList,
+    PatientCard,
   },
   created() {
     this.$store.dispatch("room/fetchRooms");
@@ -48,14 +38,15 @@ export default {
   },
   data: function() {
     return {
-      patients: [
-      ],
-      search: ''
+
     }
   },
   computed: {
     role() {
       return this.$store.getters['auth/role']
+    },
+    patients() {
+        return this.$store.getters['room/patients'];
     }
   }
 }

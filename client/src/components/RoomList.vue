@@ -2,7 +2,7 @@
     <div class="container roomlist">
         <ul>
             <li v-for="roomType in Object.keys(rooms)" v-if="rooms[roomType] != null">
-                <router-link :to="{ name: 'room', params: {roomType} }">{{rooms[roomType].name}}</router-link>
+                <router-link :to="{ name: 'room', params: {roomType, patientId: userId} }">{{rooms[roomType].name}}</router-link>
             </li>
         </ul>
     </div>
@@ -13,7 +13,8 @@ export default {
   name: "RoomList",
   data: function() {
     return {
-        text: ""
+        text: "",
+        userId: (this.$store.getters['auth/userId']),
     }
   },
   computed: {
