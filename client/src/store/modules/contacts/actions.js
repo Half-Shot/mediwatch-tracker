@@ -26,7 +26,7 @@ export default {
         return Promise.reject();
       }
     }
-    if(user.user_id != this.getters['auth/userId']){
+    if(user.user_id != this.getters['auth/userId'] || true != false){
 
       contacts.push(user);
 
@@ -56,15 +56,21 @@ export default {
     commit,
     dispatch
   }, user) {
+    console.log(user);
     let contacts = state.contacts;
+    console.log(contacts);
     let element = null;
     for (var i = 0; i < contacts.length; i++) {
       if(contacts[i].user_id == user.user_id){
         element = i
       }
     }
-    if(element){
+    if(element != null){
       contacts.splice(element, 1)
+      this.getters['auth/client'].getRooms().forEach( (room) => {
+        this.getters['auth/client'].kick(room.roomId, user.user_id);
+      })
+
       const res = await this.getters['auth/client'].setAccountData('contacts', {
         "contacts": contacts
       });
