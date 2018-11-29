@@ -1,5 +1,5 @@
 import * as types from '@/store/types';
-
+import Vue from 'vue'
 
 const STATE_TYPE_TYPE = "me.webres.medical.roomtype";
 const MEDICAL_LOG_TYPE = `${STATE_TYPE_TYPE}.medicallog`;
@@ -29,9 +29,19 @@ export default {
 
     };
     console.log("Fetching rooms");
+    let invites = 0;
     const ourName = this.getters['auth/client'].getUserId();
-    this.getters['auth/client'].getRooms().forEach((room) => {
+    // this.getters['auth/client'].on("Room", function(room){
+    //   var roomId = room.roomId;
+    // });
+    this.getters['auth/client'].getRooms().forEach( async (room) => {
       // Creator
+      console.log(room);
+      console.log(room.hasMembershipState(ourName,"invite"));
+      if(  room.hasMembershipState(ourName,"invite")){
+        invites++;
+      }
+
       const creatorState = room.currentState.getStateEvents("m.room.create");
       if (creatorState.length !== 1) {
           return;
@@ -48,10 +58,13 @@ export default {
       if (creatorUser === ourName) {
         if (rType === MEDICAL_LOG_TYPE) {
             acctRooms.medicalLog = room;
+            acctRooms.medicalLog.members = await this.getters['auth/client'].getJoinedRoomMembers(room.roomId);
           }
           if (rType === MEDICAL_INFO_TYPE) {
             acctRooms.medicalInfo = room;
+            acctRooms.medicalInfo.members = await this.getters['auth/client'].getJoinedRoomMembers(room.roomId);
           }
+
       } else {
         const patientUser = patients[creatorUser] || {};
         if (rType === MEDICAL_LOG_TYPE) {
@@ -65,6 +78,7 @@ export default {
       console.log(`Found ${room.roomId} (${rType})`);
     });
     commit('SET_ROOMS', acctRooms);
+    commit('SET_INVITES', invites);
     commit('SET_PATIENT_ROOMS', patients);
   },
   create({
@@ -116,6 +130,33 @@ export default {
     user
   }) {
     return this.getters['auth/client'].invite(room.roomId, user);
+  },
+  bulkInvitations({
+    state,
+    commit,
+    dispatch
+  }, invitations) {
+
+    var users = Object.keys(invitations);
+
+    for (var i = 0; i < users.length; i++) {
+      var rooms = Object.keys(invitations[users[i]]);
+      for (var r = 0; r < rooms.length; r++) {
+
+        if( invitations[users[i]][rooms[r]] == 1 ){
+          this.getters['auth/client'].invite(rooms[r], users[i]);
+        }else{
+          this.getters['auth/client'].kick(rooms[r], users[i]);
+        }
+      }
+    }
+
+    Vue.notify({
+      group: 'foo',
+      text: `Successfully changed permissions.`,
+      type: 'success'
+    })
+    return Promise.resolve();
   },
   addToLog({
     state,

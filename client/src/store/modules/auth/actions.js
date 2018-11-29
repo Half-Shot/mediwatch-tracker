@@ -192,7 +192,10 @@ export default {
     state.client.on('sync', async (syncState) => {
       if (syncState == "PREPARED") {
         const res = await state.client.getAccountData('role');
-        commit('SET_ROLE', res.event.content.role)
+        if(res){
+          commit('SET_ROLE', res.event.content.role)
+        }
+
       }
     })
 
