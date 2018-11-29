@@ -8,7 +8,7 @@
         <input @input="search" type="text" name="" placeholder="Find People" v-model="term">
 
         <ul class="suggestions" v-if="suggestions.length > 0">
-          <li v-for="user in suggestions">
+          <li @click="addContact(user)" v-for="user in suggestions">
             <span> {{ user.display_name }}</span>
           </li>
         </ul>
@@ -21,8 +21,13 @@
       </div>
 
 
-      <form >
-
+      <form class="form">
+          <h2>Your contacts:</h2>
+          <ul>
+            <li v-for="contact in contacts">
+              {{ contact.display_name }}
+            </li>
+          </ul>
       </form>
 
     </div>
@@ -55,24 +60,22 @@ export default {
   },
   mounted(){
 
-
   },
   methods: {
     closeShare(){
       this.$emit('toggleShare')
     },
-    // // TODO: search functionality
-   async search(){
-      if(this.term.length > 3){
-        // perform search only if enough letters
-       this.$store.dispatch("contacts/search", this.term).then(r => {
-         this.suggestions = r.results
-       });
+    addContact(user){
+      this.$store.dispatch("contacts/add", user).then(r => this.suggestions = [])
 
-      }else{
-        this.suggestions = []
-      }
-
+    },
+    search(){
+      this.suggestions = (this.term.length > 3) ? this.$store.dispatch("contacts/search", this.term).then(r => this.suggestions = r.results) : [];
+    }
+  },
+  computed: {
+    contacts() {
+      return this.$store.getters['contacts/getAll']
     }
   }
 }
@@ -83,6 +86,10 @@ export default {
 .popup.share{
   min-height: 90vh;
 }
+.form{
+  float: left;
+  width: 100%;
+}
   .avatar{
     width: 40px;
     height: auto;
@@ -92,6 +99,7 @@ export default {
   }
   .suggestions-wrapper{
     position: relative;
+    z-index: 9;
   }
   .suggestions{
     float: left;

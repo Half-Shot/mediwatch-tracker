@@ -60,6 +60,7 @@ export default {
     },
     showShares(){
       this.shares = (this.shares) ? false : true
+      this.$store.dispatch("contacts/get")
     }
   },
   data() {
