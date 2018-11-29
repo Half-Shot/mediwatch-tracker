@@ -26,6 +26,12 @@ export default {
   beforeDestroy() {
   },
   computed: {
+      renderable() {
+          return [
+              "m.room.message",
+              "m.room.create"
+          ].includes(this.event.getType());
+      },
       eventSender() {
           const member = this.room.getMember(this.event.getSender())
           if (!member) {
@@ -40,11 +46,34 @@ export default {
 
       },
       eventText() {
+          const content = this.event.getContent();
           if (this.event.getType() === "m.room.message") {
               return `${this.event.getContent().body}`;
           }
           if (this.event.getType() === "m.room.create") {
               return `Log was created`;
+          }
+          if (this.event.getType() === "m.room.member") {
+              switch(content.membership) {
+                  case "join":
+                    return "was given access to this log";
+                  case "leave":
+                    return "self-revoked access to this log";
+                  case "invite":
+                    return `invited ${this.event.getStateKey()} to this log`;
+                  case "kick":
+                    return `revoked ${this.event.getStateKey()}'s access to this log`;
+                  case "ban":
+                    return `banned ${this.event.getStateKey()} from accessing this log`;
+                  default:
+                    return "membership event!";
+              }
+          }
+          if (this.event.getType() === "m.room.power_levels") {
+              return "Powerlevels were modified"
+          }
+          if (this.event.getType() === "m.room.history_visibility") {
+              return "History visibility settings were modified"
           }
           return "Unknown type " + this.event.getType();
       }

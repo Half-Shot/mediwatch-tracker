@@ -20,7 +20,7 @@
 <script>
 export default {
   name: "BaseRoom",
-  props: ['room', 'force'],
+  props: ['room', 'force', 'showControls'],
   data: function() {
     return {
       inviteUser: "",
@@ -39,7 +39,14 @@ export default {
   },
   computed: {
       events() {
-          return this.room.getLiveTimeline().getEvents();
+          return this.room.getLiveTimeline().getEvents().filter((e) => {
+            return ![
+              "me.webres.medical.roomtype",
+              "m.room.join_rules",
+              "m.room.guest_access",
+              "m.room.name",
+              ].includes(e.getType());
+          });
       }
   },
   methods: {

@@ -2,7 +2,7 @@
 <div v-if="room" class="container">
     <h2> Contents </h2>
     <div>
-        <MedicalLogRoom :room="room" v-if="_roomType === 'medicalLog'"></MedicalLogRoom>
+        <MedicalLogRoom showControls=true :room="room" v-if="_roomType === 'medicalLog'"></MedicalLogRoom>
         <BaseRoom :room="room" v-else></BaseRoom>
     </div>
     <h2> Members </h2>
