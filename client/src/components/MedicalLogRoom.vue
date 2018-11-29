@@ -1,14 +1,15 @@
 <template lang="html">
     <div class="container room medicallog">
         <p> This is a list of of medical records filed by you and your doctors </p>
+        <p> offset: {{scrollOffset}}</p>
         <virtualList :offset="scrollOffset" :size="events.length + 20" :remain="10" :totop="onScrollTop" :tobottom="onScrollBottom" :debounce="500" :onscroll="onScroll">
             <MedicalLogEvent v-for="event of events" :key="event.getId()" :event="event" :room="room"/>
         </virtualList>
         <hr/>
-        <div class="logcontrols" v-if="showControls"> 
-            <MedicalLogWriter class="amendLog"/>
+        <div class="logcontrols" v-if="showControls">
+            <MedicalLogWriter :room=room class="amendLog"/>
             <section class="inviteToRoom">
-                Some invite stuff
+                <h3> Some other settings </h3>
             </section>
         </div>
     </div>
@@ -28,7 +29,7 @@ export default {
   },
   data: function() {
     return {
-        
+
     }
   },
   mounted() {
@@ -37,9 +38,7 @@ export default {
   beforeDestroy() {
   },
   methods: {
-    async sendLog() {
-        
-    }
+
   }
 }
 </script>

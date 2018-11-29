@@ -27,6 +27,7 @@ export default {
       text: "",
       timeline: null,
       scrollOffset: 0,
+      maxOffset: 0,
     }
   },
   mounted() {
@@ -39,6 +40,8 @@ export default {
   },
   computed: {
       events() {
+          // Authoscroll
+          this.scrollOffset = this.maxOffset;
           return this.room.getLiveTimeline().getEvents().filter((e) => {
             return ![
               "me.webres.medical.roomtype",
@@ -51,15 +54,15 @@ export default {
   },
   methods: {
     async onScrollTop() {
-        console.log("User scrolled to top, fetching events");
         await this.$store.getters["auth/client"].scrollback(this.room);
-        console.log("Got some more events");
     },
     async onScrollBottom() {
-        console.log("User scrolled to bottom, fetching events");
+
     },
     async onScroll(event, data) {
+        console.log("Modfying offset", data);
         this.scrollOffset = data.offset;
+        this.maxOffset = data.offsetAll;
     },
     async addToLog() {
       await this.$store.dispatch("room/addToLog", {

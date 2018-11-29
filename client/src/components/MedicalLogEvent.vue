@@ -54,9 +54,14 @@ export default {
               return `Log was created`;
           }
           if (this.event.getType() === "m.room.member") {
+              console.log(this.event);
               switch(content.membership) {
                   case "join":
-                    return "was given access to this log";
+                    if (this.event.getPrevContent().membership !== "join") {
+                        return "was given access to this log";
+                    } else {
+                        return "updated thier profile";
+                    }
                   case "leave":
                     return "self-revoked access to this log";
                   case "invite":
