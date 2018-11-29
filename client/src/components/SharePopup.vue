@@ -9,8 +9,7 @@
 
         <ul class="suggestions" v-if="suggestions.length > 0">
           <li v-for="user in suggestions">
-            <img class="avatar" src="https://pixel.nymag.com/imgs/daily/vulture/2018/09/07/07-i-love-it-video.w600.h600.jpg" alt="doctor name avatar">
-            <span> {{ user.disaplayName }}</span>
+            <span> {{ user.display_name }}</span>
           </li>
         </ul>
         <ul class="suggestions" v-if="suggestions.length == 0">
@@ -39,50 +38,37 @@ export default {
   data() {
     return {
       term: null,
-      originalSuggestions: [],
       doctors: [
         {
           avatar_url: '',
-          username: 'xfghj',
           disaplayName: 'Kanye West',
           userId: 'r56789'
         },
         {
           avatar_url: '',
-          username: 'xfghj',
           disaplayName: 'Kanye West 2',
           userId: 'r567891'
         }
       ],
-      suggestions: [
-        {
-          avatar_url: '',
-          username: 'xfghj',
-          disaplayName: 'Kanye West',
-          userId: 'r56789'
-        },
-        {
-          avatar_url: '',
-          username: 'xfghj',
-          disaplayName: 'Kanye West 2',
-          userId: 'r567891'
-        }
-      ]
+      suggestions: []
     }
   },
   mounted(){
-    this.originalSuggestions = this.suggestions;
-    this.suggestions = []
+
+
   },
   methods: {
     closeShare(){
       this.$emit('toggleShare')
     },
     // // TODO: search functionality
-    search(){
+   async search(){
       if(this.term.length > 3){
         // perform search only if enough letters
-        this.suggestions = this.originalSuggestions
+       this.$store.dispatch("clients/search", this.term).then(r => {
+         this.suggestions = r.results
+       });
+
       }else{
         this.suggestions = []
       }
