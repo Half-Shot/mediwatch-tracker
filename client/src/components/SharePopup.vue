@@ -65,7 +65,7 @@ export default {
    async search(){
       if(this.term.length > 3){
         // perform search only if enough letters
-       this.$store.dispatch("clients/search", this.term).then(r => {
+       this.$store.dispatch("contacts/search", this.term).then(r => {
          this.suggestions = r.results
        });
 
