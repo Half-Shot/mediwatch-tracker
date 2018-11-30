@@ -20,24 +20,18 @@
                 <p class="text-danger" v-if="errors.has('password')">{{ errors.first('password') }}</p>
               </div>
               <div class="input-group">
-                <!-- <label>Server:</label> -->
-                <select name="url" v-model="form.url">
-                  <option value="https://medical.webres.me">medical.webres.me</option>
-                  <option value="https://matrix.half-shot.uk">half-shot.uk</option>
-                  <option value="https://matrix.org">matrix.org</option>
-                </select>
+                <label>Server:</label>
+                <dropdown :options="servers"
+                          :selected="servers[0]"
+                          v-on:updateOption="selectServer"
+                          :placeholder="'Select an Item'">
+                </dropdown>
               </div>
+
               <div class="input-group">
-                <button type="submit" name="button" class="btn full">Login</button>
+                <button type="submit" name="button" class="btn">Login</button>
+                <router-link :to="{ name: 'register' }" class="underlined">Register</router-link>
               </div>
-              <ul class="secondary-links">
-                <li>
-                  <router-link :to="{ name: 'forgot' }" class="underlined">Forgotten password</router-link>
-                </li>
-                <li>
-                  <router-link :to="{ name: 'register' }" class="underlined">Register</router-link>
-                </li>
-              </ul>
             </form>
           </div>
         </div>
@@ -49,7 +43,9 @@
 </template>
 
 <script>
-import Config from "../Config";
+import { mapGetters } from "vuex";
+import dropdown from "vue-dropdowns";
+
 export default {
   name: "Login",
   metaInfo: {
@@ -60,9 +56,12 @@ export default {
       form: {
         username: "",
         password: "",
-        url: "https://medical.webres.me" //Config.getDefaultHomeserver(),
+        url: "https://medical.webres.me"
       }
     };
+  },
+  components: {
+    dropdown: dropdown
   },
   methods: {
     login() {
@@ -73,7 +72,13 @@ export default {
             .then(res => this.$store.dispatch("auth/getProfile"));
         }
       });
+    },
+    selectServer(payload) {
+      this.form.url = payload.value;
     }
+  },
+  computed: {
+    ...mapGetters("auth", ["servers"])
   }
 };
 </script>
@@ -85,16 +90,6 @@ export default {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   width: 100%;
-}
-.secondary-links {
-  margin: 10px 0 0;
-  padding: 0;
-  list-style: none;
-  text-align: center;
-  li {
-    display: inline-block;
-    margin: 0 10px 0 0;
-  }
 }
 .background-section {
   background: url("../assets/background.jpg") no-repeat center center;

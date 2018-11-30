@@ -14,7 +14,21 @@ const state = {
   profile: null,
   client: null,
   syncState: null,
-  role: null
+  role: null,
+  servers: [
+    {
+      name: "medical.webres.me",
+      value: "https://medical.webres.me"
+    },
+    {
+      name: "matrix.half-shot.uk",
+      value: "https://matrix.half-shot.uk"
+    },
+    {
+      name: "matrix.org",
+      value: "https://matrix.org"
+    }
+  ]
 };
 
 export default {

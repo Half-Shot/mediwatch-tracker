@@ -15,5 +15,8 @@ export default {
   },
   client: (state, id) => {
     return state.client;
+  },
+  servers: (state, id) => {
+    return state.servers;
   }
 };

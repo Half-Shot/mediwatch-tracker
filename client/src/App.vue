@@ -286,6 +286,26 @@ select {
     visibility: hidden;
   }
 }
-
-//@import "../stylesheet.css";
+body {
+  .dropdown-menu,
+  .btn-group {
+    border: none;
+    width: 100%;
+    margin-top: 0;
+  }
+  .dropdown-toggle {
+    border-bottom: 2px solid #071e3d;
+    background: none;
+  }
+  .dropdown-toggle:hover {
+    background: none;
+  }
+  .dropdown-menu > li > a {
+    border: none;
+    &:hover {
+      color: black;
+      border: none;
+    }
+  }
+}
 </style>

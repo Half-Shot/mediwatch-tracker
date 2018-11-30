@@ -6855,6 +6855,11 @@ vue-chartjs@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-3.4.0.tgz#669e4453be0676605fc9290b3b581867ccd15c88"
 
+vue-dropdowns@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/vue-dropdowns/-/vue-dropdowns-1.0.6.tgz#cc6d086c8e7570768bda1fc598f9e27dd0145d0a"
+  integrity sha512-es1jf3LWmeSBhdMFaQL46ulcVQXMZjmO1KPG71RFImb2WFCukhYT39rb55iV4ZRUNH88lhf5uk+O8gQ+0BxCpw==
+
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-2.0.3.tgz#c268c96c6d94cfe3d938a5f7593959b0ca3360d1"

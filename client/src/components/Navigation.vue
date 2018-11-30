@@ -83,7 +83,6 @@ export default {
     }
   },
   mounted() {
-    // Get the user's profile name & avatar.
     this.$store.dispatch("auth/getProfile");
   },
   computed: {
