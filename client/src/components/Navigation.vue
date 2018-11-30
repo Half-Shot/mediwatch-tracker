@@ -56,52 +56,45 @@
 
 <script>
 import SecurityBadge from "./SecurityBadge";
-import {
-  mapGetters
-} from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'Navigation',
+  name: "Navigation",
   components: {
-    SecurityBadge,
+    SecurityBadge
   },
   data() {
     return {
       submenu: false
-    }
+    };
   },
   methods: {
-    openInvites(){
-      this.$emit('toggleInvites')
+    openInvites() {
+      this.$emit("toggleInvites");
     },
-    openShare(){
-      this.$emit('toggleShare')
+    openShare() {
+      this.$emit("toggleShare");
     },
     openSubmenu() {
-      this.submenu = (this.submenu) ? false : true
+      this.submenu = this.submenu ? false : true;
     },
     async onLogout() {
-      this.$store.dispatch('auth/logout')
+      this.$store.dispatch("auth/logout");
     }
   },
   mounted() {
     // Get the user's profile name & avatar.
-    this.$store.dispatch('auth/getProfile')
+    this.$store.dispatch("auth/getProfile");
   },
   computed: {
-    ...mapGetters("auth", [
-      "profile",
-      "role"
-    ]),
-    ...mapGetters("room", [
-      "invites"
-    ])
+    ...mapGetters("auth", ["profile", "role"]),
+    ...mapGetters("room", ["invites"])
   }
-}
+};
 </script>
 
 <style lang="scss">
-.badge{
+.badge {
   position: absolute;
   left: 0;
   top: 2px;
@@ -112,75 +105,75 @@ export default {
   padding: 6px 0 0 !important;
   width: 26px;
   height: 26px;
-  font-size: .8em;
+  font-size: 0.8em;
 }
 .main-nav {
+  float: left;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 1px 20px 0 rgba(46, 61, 73, 0.2);
+  h2 {
     float: left;
-    width: 100%;
-    background: #fff;
-    box-shadow: 0 1px 20px 0 rgba(46,61,73,.2);
-    h2 {
-        float: left;
-        margin: 12px 30px 0 15px;
+    margin: 12px 30px 0 15px;
+  }
+  div.security-button {
+    float: left;
+    margin: 10px 0 0 30px;
+  }
+  ul {
+    margin: 0 30px 0 0;
+    padding: 0;
+    list-style: none;
+    float: right;
+    .profile-img,
+    svg {
+      position: absolute;
+      left: 0.6em;
+      top: 0.85em;
+      width: 1.5em;
+      height: 1.5em;
     }
-    div.security-button {
-        float: left;
-        margin: 10px 0 0 30px;
-    }
-    ul {
-        margin: 0 30px 0 0;
-        padding: 0;
-        list-style: none;
-        float: right;
-        .profile-img,
-        svg {
-            position: absolute;
-            left: 0.6em;
-            top: 0.85em;
-            width: 1.5em;
-            height: 1.5em;
-        }
 
+    span {
+      padding-left: 1.5em;
+    }
+    &.sub-menu {
+      display: none;
+      opacity: 0;
+      position: absolute;
+      top: 52px;
+      left: -26px;
+      background: #fff;
+      z-index: 9;
+      box-shadow: 0 1px 20px 0 rgba(46, 61, 73, 0.2);
+    }
+    li {
+      position: relative;
+      display: inline-block;
+      &:first-child {
+        border-left: none;
+      }
+      &.sub-menu-wrapper {
         span {
-            padding-left: 1.5em;
+          padding-right: 0.5em;
         }
-        &.sub-menu {
-            display: none;
-            opacity: 0;
-            position: absolute;
-            top: 52px;
-            left: -26px;
-            background: #fff;
-            z-index: 9;
-            box-shadow: 0 1px 20px 0 rgba(46,61,73,.2);
+        .active {
+          display: block;
+          opacity: 1;
+        }
+        svg.sub-menu--icon {
+          right: 0;
+          left: initial;
         }
         li {
-            position: relative;
-            display: inline-block;
-            &:first-child {
-                border-left: none;
-            }
-            &.sub-menu-wrapper {
-                span {
-                    padding-right: 0.5em;
-                }
-                .active {
-                    display: block;
-                    opacity: 1;
-                }
-                svg.sub-menu--icon {
-                    right: 0;
-                    left: initial;
-                }
-                li {
-                    width: 100%;
-                }
-            }
-            a {
-                display: block;
-                padding: 1.1em 1.3em;
-            }
+          width: 100%;
         }
+      }
+      a {
+        display: block;
+        padding: 1.1em 1.3em;
+      }
     }
+  }
 }
 </style>

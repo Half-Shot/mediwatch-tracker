@@ -15,38 +15,38 @@
 </template>
 
 <script>
-import BaseRoom from "@/components/Room"
-import MedicalLogEvent from "@/components/MedicalLogEvent"
-import MedicalLogWriter from "@/components/MedicalLogWriter"
-import virtualList from 'vue-virtual-scroll-list'
+import BaseRoom from "@/components/Room";
+import MedicalLogEvent from "@/components/MedicalLogEvent";
+import MedicalLogWriter from "@/components/MedicalLogWriter";
+import virtualList from "vue-virtual-scroll-list";
 export default {
   extends: BaseRoom,
   components: {
-      virtualList,
-      MedicalLogEvent,
-      MedicalLogWriter,
+    virtualList,
+    MedicalLogEvent,
+    MedicalLogWriter
   },
   data: function() {
     return {
-        isDoctor: (this.$store.getters["auth/role"] === 1),
-    }
+      isDoctor: this.$store.getters["auth/role"] === 1
+    };
   },
   computed: {
-      patientName() {
-           return this.isDoctor ? "the patient" : "you";
-      }
+    patientName() {
+      return this.isDoctor ? "the patient" : "you";
+    }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
 .container.room.medicallog hr {
-    background-color: black;
+  background-color: black;
 }
 .container.room.medicallog .logcontrols {
-      display: grid;
-      grid-template-columns: 50% 50%;
-      grid-gap: 10px;
-      font-size: 1em;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-gap: 10px;
+  font-size: 1em;
 }
 </style>

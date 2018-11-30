@@ -26,27 +26,27 @@
 </template>
 
 <script>
-import Sidebar from '@/pages/dashboard/Sidebar.vue'
-import Chart from '@/pages/dashboard/Chart.vue'
+import Sidebar from "@/pages/dashboard/Sidebar.vue";
+import Chart from "@/pages/dashboard/Chart.vue";
 
 export default {
-  name: 'Dashboard',
+  name: "Dashboard",
   components: {
     Sidebar,
     Chart
   },
   metaInfo: {
-    title: 'Dashboard'
+    title: "Dashboard"
   }
-}
+};
 </script>
 
 <style lang="scss">
 .dashboard {
-    float: left;
-    display: block;
-    width: calc(100% - 75px);
-    margin-left: 75px;
-    padding: 10px 30px;
+  float: left;
+  display: block;
+  width: calc(100% - 75px);
+  margin-left: 75px;
+  padding: 10px 30px;
 }
 </style>

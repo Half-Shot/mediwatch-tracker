@@ -16,53 +16,48 @@
 </template>
 
 <script>
-import {
-  mapGetters
-} from 'vuex'
-import BaseRoom from "@/components/Room"
-import RoomList from "@/components/RoomList"
-import PatientCard from "@/components/PatientCard"
+import { mapGetters } from "vuex";
+import BaseRoom from "@/components/Room";
+import RoomList from "@/components/RoomList";
+import PatientCard from "@/components/PatientCard";
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
     BaseRoom,
     RoomList,
-    PatientCard,
+    PatientCard
   },
   created() {
     this.$store.dispatch("room/fetchRooms");
-    this.$store.getters['auth/client'].on("Room", function(room){
-      var roomId = room.roomId;
-      alert('new room');
+    this.$store.getters["auth/client"].on("Room", function(room) {
+      this.$store.dispatch("room/fetchRooms");
     });
   },
   data: function() {
-    return {
-
-    }
+    return {};
   },
   computed: {
     role() {
-      return this.$store.getters['auth/role']
+      return this.$store.getters["auth/role"];
     },
     patients() {
-        return this.$store.getters['room/patients'];
+      return this.$store.getters["room/patients"];
     }
   }
-}
+};
 </script>
 
 
 <style media="screen" lang="scss">
 .mx-auto {
-    margin: auto;
+  margin: auto;
 }
 .user-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    li {
-        margin-bottom: 15px;
-    }
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  li {
+    margin-bottom: 15px;
+  }
 }
 </style>

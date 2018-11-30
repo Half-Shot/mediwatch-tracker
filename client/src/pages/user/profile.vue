@@ -50,11 +50,11 @@
 
 <script>
 export default {
-  name: 'Profile',
+  name: "Profile",
   metaInfo: {
-    title: 'Profile'
+    title: "Profile"
   }
-}
+};
 </script>
 
 <style lang="css">

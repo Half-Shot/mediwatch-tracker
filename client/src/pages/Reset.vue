@@ -19,32 +19,31 @@
 </template>
 
 <script>
-import Config from '../Config'
+import Config from "../Config";
 export default {
   name: "Reset",
   metaInfo: {
-    title: 'Reset'
+    title: "Reset"
   },
   data: function() {
     return {
       form: {
-        username: '',
-        password: '',
-        url: Config.getDefaultHomeserver(),
+        username: "",
+        password: "",
+        url: Config.getDefaultHomeserver()
       }
-    }
+    };
   },
   methods: {
     login() {
       this.$validator.validateAll().then(result => {
         if (result) {
-          this.$store.dispatch('auth/login', this.form)
-            .then(res => this.$store.dispatch('auth/getProfile'))
-        } else {
-          document.getElementById("credentialsIncorrect").style.display = "block";
+          this.$store
+            .dispatch("auth/login", this.form)
+            .then(res => this.$store.dispatch("auth/getProfile"));
         }
-      })
+      });
     }
   }
-}
+};
 </script>

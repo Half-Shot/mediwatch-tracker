@@ -66,9 +66,9 @@
 
 <script>
 export default {
-  name: 'SharePopup',
+  name: "SharePopup",
   props: {
-    shown: Boolean,
+    shown: Boolean
   },
   data() {
     return {
@@ -77,89 +77,102 @@ export default {
       form: {
         invitations: {}
       }
-    }
+    };
   },
   methods: {
-    closeShare(){
-      this.$emit('toggleShare')
+    closeShare() {
+      this.$emit("toggleShare");
     },
-    selectItem(e, user, room){
-      if(!this.form.invitations[user]){
+    selectItem(e, user, room) {
+      if (!this.form.invitations[user]) {
         this.form.invitations[user] = {};
       }
-      if(e.target.checked){
+      if (e.target.checked) {
         this.form.invitations[user][room] = 1;
-      }else{
+      } else {
         this.form.invitations[user][room] = 0;
       }
     },
-    sendBulkInvitations(){
-      if(Object.keys(this.form.invitations).length === 0 && this.form.invitations.constructor === Object){
+    sendBulkInvitations() {
+      if (
+        Object.keys(this.form.invitations).length === 0 &&
+        this.form.invitations.constructor === Object
+      ) {
         this.$notify({
-          group: 'foo',
-          type: 'warning',
-          text: 'No changes were made!'
+          group: "foo",
+          type: "warning",
+          text: "No changes were made!"
         });
-      }else{
-        this.$store.dispatch("room/bulkInvitations", this.form.invitations).then(r => { this.closeShare() })
+      } else {
+        this.$store
+          .dispatch("room/bulkInvitations", this.form.invitations)
+          .then(r => {
+            this.closeShare();
+          });
       }
-
     },
-    addContact(user){
-      this.$store.dispatch("contacts/add", user).then(r => this.suggestions = [])
+    addContact(user) {
+      this.$store
+        .dispatch("contacts/add", user)
+        .then(r => (this.suggestions = []));
     },
-    removeContact(user){
-      this.$store.dispatch("contacts/remove", user)
+    removeContact(user) {
+      this.$store.dispatch("contacts/remove", user);
     },
-    search(){
-      this.suggestions = (this.term.length > 3) ? this.$store.dispatch("contacts/search", this.term).then(r => this.suggestions = r.results) : [];
+    search() {
+      this.suggestions =
+        this.term.length > 3
+          ? this.$store
+              .dispatch("contacts/search", this.term)
+              .then(r => (this.suggestions = r.results))
+          : [];
     }
   },
   computed: {
     contacts() {
-      return this.$store.getters['contacts/getAll']
+      return this.$store.getters["contacts/getAll"];
     },
     roomSet() {
-      return this.$store.getters['room/roomSet']
+      return this.$store.getters["room/roomSet"];
     }
   }
-}
+};
 </script>
 
 
 <style  lang="scss">
-.popup.share{
+.popup.share {
   //min-height: 90vh;
-  .rooms{
+  .rooms {
     float: left;
     display: block;
-    .inputGroup{
+    .inputGroup {
       margin: 0;
       width: 100%;
     }
   }
 }
-.contacts{
+.contacts {
   list-style: none;
   margin: 0;
   padding: 0;
-  li{
+  li {
     width: 100%;
     float: left;
     padding: 10px 0;
     margin-right: 15px;
     position: relative;
     //border-bottom: 1px solid;
-    &:last-child{
-      &:hover{
+    &:last-child {
+      &:hover {
         box-shadow: none;
       }
     }
-    &:hover{
-      box-shadow: 0 1px 20px 0 rgba(46,61,73,.2);
+    &:hover {
+      box-shadow: 0 1px 20px 0 rgba(46, 61, 73, 0.2);
     }
   }
-  .name{
+  .name {
     display: block;
     float: left;
     margin: 7px 15px;
@@ -168,49 +181,48 @@ export default {
     text-transform: capitalize;
   }
 }
-.form{
+.form {
   float: left;
   width: 100%;
 }
-  .avatar{
-    width: 40px;
-    height: auto;
+.avatar {
+  width: 40px;
+  height: auto;
+  float: left;
+  display: block;
+  border-radius: 50%;
+}
+.suggestions-wrapper {
+  position: relative;
+  z-index: 9;
+}
+.suggestions {
+  float: left;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  background: white;
+  top: 40px;
+  border-radius: 4px;
+  box-shadow: 0 1px 20px 0 rgba(46, 61, 73, 0.2);
+  max-height: 400px;
+  overflow: auto;
+  li {
+    width: 100%;
     float: left;
     display: block;
-    border-radius: 50%;
-  }
-  .suggestions-wrapper{
+    padding: 10px;
+    cursor: pointer;
     position: relative;
-    z-index: 9;
+    &:hover {
+      background: #efefef;
+    }
   }
-  .suggestions{
+  span {
+    display: block;
     float: left;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    background: white;
-    top: 40px;
-    border-radius: 4px;
-    box-shadow: 0 1px 20px 0 rgba(46,61,73,.2);
-    max-height: 400px;
-    overflow: auto;
-    li {
-      width: 100%;
-      float: left;
-      display: block;
-      padding: 10px;
-      cursor: pointer;
-      position: relative;
-      &:hover{
-        background: #efefef;
-      }
-
-    }
-    span{
-      display: block;
-      float: left;
-      margin: 10px;
-    }
+    margin: 10px;
   }
+}
 </style>

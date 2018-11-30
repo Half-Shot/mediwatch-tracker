@@ -39,31 +39,32 @@
 </template>
 
 <script>
-import Config from '../Config'
+import Config from "../Config";
 export default {
   name: "Register",
   metaInfo: {
-    title: 'Register'
+    title: "Register"
   },
   data: function() {
     return {
       passwordConfirm: false,
       form: {
-        username: '',
-        password: '',
-        url: 'https://medical.webres.me',
+        username: "",
+        password: "",
+        url: "https://medical.webres.me"
       }
-    }
+    };
   },
   methods: {
     register() {
       this.$validator.validateAll().then(result => {
         if (result) {
-          this.$store.dispatch('auth/register', this.form)
-            .then(res => this.$store.dispatch('auth/getProfile'))
+          this.$store
+            .dispatch("auth/register", this.form)
+            .then(res => this.$store.dispatch("auth/getProfile"));
         }
-      })
+      });
     }
   }
-}
+};
 </script>

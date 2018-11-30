@@ -16,50 +16,50 @@
 </template>
 
 <script>
-import BaseRoom from "@/components/Room"
-import MedicalLogRoom from "@/components/MedicalLogRoom"
-import MemberList from "@/components/MemberList"
+import BaseRoom from "@/components/Room";
+import MedicalLogRoom from "@/components/MedicalLogRoom";
+import MemberList from "@/components/MemberList";
 export default {
-  props: ['roomType', 'patientId'],
+  props: ["roomType", "patientId"],
   metaInfo: {
-    title: 'Room'
+    title: "Room"
   },
   components: {
     BaseRoom,
     MemberList,
-    MedicalLogRoom,
+    MedicalLogRoom
   },
   data: function() {
     return {
       room: null,
       _roomType: null,
       _patientId: null,
-      error: null,
-    }
+      error: null
+    };
   },
-  computed: {
-
-  },
+  computed: {},
   mounted() {
     this._roomType = this.roomType || this.$route.params.roomType;
     this._patientId = this.patientId || this.$route.params.patientId;
-    this.$store.dispatch('room/fetchRooms');
+    this.$store.dispatch("room/fetchRooms");
     let r;
-    if (this._patientId === this.$store.getters['auth/userId']) {
-        r = this.$store.getters['room/roomSet'][this._roomType];
+    if (this._patientId === this.$store.getters["auth/userId"]) {
+      r = this.$store.getters["room/roomSet"][this._roomType];
     } else {
-        console.log("Attempting to open another patients records");
-        let p = this.$store.getters['room/patients'][this._patientId];
-        if (!p) {
-            this.error = "Patient not found. You may no longer have access to view their data.";
-            return;
-        }
-        r = p[this._roomType];
-        if (!r) {
-            this.error = "Datasource not found. You may no longer have access to view this dataset.";
-            return;
-        }
-        console.log("Got room", r);
+      console.log("Attempting to open another patients records");
+      let p = this.$store.getters["room/patients"][this._patientId];
+      if (!p) {
+        this.error =
+          "Patient not found. You may no longer have access to view their data.";
+        return;
+      }
+      r = p[this._roomType];
+      if (!r) {
+        this.error =
+          "Datasource not found. You may no longer have access to view this dataset.";
+        return;
+      }
+      console.log("Got room", r);
     }
     console.log("Got room of type", this._roomType, ":", r);
     if (!r) {
@@ -69,8 +69,6 @@ export default {
     }
     this.room = r;
   },
-  methods: {
-
-  },
-}
+  methods: {}
+};
 </script>

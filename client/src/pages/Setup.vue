@@ -39,14 +39,12 @@
 </template>
 
 <script>
-import {
-  mapGetters
-} from 'vuex'
-import Spinner from 'vue-spinner-component/src/Spinner.vue'
+import { mapGetters } from "vuex";
+import Spinner from "vue-spinner-component/src/Spinner.vue";
 export default {
   name: "Setup",
   metaInfo: {
-    title: 'Setup'
+    title: "Setup"
   },
   components: {
     Spinner
@@ -58,29 +56,33 @@ export default {
       },
       setupStage: -1, // 0 - personal deets, 1 - creating rooms, 2 - we don't need to do anything, go to dashboard
       roomCreatingStatement: "Preparing"
-    }
+    };
   },
   mounted() {
     //this.$store.dispatch('auth/login')
     // Determine the stage we should be on.
-    this.$store.dispatch('room/fetchRooms');
-    const role = this.$store.getters['auth/role'];
+    this.$store.dispatch("room/fetchRooms");
+    const role = this.$store.getters["auth/role"];
     if (role == null || role == undefined) {
       this.setupStage = 1;
     } else if (this.isRoomsIncomplete) {
       console.log("Running rooms creation");
       this.setupStage = 2;
-      this.createRooms().then(() => {
-        this.$store.dispatch('room/fetchRooms');
-        this.$router.push({
-          name: "dashboard"
+      this.createRooms()
+        .then(() => {
+          this.$store.dispatch("room/fetchRooms");
+          this.$router.push({
+            name: "dashboard"
+          });
+        })
+        .catch(err => {
+          this.roomCreatingStatement =
+            "Encountered an error while creating. Ask someone for help!";
+          console.error("Ran into an error while creating rooms:", err);
         });
-      }).catch((err) => {
-        this.roomCreatingStatement = "Encountered an error while creating. Ask someone for help!";
-        console.error("Ran into an error while creating rooms:", err);
-      })
-    } else { // All set, redirect to home.
-      console.log("Nothing to do in /setup, going to dash.")
+    } else {
+      // All set, redirect to home.
+      console.log("Nothing to do in /setup, going to dash.");
       this.$router.push({
         name: "dashboard"
       });
@@ -90,46 +92,53 @@ export default {
     sendDataForm() {
       this.$validator.validateAll().then(result => {
         if (result) {
-          this.$store.dispatch('auth/setRole', this.form);
-          this.$store.dispatch('auth/setDisplayName', this.profile.displayname)
+          this.$store.dispatch("auth/setRole", this.form);
+          this.$store
+            .dispatch("auth/setDisplayName", this.profile.displayname)
             .then(r => {
-              this.$store.dispatch('auth/getProfile');
-              const rooms = this.$store.getters['room/roomSet'];
+              this.$store.dispatch("auth/getProfile");
+              const rooms = this.$store.getters["room/roomSet"];
               if (this.isRoomsIncomplete) {
                 this.setupStage = 2;
-                this.createRooms().then(() => {
-                  this.$store.dispatch('room/fetchRooms');
-                  this.$router.push({
-                    name: "dashboard"
+                this.createRooms()
+                  .then(() => {
+                    this.$store.dispatch("room/fetchRooms");
+                    this.$router.push({
+                      name: "dashboard"
+                    });
+                  })
+                  .catch(err => {
+                    this.roomCreatingStatement =
+                      "Encountered an error while creating. Ask someone for help!";
+                    console.error(
+                      "Ran into an error while creating rooms:",
+                      err
+                    );
                   });
-                }).catch((err) => {
-                  this.roomCreatingStatement = "Encountered an error while creating. Ask someone for help!";
-                  console.error("Ran into an error while creating rooms:", err);
-                });
               } else {
                 this.$router.push({
                   name: "dashboard"
                 });
               }
-          });
+            });
         }
-      })
+      });
     },
     async createRooms() {
-      const rooms = this.$store.getters['room/roomSet'];
+      const rooms = this.$store.getters["room/roomSet"];
       if (rooms.medicalLog === null) {
         console.log("Creating medical log");
         this.roomCreatingStatement = "Creating Medical Log";
-        await this.$store.dispatch('room/create', {
-          title: 'Cardiographical',
+        await this.$store.dispatch("room/create", {
+          title: "Cardiographical",
           type: "medicallog"
         });
       }
       if (rooms.medicalInfo === null) {
         console.log("Creating medical info");
         this.roomCreatingStatement = "Creating Medical Info";
-        await this.$store.dispatch('room/create', {
-          title: 'Cardiographical',
+        await this.$store.dispatch("room/create", {
+          title: "Cardiographical",
           type: "medicalInfo"
         });
       }
@@ -139,12 +148,14 @@ export default {
   computed: {
     ...mapGetters("auth", ["profile"]),
     isRoomsIncomplete() {
-        const rooms = this.$store.getters['room/roomSet'];
-        // Doctors don't have log rooms
-        return rooms.medicalInfo === null || rooms.medicalLog === null && role !== 1;
+      const rooms = this.$store.getters["room/roomSet"];
+      // Doctors don't have log rooms
+      return (
+        rooms.medicalInfo === null || (rooms.medicalLog === null && role !== 1)
+      );
     }
   }
-}
+};
 </script>
 
 <style type="scss">

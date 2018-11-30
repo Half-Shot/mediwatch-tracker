@@ -1,8 +1,8 @@
-import * as types from '@/store/types';
+import * as types from "@/store/types";
 
 export default {
   profile: (state, id) => {
-    return state.profile
+    return state.profile;
   },
   role: (state, id) => {
     return state.role;
@@ -15,5 +15,5 @@ export default {
   },
   client: (state, id) => {
     return state.client;
-  },
+  }
 };

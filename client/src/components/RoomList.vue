@@ -13,14 +13,14 @@ export default {
   name: "RoomList",
   data: function() {
     return {
-        text: "",
-        userId: (this.$store.getters['auth/userId']),
-    }
+      text: "",
+      userId: this.$store.getters["auth/userId"]
+    };
   },
   computed: {
     rooms() {
-      return this.$store.getters['room/roomSet']
+      return this.$store.getters["room/roomSet"];
     }
   }
-}
+};
 </script>

@@ -7,11 +7,11 @@
 
 <script>
 export default {
-  name: 'dada',
+  name: "Conversation",
   data() {
     return {
       isActive: true
-    }
+    };
   },
   methods: {
     alertMe() {
@@ -19,7 +19,7 @@ export default {
       alert(this.isActive);
     }
   }
-}
+};
 </script>
 
 <style lang="css">

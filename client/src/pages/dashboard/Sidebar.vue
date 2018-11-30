@@ -21,39 +21,39 @@
 export default {
   data() {
     return {
-      rooms: this.$store.getters['room/getAll']
-    }
+      rooms: this.$store.getters["room/getAll"]
+    };
   }
-}
+};
 </script>
 
 <style lang="scss">
 .sidebar {
-    position: fixed;
-    top: 55px;
-    left: 0;
-    height: 100vh;
-    bottom: 0;
-    width: 75px;
-    background: blue;
-    color: white;
-    overflow-y: scroll;
-    background: #00b4db;
-    background: -webkit-linear-gradient(to bottom, #00b4db, #0083b0);
-    background: linear-gradient(to bottom, #00b4db, #0083b0);
-    text-align: center;
-    padding: 20px 5px;
-    ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        li {
-            padding: 0.5em 0;
-        }
+  position: fixed;
+  top: 55px;
+  left: 0;
+  height: 100vh;
+  bottom: 0;
+  width: 75px;
+  background: blue;
+  color: white;
+  overflow-y: scroll;
+  background: #00b4db;
+  background: -webkit-linear-gradient(to bottom, #00b4db, #0083b0);
+  background: linear-gradient(to bottom, #00b4db, #0083b0);
+  text-align: center;
+  padding: 20px 5px;
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      padding: 0.5em 0;
     }
-    svg {
-        fill: #ffff;
-        max-width: 35px;
-    }
+  }
+  svg {
+    fill: #ffff;
+    max-width: 35px;
+  }
 }
 </style>

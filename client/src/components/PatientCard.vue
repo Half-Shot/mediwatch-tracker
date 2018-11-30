@@ -21,24 +21,21 @@
 export default {
   props: ["patientId", "patient"],
   data() {
-      return {
-          name: "Donald",
-          avatarUrl: null
-      };
+    return {
+      name: "Donald",
+      avatarUrl: null
+    };
   },
   async mounted() {
-      const client = this.$store.getters["auth/client"];
-      const profile = await client.getProfileInfo(this.patientId);
-      this.name = profile.displayname;
-      this.avatarUrl = client.mxcUrlToHttp(profile.avatar_url, 256, 256, "scale") || null;
+    const client = this.$store.getters["auth/client"];
+    const profile = await client.getProfileInfo(this.patientId);
+    this.name = profile.displayname;
+    this.avatarUrl =
+      client.mxcUrlToHttp(profile.avatar_url, 256, 256, "scale") || null;
   },
-  methods: {
-
-  },
-  computed: {
-
-  },
-}
+  methods: {},
+  computed: {}
+};
 </script>
 
 <style lang="css">

@@ -10,26 +10,34 @@
 
 <script>
 export default {
-  props: ['room'],
+  props: ["room"],
   data: function() {
     return {
-        members: (this.room.currentState.getMembers().filter(m => ["join", "invite"].includes(m.membership)))
-    }
+      members: this.room.currentState
+        .getMembers()
+        .filter(m => ["join", "invite"].includes(m.membership))
+    };
   },
   computed: {
     memberPowers() {
-        const map = new Map();
-        this.members.forEach((member) => {
-            const invited = member.membership === "invite";
-            map.set(
+      const map = new Map();
+      this.members.forEach(member => {
+        const invited = member.membership === "invite";
+        map.set(
+          member.userId,
+          invited
+            ? "invited"
+            : this.room.currentState._maySendEventOfType(
+                "any",
                 member.userId,
-                invited ? "invited" : (
-                    this.room.currentState._maySendEventOfType("any", member.userId, false) ? "write" : "read"
-                )
-            );
-        });
-        return map;
-    },
+                false
+              )
+              ? "write"
+              : "read"
+        );
+      });
+      return map;
+    }
   }
-}
+};
 </script>

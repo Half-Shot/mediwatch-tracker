@@ -1,25 +1,26 @@
-import getters from './getters';
-import actions from './actions';
-import mutations from './mutations';
+import getters from "./getters";
+import actions from "./actions";
+import mutations from "./mutations";
 
 const state = {
-  items: [{
+  items: [
+    {
       id: 45678,
-      type: 'conversation',
-      title: 'John Doe',
-      avatar: ''
+      type: "conversation",
+      title: "John Doe",
+      avatar: ""
     },
     {
       id: 45670,
-      type: 'medicalInfo',
-      title: 'cardiographical',
-      avatar: ''
+      type: "medicalInfo",
+      title: "cardiographical",
+      avatar: ""
     },
     {
       id: 45678,
-      type: 'medicalInfo',
-      title: 'weight',
-      avatar: ''
+      type: "medicalInfo",
+      title: "weight",
+      avatar: ""
     }
   ],
   roomSet: [],

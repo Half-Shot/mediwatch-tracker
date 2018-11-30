@@ -49,35 +49,36 @@
 </template>
 
 <script>
-import Config from '../Config'
+import Config from "../Config";
 export default {
   name: "Login",
   metaInfo: {
-    title: 'Login'
+    title: "Login"
   },
   data: function() {
     return {
       form: {
-        username: '',
-        password: '',
-        url: "https://medical.webres.me", //Config.getDefaultHomeserver(),
+        username: "",
+        password: "",
+        url: "https://medical.webres.me" //Config.getDefaultHomeserver(),
       }
-    }
+    };
   },
   methods: {
     login() {
       this.$validator.validateAll().then(result => {
         if (result) {
-          this.$store.dispatch('auth/login', this.form)
-            .then(res => this.$store.dispatch('auth/getProfile'))
+          this.$store
+            .dispatch("auth/login", this.form)
+            .then(res => this.$store.dispatch("auth/getProfile"));
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 <style lang="scss">
-.login{
+.login {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -85,53 +86,65 @@ export default {
   transform: translateY(-50%);
   width: 100%;
 }
-.secondary-links{
+.secondary-links {
   margin: 10px 0 0;
   padding: 0;
   list-style: none;
   text-align: center;
-  li{
+  li {
     display: inline-block;
     margin: 0 10px 0 0;
   }
 }
-  .background-section{
-    background: url('../assets/background.jpg') no-repeat center center;
-    background-size: cover;
-    margin-top: 50px;
-    padding: 30px 0;
-    position: relative;
-    border-radius: 5px;
-    .col-md-4{
-      min-height: 260px;
-      .panel{
-        position: absolute;
-        right: -15px;
-        top: 10px;
-        left: 0;
-      }
-    }
-    h2{
-      margin-top: 0;
-    }
-
-    .row{
-      z-index: 1;
-      position: relative;
-    }
-
-    &:after{
-      content: '';
+.background-section {
+  background: url("../assets/background.jpg") no-repeat center center;
+  background-size: cover;
+  margin-top: 50px;
+  padding: 30px 0;
+  position: relative;
+  border-radius: 5px;
+  .col-md-4 {
+    min-height: 260px;
+    .panel {
       position: absolute;
-      z-index: 0;
+      right: -15px;
+      top: 10px;
       left: 0;
-      right: 0;
-      bottom: 0;
-      top: 0;
-      background: -moz-linear-gradient(left, rgba(255,255,255,0.80) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
-      background: -webkit-linear-gradient(left, rgba(255,255,255,0.80) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
-      background: linear-gradient(to right, rgba(255,255,255,0.80) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6ffffff', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
     }
   }
+  h2 {
+    margin-top: 0;
+  }
+
+  .row {
+    z-index: 1;
+    position: relative;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: -moz-linear-gradient(
+      left,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ); /* FF3.6-15 */
+    background: -webkit-linear-gradient(
+      left,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6ffffff', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
+  }
+}
 </style>

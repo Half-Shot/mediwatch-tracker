@@ -10,56 +10,54 @@
 
 <script>
 export default {
-  name: 'InvitePopup',
+  name: "InvitePopup",
   props: {
-    shown: Boolean,
+    shown: Boolean
   },
   data() {
-    return {
-
-    }
+    return {};
   },
   methods: {
-    closeInvites(){
-      this.$emit('toggleInvites')
+    closeInvites() {
+      this.$emit("toggleInvites");
     }
   }
-}
+};
 </script>
 
 
 <style  lang="scss">
-  .overlay{
-    z-index: 99;
-    background: rgba(0, 0, 0, 0.6);
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    position: fixed;
+.overlay {
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.6);
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+}
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow: auto;
+  position: relative;
+  transition: all 5s ease-in-out;
+  z-index: 100;
+  h2 {
+    margin-top: 0;
   }
-  .popup{
-    margin: 70px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 5px;
-    width: 100%;
-    max-width: 500px;
-    max-height: 90vh;
-    overflow: auto;
-    position: relative;
-    transition: all 5s ease-in-out;
-    z-index: 100;
-    h2 {
-      margin-top: 0;
-    }
-  }
-  .closeButton{
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    max-width: 30px;
-    cursor: pointer;
-    z-index: 1;
-  }
+}
+.closeButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  max-width: 30px;
+  cursor: pointer;
+  z-index: 1;
+}
 </style>

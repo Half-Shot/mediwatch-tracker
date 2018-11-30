@@ -41,41 +41,43 @@ export default {
   props: ["room"],
   data: function() {
     return {
-        typeOfInfo: "comment",
-        commentText: "",
-        isDoctor: (this.$store.getters["auth/role"] === 1),
-        hasRequestedAccess: false,
-    }
+      typeOfInfo: "comment",
+      commentText: "",
+      isDoctor: this.$store.getters["auth/role"] === 1,
+      hasRequestedAccess: false
+    };
   },
   computed: {
-     canWriteToLog() {
-         return this.room.currentState._maySendEventOfType(
-             "any", this.$store.getters["auth/userId"], false
-         );
-     }
+    canWriteToLog() {
+      return this.room.currentState._maySendEventOfType(
+        "any",
+        this.$store.getters["auth/userId"],
+        false
+      );
+    }
   },
   methods: {
-      async submitComment() {
-          if (this.commentText.trim().length === 0) {
-              return;
-          }
-          await this.$store.getters['auth/client'].sendTextMessage(
-              this.room.roomId,
-              this.commentText,
-          );
-          this.commentText = "";
+    async submitComment() {
+      if (this.commentText.trim().length === 0) {
+        return;
       }
+      await this.$store.getters["auth/client"].sendTextMessage(
+        this.room.roomId,
+        this.commentText
+      );
+      this.commentText = "";
+    }
   }
-}
+};
 </script>
 <style lang="scss">
 .container.logwriter button {
-    margin: 0px 5px;
-    float: right;
+  margin: 0px 5px;
+  float: right;
 }
 
 .container.logwriter textarea {
-    width: 100%;
-    resize: vertical;
+  width: 100%;
+  resize: vertical;
 }
 </style>

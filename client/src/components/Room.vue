@@ -20,7 +20,7 @@
 <script>
 export default {
   name: "BaseRoom",
-  props: ['room', 'force', 'showControls'],
+  props: ["room", "force", "showControls"],
   data: function() {
     return {
       inviteUser: "",
@@ -28,8 +28,8 @@ export default {
       timeline: null,
       scrollOffset: 0,
       maxOffset: 0,
-      isScrollingUp: false,
-    }
+      isScrollingUp: false
+    };
   },
   mounted() {
     this.timeline = this.room.getLiveTimeline();
@@ -40,67 +40,67 @@ export default {
     this.$store.dispatch("privacy/hidingRoom", this.room);
   },
   computed: {
-      events() {
-          // Authoscroll
-          if (!this.isScrollingUp) {
-              this.scrollOffset = this.maxOffset;
-          }
-          this.isScrollingUp = false;
-          return this.room.getLiveTimeline().getEvents().filter((e) => {
-            return ![
-              "me.webres.medical.roomtype",
-              "m.room.join_rules",
-              "m.room.guest_access",
-              "m.room.name",
-              ].includes(e.getType());
-          });
+    events() {
+      // Authoscroll
+      if (!this.isScrollingUp) {
+        this.scrollOffset = this.maxOffset;
       }
+      this.isScrollingUp = false;
+      return this.room
+        .getLiveTimeline()
+        .getEvents()
+        .filter(e => {
+          return ![
+            "me.webres.medical.roomtype",
+            "m.room.join_rules",
+            "m.room.guest_access",
+            "m.room.name"
+          ].includes(e.getType());
+        });
+    }
   },
   methods: {
     async onScrollTop() {
-        this.isScrollingUp = true;
-        await this.$store.getters["auth/client"].scrollback(this.room);
+      this.isScrollingUp = true;
+      await this.$store.getters["auth/client"].scrollback(this.room);
     },
-    async onScrollBottom() {
-
-    },
+    async onScrollBottom() {},
     async onScroll(event, data) {
-        console.log("Modfying offset", data);
-        this.scrollOffset = data.offset;
-        this.maxOffset = data.offsetAll;
+      console.log("Modfying offset", data);
+      this.scrollOffset = data.offset;
+      this.maxOffset = data.offsetAll;
     },
     async addToLog() {
       await this.$store.dispatch("room/addToLog", {
         room: this.room,
-        body: this.text,
+        body: this.text
       });
       this.events.push({
         content: {
-          body: this.text,
+          body: this.text
         }
       });
     },
     async inviteToView() {
       await this.$store.dispatch("room/invite", {
         room: this.room,
-        user: this.inviteUser,
+        user: this.inviteUser
       });
       this.events.push({
         content: {
-          body: `Invited ${this.inviteUser} to view your data`,
+          body: `Invited ${this.inviteUser} to view your data`
         }
       });
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
 h1 {
-    font-size: 12pt;
+  font-size: 12pt;
 }
 
 .container.room {
-
 }
 </style>
