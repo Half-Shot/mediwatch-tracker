@@ -13,6 +13,9 @@ export default {
   get: (state, id) => {
     return state.rooms;
   },
+  invitesCount: (state, id) => {
+    return state.invites.length;
+  },
   invites: (state, id) => {
     return state.invites;
   }

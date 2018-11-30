@@ -23,25 +23,35 @@ export default {
     };
     const patients = {};
     console.log("Fetching rooms");
-    let invites = 0;
+    let invites = [];
     const ourName = this.getters["auth/client"].getUserId();
     // this.getters['auth/client'].on("Room", function(room){
     //   var roomId = room.roomId;
     // });
     this.getters["auth/client"].getRooms().forEach(async room => {
       // Creator
-      console.log(room);
-      console.log(room.hasMembershipState(ourName, "invite"));
+      // console.log(room);
+      let invite = false;
       if (room.hasMembershipState(ourName, "invite")) {
-        invites++;
+        invite = true;
       }
 
-      const creatorState = room.currentState.getStateEvents("m.room.create");
+      const creatorState = await room.currentState.getStateEvents(
+        "m.room.create"
+      );
+      console.log("Nothing here ---> ", creatorState);
       if (creatorState.length !== 1) {
         return;
       }
       const creatorUser = creatorState[0].getContent().creator;
-      const state = room.currentState.getStateEvents(STATE_TYPE_TYPE);
+      if (invite) {
+        console.log("Invited", invite);
+        room.creator = creatorUser;
+        invites.push(room);
+      }
+
+      const state = await room.currentState.getStateEvents(STATE_TYPE_TYPE);
+
       if (state.length === 0) {
         return;
       }
@@ -49,6 +59,7 @@ export default {
         console.warn(`${room.roomId} has multiple roomtypes, eek`);
       }
       const rType = state[0].getContent().type;
+
       if (creatorUser === ourName) {
         if (rType === MEDICAL_LOG_TYPE) {
           acctRooms.medicalLog = room;

@@ -24,7 +24,8 @@ const state = {
     }
   ],
   roomSet: [],
-  invites: 0
+  invites: [],
+  patientRooms: []
 };
 
 export default {

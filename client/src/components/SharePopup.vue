@@ -151,6 +151,19 @@ export default {
       width: 100%;
     }
   }
+  .inputGroup label {
+    padding: 10px 30px 10px 46px;
+    font-size: 0.8em;
+    background-image: none;
+  }
+  .inputGroup label:after {
+    left: 15px;
+    width: 20px;
+    height: 20px;
+  }
+  .avatar {
+    margin: 0 0 0 15px;
+  }
 }
 .contacts {
   list-style: none;

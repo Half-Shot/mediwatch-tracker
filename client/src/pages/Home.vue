@@ -2,7 +2,7 @@
     <div class="container hello">
       <div v-if="role == 1">
         <h2> Your patients </h2>
-          <ul class="user-list">
+          <ul class="user-list" v-if="patients">
             <li v-for="patient in Object.keys(patients)">
               <PatientCard :patientId="patient" :patient="patients[patient]"/>
             </li>
