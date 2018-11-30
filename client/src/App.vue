@@ -178,6 +178,7 @@ body {
   &:hover {
     background-color: #00b4db;
     border-color: #00b4db;
+    box-shadow: 0 1px 20px 0 rgba(46, 61, 73, 0.2);
   }
 }
 label {

@@ -176,6 +176,7 @@ export default {
     margin-right: 15px;
     position: relative;
     //border-bottom: 1px solid;
+    transition: all 0.3s ease-in-out;
     &:last-child {
       &:hover {
         box-shadow: none;

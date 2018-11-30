@@ -9,7 +9,7 @@ export default {
     state.invites = invites;
   },
   SET_PATIENT_ROOMS(state, patientRooms) {
-    console.log("Setup patient rooms:", patientRooms);
+    console.log("Setup patient rooms-->", patientRooms);
     state.patientRooms = patientRooms;
   }
 };

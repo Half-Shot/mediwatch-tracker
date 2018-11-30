@@ -2,8 +2,9 @@
     <div class="container hello">
       <div v-if="role == 1">
         <h2> Your patients </h2>
-          <ul class="user-list" v-if="patients">
+          <ul class="user-list" v-if="Object.keys(patients).length > 0">
             <li v-for="patient in Object.keys(patients)">
+              {{ patients[patient] }}
               <PatientCard :patientId="patient" :patient="patients[patient]"/>
             </li>
           </ul>
@@ -29,8 +30,24 @@ export default {
   },
   created() {
     this.$store.dispatch("room/fetchRooms");
+    let that = this;
     this.$store.getters["auth/client"].on("Room", function(room) {
-      this.$store.dispatch("room/fetchRooms");
+      that.$store.dispatch("room/fetchRooms");
+    });
+    this.$store.getters["auth/client"].on("RoomMember.membership", function(
+      event,
+      member,
+      oldMembership
+    ) {
+      that.$store.dispatch("room/fetchRooms");
+    });
+
+    this.$store.getters["auth/client"].on("RoomState.newMember", function(
+      event,
+      state,
+      member
+    ) {
+      that.$store.dispatch("room/fetchRooms");
     });
   },
   data: function() {

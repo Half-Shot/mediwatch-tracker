@@ -25,31 +25,35 @@ export default {
     console.log("Fetching rooms");
     let invites = [];
     const ourName = this.getters["auth/client"].getUserId();
-    // this.getters['auth/client'].on("Room", function(room){
-    //   var roomId = room.roomId;
-    // });
+
     this.getters["auth/client"].getRooms().forEach(async room => {
-      // Creator
-      // console.log(room);
+      // Getting invitations
       let invite = false;
       if (room.hasMembershipState(ourName, "invite")) {
         invite = true;
+        const memberState = await room.currentState.getStateEvents(
+          "m.room.member"
+        );
+        if (memberState.length > 1) {
+          for (var i = 0; i < memberState.length; i++) {
+            if (ourName == memberState[i].event.state_key) {
+              room.sender = await this.getters["auth/client"].getUser(
+                memberState[i].event.sender
+              );
+              invites.push(room);
+            }
+          }
+        }
       }
 
       const creatorState = await room.currentState.getStateEvents(
         "m.room.create"
       );
-      console.log("Nothing here ---> ", creatorState);
+
       if (creatorState.length !== 1) {
         return;
       }
       const creatorUser = creatorState[0].getContent().creator;
-      if (invite) {
-        console.log("Invited", invite);
-        room.creator = creatorUser;
-        invites.push(room);
-      }
-
       const state = await room.currentState.getStateEvents(STATE_TYPE_TYPE);
 
       if (state.length === 0) {
@@ -128,6 +132,22 @@ export default {
   },
   invite({ state, commit, dispatch }, { room, user }) {
     return this.getters["auth/client"].invite(room.roomId, user);
+  },
+  join({ state, commit, dispatch }, roomId) {
+    Vue.notify({
+      group: "foo",
+      text: `Successfully attained permission.`,
+      type: "success"
+    });
+    return this.getters["auth/client"].joinRoom(roomId);
+  },
+  reject({ state, commit, dispatch }, roomId) {
+    Vue.notify({
+      group: "foo",
+      text: `Successfully rejected invitation.`,
+      type: "success"
+    });
+    return this.getters["auth/client"].leave(roomId);
   },
   bulkInvitations({ state, commit, dispatch }, invitations) {
     var users = Object.keys(invitations);
