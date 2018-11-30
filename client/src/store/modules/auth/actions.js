@@ -48,9 +48,7 @@ export default {
       res.url = data.url;
 
       await commit("LOGIN", res);
-      router.push({
-        name: "setup"
-      });
+      await dispatch("getProfile", "redirect");
 
       return Promise.resolve(res);
     } catch (ex) {
@@ -170,6 +168,11 @@ export default {
         const res = await state.client.getAccountData("role");
         if (res) {
           commit("SET_ROLE", res.event.content.role);
+          if (data == "redirect") {
+            router.push({
+              name: "setup"
+            });
+          }
         }
       }
     });

@@ -63,7 +63,7 @@ export default {
     // Determine the stage we should be on.
     this.$store.dispatch("room/fetchRooms");
     const role = this.$store.getters["auth/role"];
-    if (role == null || role == undefined) {
+    if (this.role == null || this.role == undefined) {
       this.setupStage = 1;
     } else if (this.isRoomsIncomplete) {
       console.log("Running rooms creation");
@@ -146,7 +146,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("auth", ["profile"]),
+    ...mapGetters("auth", ["profile", "role"]),
     isRoomsIncomplete() {
       const rooms = this.$store.getters["room/roomSet"];
       // Doctors don't have log rooms
