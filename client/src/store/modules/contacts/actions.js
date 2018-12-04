@@ -2,13 +2,21 @@ import * as types from "@/store/types";
 import Vue from "vue";
 
 export default {
-  async search({ state, commit, dispatch }, data) {
+  async search({
+    state,
+    commit,
+    dispatch
+  }, data) {
     return await this.getters["auth/client"].searchUserDirectory({
       term: data,
       limit: 3
     });
   },
-  async add({ state, commit, dispatch }, user) {
+  async add({
+    state,
+    commit,
+    dispatch
+  }, user) {
     let contacts = state.contacts;
     for (var i = 0; i < contacts.length; i++) {
       if (contacts[i].user_id == user.user_id) {
@@ -21,17 +29,17 @@ export default {
         return Promise.reject();
       }
     }
-    if (user.user_id != this.getters["auth/userId"] || true != false) {
+    if (user.user_id != this.getters["auth/userId"]) {
       contacts.push(user);
 
-      user.avatar_url = user.avatar_url
-        ? await this.getters["auth/client"].mxcUrlToHttp(
-            user.avatar_url,
-            64,
-            64,
-            "scale"
-          )
-        : null;
+      user.avatar_url = user.avatar_url ?
+        await this.getters["auth/client"].mxcUrlToHttp(
+          user.avatar_url,
+          64,
+          64,
+          "scale"
+        ) :
+        null;
 
       const res = await this.getters["auth/client"].setAccountData("contacts", {
         contacts: contacts
@@ -52,10 +60,14 @@ export default {
     }
   },
 
-  async remove({ state, commit, dispatch }, user) {
-    console.log(user);
+  async remove({
+    state,
+    commit,
+    dispatch
+  }, user) {
+
     let contacts = state.contacts;
-    console.log(contacts);
+
     let element = null;
     for (var i = 0; i < contacts.length; i++) {
       if (contacts[i].user_id == user.user_id) {
@@ -87,7 +99,11 @@ export default {
       return Promise.reject();
     }
   },
-  async get({ state, commit, dispatch }, data) {
+  async get({
+    state,
+    commit,
+    dispatch
+  }, data) {
     let contacts = await this.getters["auth/client"].getAccountData("contacts");
     if (contacts) {
       commit("SET_CONTACTS", contacts.event.content.contacts);

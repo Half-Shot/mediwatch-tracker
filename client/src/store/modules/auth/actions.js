@@ -4,7 +4,11 @@ import router from "../../../router";
 import Vue from "vue";
 
 export default {
-  async login({ state, commit, dispatch }, data) {
+  async login({
+    state,
+    commit,
+    dispatch
+  }, data) {
     let autologin = false;
     if (!data) {
       autologin = true;
@@ -65,7 +69,11 @@ export default {
 
     // return commit('LOGIN', data);
   },
-  async register({ state, commit, dispatch }, data) {
+  async register({
+    state,
+    commit,
+    dispatch
+  }, data) {
     let url = data.url_field ? data.url_field : data.url;
 
     commit(
@@ -83,8 +91,7 @@ export default {
       const res = await state.client.register(
         data.username,
         data.password,
-        null,
-        {
+        null, {
           type: "m.login.dummy"
         }
       );
@@ -114,7 +121,11 @@ export default {
     // return commit('LOGIN', data);
   },
 
-  async setRole({ state, commit, dispatch }, data) {
+  async setRole({
+    state,
+    commit,
+    dispatch
+  }, data) {
     // commit('SET_CLIENT', Matrix.createClient({
     //   baseUrl: state.mx_url
     // }))
@@ -145,7 +156,11 @@ export default {
     // return commit('LOGIN', data);
   },
 
-  async setDisplayName({ state, commit, dispatch }, data) {
+  async setDisplayName({
+    state,
+    commit,
+    dispatch
+  }, data) {
     try {
       const res = await state.client.setDisplayName(data);
 
@@ -155,8 +170,11 @@ export default {
       return ex;
     }
   },
-  async logout({ state, commit, dispatch }, data) {
-    console.log("User requested logout.");
+  async logout({
+    state,
+    commit,
+    dispatch
+  }, data) {
     dispatch("unsetClient", true);
     commit("LOGOUT");
     commit("SET SYNC STATUS", undefined);
@@ -164,12 +182,20 @@ export default {
       name: "login"
     });
   },
-  async getProfile({ state, commit, dispatch }, data) {
+  async getProfile({
+    state,
+    commit,
+    dispatch
+  }, data) {
     state.client.on("sync", async syncState => {
       if (syncState == "PREPARED") {
         const res = await state.client.getAccountData("role");
         if (res) {
           commit("SET_ROLE", res.event.content.role);
+          router.push({
+            name: "Home"
+          });
+        } else {
           if (data == "redirect") {
             router.push({
               name: "setup"
@@ -181,9 +207,9 @@ export default {
 
     if (state.mx_userId) {
       const profile = await state.client.getProfileInfo(state.mx_userId);
-      profile.avatar = profile.avatar_url
-        ? state.client.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale")
-        : null;
+      profile.avatar = profile.avatar_url ?
+        state.client.mxcUrlToHttp(profile.avatar_url, 64, 64, "scale") :
+        null;
       commit("SET_PROFILE", profile);
     } else {
       router.push({
@@ -191,7 +217,10 @@ export default {
       });
     }
   },
-  unsetClient({ state, commit }, data) {
+  unsetClient({
+    state,
+    commit
+  }, data) {
     commit("UNSET_CLIENT");
 
     if (state.client) {

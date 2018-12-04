@@ -17,20 +17,17 @@
               </div>
               <div class="input-group">
                 <input name="password" id="password" ref="password" v-validate.disable="'required|min:6'" type="password" v-model="form.password" placeholder="Password">
-                <p class="passwordError" v-if="errors.has('password')">{{ errors.first('password')}}</p>
+                <p class="text-danger" v-if="errors.has('password')">{{ errors.first('password')}}</p>
               </div>
               <div class="input-group">
                 <input name="passwordConfirm" id="passwordConfirm" v-validate.disable="'required|confirmed:password'" type="password" v-model="form.passwordConfirm" placeholder="Confirm Password">
-                <p class="passwordError" v-if="errors.has('passwordConfirm')">{{ errors.first('passwordConfirm')}}</p>
+                <p class="text-danger" v-if="errors.has('passwordConfirm')">{{ errors.first('passwordConfirm')}}</p>
               </div>
               <div class="input-group">
                 <label>Choose a server or enter your own:</label>
                 <div class="row" style="float: left;">
                   <div class="col-md-6">
-                    <dropdown :options="servers"
-                              :selected="servers[0]"
-                              v-on:updateOption="selectServer"
-                              :placeholder="'Select an Item'">
+                    <dropdown :options="servers" :selected="servers[0]" v-on:updateOption="selectServer" :placeholder="'Select an Item'">
                     </dropdown>
                   </div>
                   <div class="col-md-6">
@@ -52,7 +49,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import {
+  mapGetters
+} from "vuex";
 import dropdown from "vue-dropdowns";
 
 export default {

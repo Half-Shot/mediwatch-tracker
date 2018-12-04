@@ -121,11 +121,11 @@ export default {
     },
     search() {
       this.suggestions =
-        this.term.length > 3
-          ? this.$store
-              .dispatch("contacts/search", this.term)
-              .then(r => (this.suggestions = r.results))
-          : [];
+        this.term.length > 3 ?
+        this.$store
+        .dispatch("contacts/search", this.term)
+        .then(r => (this.suggestions = r.results)) :
+        [];
     }
   },
   computed: {
@@ -142,101 +142,102 @@ export default {
 
 <style  lang="scss">
 .popup.share {
-  //min-height: 90vh;
-  .rooms {
-    float: left;
-    display: block;
-    .inputGroup {
-      margin: 0;
-      width: 100%;
+    //min-height: 90vh;
+    .rooms {
+        float: left;
+        display: block;
+        .inputGroup {
+            margin: 0;
+            width: 100%;
+        }
     }
-  }
-  .inputGroup label {
-    padding: 10px 30px 10px 46px;
-    font-size: 0.8em;
-    background-image: none;
-  }
-  .inputGroup label:after {
-    left: 15px;
-    width: 20px;
-    height: 20px;
-  }
-  .avatar {
-    margin: 0 0 0 15px;
-  }
+    .inputGroup label {
+        padding: 10px 30px 10px 46px;
+        font-size: 0.8em;
+        background-image: none;
+    }
+    .inputGroup label:after {
+        left: 15px;
+        width: 20px;
+        height: 20px;
+        background-image: none;
+    }
+    .avatar {
+        margin: 0 0 0 15px;
+    }
 }
 .contacts {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  li {
-    width: 100%;
-    float: left;
-    padding: 10px 0;
-    margin-right: 15px;
-    position: relative;
-    //border-bottom: 1px solid;
-    transition: all 0.3s ease-in-out;
-    &:last-child {
-      &:hover {
-        box-shadow: none;
-      }
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+        width: 100%;
+        float: left;
+        padding: 10px 0;
+        margin-right: 15px;
+        position: relative;
+        //border-bottom: 1px solid;
+        transition: all 0.3s ease-in-out;
+        &:last-child {
+            &:hover {
+                box-shadow: none;
+            }
+        }
+        &:hover {
+            box-shadow: 0 1px 20px 0 rgba(46, 61, 73, 0.2);
+        }
     }
-    &:hover {
-      box-shadow: 0 1px 20px 0 rgba(46, 61, 73, 0.2);
+    .name {
+        display: block;
+        float: left;
+        margin: 7px 15px;
+        font-size: 1.5em;
+        font-weight: bold;
+        text-transform: capitalize;
     }
-  }
-  .name {
-    display: block;
-    float: left;
-    margin: 7px 15px;
-    font-size: 1.5em;
-    font-weight: bold;
-    text-transform: capitalize;
-  }
 }
 .form {
-  float: left;
-  width: 100%;
+    float: left;
+    width: 100%;
 }
 .avatar {
-  width: 40px;
-  height: auto;
-  float: left;
-  display: block;
-  border-radius: 50%;
+    width: 40px;
+    height: auto;
+    float: left;
+    display: block;
+    border-radius: 50%;
 }
 .suggestions-wrapper {
-  position: relative;
-  z-index: 9;
+    position: relative;
+    z-index: 9;
 }
 .suggestions {
-  float: left;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  background: white;
-  top: 40px;
-  border-radius: 4px;
-  box-shadow: 0 1px 20px 0 rgba(46, 61, 73, 0.2);
-  max-height: 400px;
-  overflow: auto;
-  li {
+    float: left;
     width: 100%;
-    float: left;
-    display: block;
-    padding: 10px;
-    cursor: pointer;
-    position: relative;
-    &:hover {
-      background: #efefef;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    background: white;
+    top: 40px;
+    border-radius: 4px;
+    box-shadow: 0 1px 20px 0 rgba(46, 61, 73, 0.2);
+    max-height: 400px;
+    overflow: auto;
+    li {
+        width: 100%;
+        float: left;
+        display: block;
+        padding: 10px;
+        cursor: pointer;
+        position: relative;
+        &:hover {
+            background: #efefef;
+        }
     }
-  }
-  span {
-    display: block;
-    float: left;
-    margin: 10px;
-  }
+    span {
+        display: block;
+        float: left;
+        margin: 10px;
+    }
 }
 </style>
