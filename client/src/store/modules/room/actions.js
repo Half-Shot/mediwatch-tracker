@@ -27,19 +27,16 @@ export default {
     let patientList = [];
     const ourName = this.getters["auth/client"].getUserId();
 
-    this.getters["auth/client"].getRooms().forEach(async room => {
-      // Getting invitations
-      let invite = false;
-
+    this.getters["auth/client"].getRooms().forEach(room => {
       if (room.hasMembershipState(ourName, "invite")) {
         invite = true;
-        const memberState = await room.currentState.getStateEvents(
+        const memberState = room.currentState.getStateEvents(
           "m.room.member"
         );
         if (memberState.length > 1) {
           for (var i = 0; i < memberState.length; i++) {
             if (ourName == memberState[i].event.state_key) {
-              room.sender = await this.getters["auth/client"].getUser(
+              room.sender = this.getters["auth/client"].getUser(
                 memberState[i].event.sender
               );
               invites.push(room);
@@ -48,7 +45,7 @@ export default {
         }
       }
 
-      const creatorState = await room.currentState.getStateEvents(
+      const creatorState = room.currentState.getStateEvents(
         "m.room.create"
       );
 
@@ -56,7 +53,7 @@ export default {
         return;
       }
       const creatorUser = creatorState[0].getContent().creator;
-      const state = await room.currentState.getStateEvents(STATE_TYPE_TYPE);
+      const state = room.currentState.getStateEvents(STATE_TYPE_TYPE);
 
       if (state.length === 0) {
         return;
@@ -67,18 +64,19 @@ export default {
       const rType = state[0].getContent().type;
 
       if (creatorUser === ourName) {
+        room.members = {
+          joined: [],
+          invited: [],
+        }
+        room.members.joined = room.currentState.getMembers().filter((m) => m.membership === "join");
+        room.members.invited = room.currentState.getMembers().filter((m) => m.membership === "invite");
         if (rType === MEDICAL_LOG_TYPE) {
           acctRooms.medicalLog = room;
-          acctRooms.medicalLog.members = await this.getters[
-            "auth/client"
-          ].getJoinedRoomMembers(room.roomId);
         }
-        if (rType === MEDICAL_INFO_TYPE) {
+        else if (rType === MEDICAL_INFO_TYPE) {
           acctRooms.medicalInfo = room;
-          acctRooms.medicalInfo.members = await this.getters[
-            "auth/client"
-          ].getJoinedRoomMembers(room.roomId);
         }
+        console.log(rType, room);
       } else {
         const patientUser = patients[creatorUser] || {};
         var hasUser = patientList.indexOf(creatorUser) > -1;
