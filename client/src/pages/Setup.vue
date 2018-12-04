@@ -58,7 +58,7 @@ export default {
       roomCreatingStatement: "Preparing"
     };
   },
-  mounted() {
+  created() {
     //this.$store.dispatch('auth/login')
     // Determine the stage we should be on.
     this.$store.dispatch("room/fetchRooms");
@@ -72,7 +72,7 @@ export default {
         .then(() => {
           this.$store.dispatch("room/fetchRooms");
           this.$router.push({
-            name: "dashboard"
+            name: "Home"
           });
         })
         .catch(err => {
@@ -84,7 +84,7 @@ export default {
       // All set, redirect to home.
       console.log("Nothing to do in /setup, going to dash.");
       this.$router.push({
-        name: "dashboard"
+        name: "Home"
       });
     }
   },
@@ -104,7 +104,7 @@ export default {
                   .then(() => {
                     this.$store.dispatch("room/fetchRooms");
                     this.$router.push({
-                      name: "dashboard"
+                      name: "Home"
                     });
                   })
                   .catch(err => {
@@ -117,7 +117,7 @@ export default {
                   });
               } else {
                 this.$router.push({
-                  name: "dashboard"
+                  name: "Home"
                 });
               }
             });

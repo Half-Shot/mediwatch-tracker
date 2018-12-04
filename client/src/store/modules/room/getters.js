@@ -7,6 +7,9 @@ export default {
   patients: state => {
     return state.patientRooms;
   },
+  patientList: state => {
+    return state.patientList;
+  },
   getAll: state => {
     return state.items;
   },

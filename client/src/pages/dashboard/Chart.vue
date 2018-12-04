@@ -1,9 +1,9 @@
 <template lang="html">
   <div class="panel dashboard-fullscreen">
-    <div style="width:50%;">
+    <!-- <div style="width:50%;">
       <line-chart :chart-data="datacollection"></line-chart>
       <button @click="fillData()">Randomize</button>
-    </div>
+    </div> -->
 
 
   </div>
@@ -32,11 +32,6 @@ export default {
           {
             label: "Data One",
             backgroundColor: "#f87979",
-            data: [this.getRandomInt(), this.getRandomInt()]
-          },
-          {
-            label: "Data Two",
-            backgroundColor: "#000000",
             data: [this.getRandomInt(), this.getRandomInt()]
           }
         ]

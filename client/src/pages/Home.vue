@@ -2,12 +2,18 @@
     <div class="container hello">
       <div v-if="role == 1">
         <h2> Your patients </h2>
-          <ul class="user-list" v-if="Object.keys(patients).length > 0">
+        <ul class="contacts">
+          <li v-for="patient in patientList">
+            <PatientCard :patientId="patient"/>
+          </li>
+          <li></li>
+        </ul>
+          <!-- <ul class="user-list" v-if="Object.keys(patients).length > 0">
             <li v-for="patient in Object.keys(patients)">
               {{ patients[patient] }}
-              <PatientCard :patientId="patient" :patient="patients[patient]"/>
+
             </li>
-          </ul>
+          </ul> -->
         </div>
       <div v-else-if="role === 0">
         <h2> Your data sources </h2>
@@ -57,8 +63,8 @@ export default {
     role() {
       return this.$store.getters["auth/role"];
     },
-    patients() {
-      return this.$store.getters["room/patients"];
+    patientList() {
+      return this.$store.getters["room/patientList"];
     }
   }
 };

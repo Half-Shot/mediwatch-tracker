@@ -24,11 +24,13 @@ export default {
     const patients = {};
     console.log("Fetching rooms");
     let invites = [];
+    let patientList = [];
     const ourName = this.getters["auth/client"].getUserId();
 
     this.getters["auth/client"].getRooms().forEach(async room => {
       // Getting invitations
       let invite = false;
+
       if (room.hasMembershipState(ourName, "invite")) {
         invite = true;
         const memberState = await room.currentState.getStateEvents(
@@ -79,6 +81,10 @@ export default {
         }
       } else {
         const patientUser = patients[creatorUser] || {};
+        var hasUser = patientList.indexOf(creatorUser) > -1;
+        if (!hasUser) {
+          patientList.push(creatorUser);
+        }
         if (rType === MEDICAL_LOG_TYPE) {
           patientUser.medicalLog = room;
         }
@@ -92,6 +98,7 @@ export default {
     commit("SET_ROOMS", acctRooms);
     commit("SET_INVITES", invites);
     commit("SET_PATIENT_ROOMS", patients);
+    commit("SET_PATIENT_LIST", patientList);
   },
   create({ state, commit, dispatch }, data) {
     const userId = this.getters["auth/client"].getUserId();

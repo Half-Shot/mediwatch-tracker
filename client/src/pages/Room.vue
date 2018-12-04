@@ -62,11 +62,11 @@ export default {
       console.log("Got room", r);
     }
     console.log("Got room of type", this._roomType, ":", r);
-    if (!r) {
-      this.$router.push({
-        name: "home"
-      });
-    }
+    // if (!r) {
+    //   this.$router.push({
+    //     name: "Home"
+    //   });
+    // }
     this.room = r;
   },
   methods: {}

@@ -27,6 +27,11 @@ export const routes = [
     component: Dashboard
   },
   {
+    path: "/dashboard/:user",
+    name: "dashboard-user",
+    component: Dashboard
+  },
+  {
     path: "/conversation",
     name: "conversation",
     component: Conversation

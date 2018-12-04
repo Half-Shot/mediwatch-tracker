@@ -8,6 +8,9 @@ export default {
   SET_INVITES(state, invites) {
     state.invites = invites;
   },
+  SET_PATIENT_LIST(state, patientList) {
+    state.patientList = patientList;
+  },
   SET_PATIENT_ROOMS(state, patientRooms) {
     console.log("Setup patient rooms-->", patientRooms);
     state.patientRooms = patientRooms;
