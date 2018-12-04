@@ -20,12 +20,21 @@
                 <p class="text-danger" v-if="errors.has('password')">{{ errors.first('password') }}</p>
               </div>
               <div class="input-group">
-                <label>Server:</label>
-                <dropdown :options="servers"
-                          :selected="servers[0]"
-                          v-on:updateOption="selectServer"
-                          :placeholder="'Select an Item'">
-                </dropdown>
+                <label>Choose a server or enter your own:</label>
+                <div class="row" style="float: left;">
+                  <div class="col-md-6">
+                    <dropdown :options="servers"
+                              :selected="servers[0]"
+                              v-on:updateOption="selectServer"
+                              :placeholder="'Select an Item'">
+                    </dropdown>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="text" placeholder="Your server" v-model="form.url_field">
+                  </div>
+                </div>
+
+
               </div>
 
               <div class="input-group">
@@ -56,7 +65,8 @@ export default {
       form: {
         username: "",
         password: "",
-        url: "https://medical.webres.me"
+        url: "https://medical.webres.me",
+        url_field: ""
       }
     };
   },
@@ -83,6 +93,9 @@ export default {
 };
 </script>
 <style lang="scss">
+.caret {
+  top: -9px;
+}
 .login {
   position: absolute;
   top: 50%;

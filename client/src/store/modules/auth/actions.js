@@ -12,11 +12,11 @@ export default {
         url: state.mx_url
       };
     }
-
+    let url = data.url_field ? data.url_field : data.url;
     commit(
       "SET_CLIENT",
       Matrix.createClient({
-        baseUrl: data.url || state.mx_url,
+        baseUrl: url || state.mx_url,
         userId: state.mx_userId,
         accessToken: state.mx_accesstoken
       })
@@ -45,7 +45,7 @@ export default {
       commit("SET SYNC STATUS", "WAITING");
       state.client.startClient();
 
-      res.url = data.url;
+      res.url = url;
 
       await commit("LOGIN", res);
       await dispatch("getProfile", "redirect");
@@ -66,10 +66,12 @@ export default {
     // return commit('LOGIN', data);
   },
   async register({ state, commit, dispatch }, data) {
+    let url = data.url_field ? data.url_field : data.url;
+
     commit(
       "SET_CLIENT",
       Matrix.createClient({
-        baseUrl: data.url
+        baseUrl: url
       })
     );
 
@@ -86,7 +88,7 @@ export default {
           type: "m.login.dummy"
         }
       );
-      res.url = data.url;
+      res.url = url;
       // state.client.startClient();
       // await commit('LOGIN', res);
       router.push({

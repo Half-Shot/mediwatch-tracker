@@ -24,12 +24,19 @@
                 <p class="passwordError" v-if="errors.has('passwordConfirm')">{{ errors.first('passwordConfirm')}}</p>
               </div>
               <div class="input-group">
-                <label>Servers:</label>
-                <dropdown :options="servers"
-                          :selected="servers[0]"
-                          v-on:updateOption="selectServer"
-                          :placeholder="'Select an Item'">
-                </dropdown>
+                <label>Choose a server or enter your own:</label>
+                <div class="row" style="float: left;">
+                  <div class="col-md-6">
+                    <dropdown :options="servers"
+                              :selected="servers[0]"
+                              v-on:updateOption="selectServer"
+                              :placeholder="'Select an Item'">
+                    </dropdown>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="text" placeholder="Your server" v-model="form.url_field">
+                  </div>
+                </div>
               </div>
               <button type="submit" name="button" class="btn">Register</button>
               <router-link :to="{ name: 'login' }" class="underlined">Login</router-link>
