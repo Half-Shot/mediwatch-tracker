@@ -56,8 +56,8 @@ export default {
 .dashboard {
     float: left;
     display: block;
-    width: calc(100% - 75px);
-    margin-left: 75px;
+    width: 100%;
     padding: 10px 30px;
+    margin-top: 50px;
 }
 </style>

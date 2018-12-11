@@ -43,10 +43,9 @@ export default {
 
 <style lang="scss">
 .dashboard {
-  float: left;
-  display: block;
-  width: calc(100% - 75px);
-  margin-left: 75px;
-  padding: 10px 30px;
+    float: left;
+    display: block;
+    width: 100%;
+    padding: 10px 30px;
 }
 </style>

@@ -1,7 +1,8 @@
 <template lang="html">
   <aside class="sidebar">
+    <h2>{{ $route.params.user }}</h2>
     <ul v-if="rooms">
-      <li v-for="room in rooms" v-if="room.type == 'medicalInfo' ">
+      <li v-for="room in roomSet" v-if="room.type == 'medicalInfo' ">
         <template v-if="room.avatar">
           <!-- <img src="." alt=""> -->
         </template>
@@ -18,42 +19,51 @@
 </template>
 
 <script>
+import {
+  mapGetters
+} from "vuex";
 export default {
   data() {
     return {
-      rooms: this.$store.getters["room/getAll"]
+      rooms: []
     };
+  },
+  computed: {
+    ...mapGetters("room", ["roomSet"]),
   }
 };
 </script>
 
 <style lang="scss">
 .sidebar {
-  position: fixed;
-  top: 55px;
-  left: 0;
-  height: 100vh;
-  bottom: 0;
-  width: 75px;
-  background: blue;
-  color: white;
-  overflow-y: scroll;
-  background: #00b4db;
-  background: -webkit-linear-gradient(to bottom, #00b4db, #0083b0);
-  background: linear-gradient(to bottom, #00b4db, #0083b0);
-  text-align: center;
-  padding: 20px 5px;
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    li {
-      padding: 0.5em 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 70px;
+    bottom: 0;
+    width: 100%;
+    background: blue;
+    color: white;
+    overflow-x: scroll;
+    background: #00b4db;
+    background: -webkit-linear-gradient(to bottom, #00b4db, #0083b0);
+    background: linear-gradient(to bottom, #00b4db, #0083b0);
+    padding: 20px 25px;
+    h2 {
+        margin: 0;
+        padding: 0;
     }
-  }
-  svg {
-    fill: #ffff;
-    max-width: 35px;
-  }
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li {
+            padding: 0.5em 0;
+        }
+    }
+    svg {
+        fill: #ffff;
+        max-width: 35px;
+    }
 }
 </style>
