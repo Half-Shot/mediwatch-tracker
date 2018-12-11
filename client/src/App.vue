@@ -196,7 +196,8 @@ label {
     width: 100%;
 }
 
-input {
+input,
+textarea {
     float: left;
     width: 100%;
     border: none;

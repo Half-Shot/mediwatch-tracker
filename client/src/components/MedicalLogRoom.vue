@@ -7,9 +7,7 @@
         <hr/>
         <div class="logcontrols" v-if="showControls">
             <MedicalLogWriter :room=room class="amendLog"/>
-            <section class="inviteToRoom">
-                <h3> Some other settings </h3>
-            </section>
+
         </div>
     </div>
 </template>
@@ -41,12 +39,12 @@ export default {
 
 <style lang="scss" scoped>
 .container.room.medicallog hr {
-  background-color: black;
+    background-color: black;
 }
 .container.room.medicallog .logcontrols {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-gap: 10px;
-  font-size: 1em;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 10px;
+    font-size: 1em;
 }
 </style>

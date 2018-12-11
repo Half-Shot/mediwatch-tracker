@@ -16,7 +16,11 @@ const TYPE_TO_NAME = {
 };
 
 export default {
-  fetchRooms({ state, commit, dispatch }, data) {
+  fetchRooms({
+    state,
+    commit,
+    dispatch
+  }, data) {
     const acctRooms = {
       medicalLog: null,
       medicalInfo: null
@@ -26,7 +30,7 @@ export default {
     let invites = [];
     let patientList = [];
     const ourName = this.getters["auth/client"].getUserId();
-
+    let invite = false;
     this.getters["auth/client"].getRooms().forEach(room => {
       if (room.hasMembershipState(ourName, "invite")) {
         invite = true;
@@ -72,8 +76,7 @@ export default {
         room.members.invited = room.currentState.getMembers().filter((m) => m.membership === "invite");
         if (rType === MEDICAL_LOG_TYPE) {
           acctRooms.medicalLog = room;
-        }
-        else if (rType === MEDICAL_INFO_TYPE) {
+        } else if (rType === MEDICAL_INFO_TYPE) {
           acctRooms.medicalInfo = room;
         }
         console.log(rType, room);
@@ -98,15 +101,18 @@ export default {
     commit("SET_PATIENT_ROOMS", patients);
     commit("SET_PATIENT_LIST", patientList);
   },
-  create({ state, commit, dispatch }, data) {
+  create({
+    state,
+    commit,
+    dispatch
+  }, data) {
     const userId = this.getters["auth/client"].getUserId();
     const users = {};
     users[userId] = 100;
     return this.getters["auth/client"].createRoom({
       name: `Mediwatch ${TYPE_TO_NAME[data.type]}`,
       visibility: "private",
-      initial_state: [
-        {
+      initial_state: [{
           type: STATE_TYPE_TYPE,
           content: {
             type: TYPE_TO_MX_TYPE[data.type]
@@ -135,10 +141,21 @@ export default {
       ]
     });
   },
-  invite({ state, commit, dispatch }, { room, user }) {
+  invite({
+    state,
+    commit,
+    dispatch
+  }, {
+    room,
+    user
+  }) {
     return this.getters["auth/client"].invite(room.roomId, user);
   },
-  join({ state, commit, dispatch }, roomId) {
+  join({
+    state,
+    commit,
+    dispatch
+  }, roomId) {
     Vue.notify({
       group: "foo",
       text: `Successfully attained permission.`,
@@ -146,7 +163,11 @@ export default {
     });
     return this.getters["auth/client"].joinRoom(roomId);
   },
-  reject({ state, commit, dispatch }, roomId) {
+  reject({
+    state,
+    commit,
+    dispatch
+  }, roomId) {
     Vue.notify({
       group: "foo",
       text: `Successfully rejected invitation.`,
@@ -154,7 +175,11 @@ export default {
     });
     return this.getters["auth/client"].leave(roomId);
   },
-  bulkInvitations({ state, commit, dispatch }, invitations) {
+  bulkInvitations({
+    state,
+    commit,
+    dispatch
+  }, invitations) {
     var users = Object.keys(invitations);
 
     for (var i = 0; i < users.length; i++) {
@@ -175,7 +200,14 @@ export default {
     });
     return Promise.resolve();
   },
-  addToLog({ state, commit, dispatch }, { room, body }) {
+  addToLog({
+    state,
+    commit,
+    dispatch
+  }, {
+    room,
+    body
+  }) {
     return this.getters["auth/client"].sendTextMessage(room.roomId, body);
   }
 };

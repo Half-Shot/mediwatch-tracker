@@ -16,21 +16,21 @@
                 </select>
             </section>
             <section class="stage2 comment" v-if="typeOfInfo === 'comment'">
-                <h4> Leave a comment </h4>
+                <!-- <label> Leave a comment </label> -->
                 <textarea placeholder="Enter your comment here" v-model="commentText" type="text"></textarea>
-                <button v-on:click="submitComment"> Submit </button>
+                <button v-on:click="submitComment" class="btn"> Submit </button>
             </section>
             <section class="stage2 taken_meds" v-if="typeOfInfo === 'taken_meds'">
-                <h4> Placeholder for taking medication </h4>
+                <label> Placeholder for taking medication </label>
             </section>
             <section class="stage2 report_problem" v-if="typeOfInfo === 'report_problem'">
-                <h4> Placeholder for reporting a health problem </h4>
+                <label> Placeholder for reporting a health problem </label>
             </section>
             <section class="stage2 record_appointment" v-if="typeOfInfo === 'record_appointment'">
-                <h4> Placeholder for recording appointment details </h4>
+                <label> Placeholder for recording appointment details </label>
             </section>
             <section class="stage2 prescription_updates" v-if="typeOfInfo === 'prescription_updates'">
-                <h4> Placeholder for updating a prescription </h4>
+                <label> Placeholder for updating a prescription </label>
             </section>
         </div>
     </div>
@@ -72,12 +72,12 @@ export default {
 </script>
 <style lang="scss">
 .container.logwriter button {
-  margin: 0px 5px;
-  float: right;
+    margin: 0 5px;
+    float: right;
 }
 
 .container.logwriter textarea {
-  width: 100%;
-  resize: vertical;
+    width: 100%;
+    resize: vertical;
 }
 </style>
